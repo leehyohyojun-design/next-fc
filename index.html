@@ -4,13 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NEXT FC</title>
-    <!-- 아이폰 & 안드로이드 홈 화면 전용 커스텀 앱 아이콘 (황금 방패 & 왕관 엠블럼) -->
+    <!-- 아이폰 & 안드로이드 홈 화면 전용 커스텀 앱 아이콘 (고화질 PNG 자동 생성) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NEXT FC">
     <meta name="theme-color" content="#0b111e">
-    <link id="app-touch-icon" rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23162238'/%3E%3Cstop offset='100%25' stop-color='%23070b14'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fde047'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23926c15'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='112' fill='url(%23bg)'/%3E%3Cpath d='M256 68 L412 132 V254 C412 358 342 428 256 460 C170 428 100 358 100 254 V132 Z' fill='%230f172a' stroke='url(%23gold)' stroke-width='18'/%3E%3Cpath d='M168 232 L192 162 L256 202 L320 162 L344 232 Z' fill='url(%23gold)'/%3E%3Ccircle cx='192' cy='148' r='12' fill='%23fef08a'/%3E%3Ccircle cx='256' cy='136' r='14' fill='%23fef08a'/%3E%3Ccircle cx='320' cy='148' r='12' fill='%23fef08a'/%3E%3Ctext x='256' y='318' text-anchor='middle' font-family='Arial Black, sans-serif' font-weight='900' font-size='84' fill='%23ffffff' letter-spacing='-2'%3ENEXT%3C/text%3E%3Ctext x='256' y='374' text-anchor='middle' font-family='Arial Black, sans-serif' font-weight='900' font-size='54' fill='url(%23gold)' letter-spacing='4'%3EFC%3C/text%3E%3C/svg%3E">
-    <link id="app-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230b111e'/%3E%3Cpath d='M256 68 L412 132 V254 C412 358 342 428 256 460 C170 428 100 358 100 254 V132 Z' fill='%23162238' stroke='%23d4af37' stroke-width='20'/%3E%3Ctext x='256' y='318' text-anchor='middle' font-family='Arial Black, sans-serif' font-weight='900' font-size='110' fill='%23d4af37'%3EFC%3C/text%3E%3C/svg%3E">
+    <link id="app-touch-icon" rel="apple-touch-icon" sizes="180x180" href="">
+    <link id="app-favicon" rel="icon" type="image/png" href="">
+    <script>
+        // 아이폰 Safari용 고화질 180x180 PNG 앱 아이콘 즉시 생성 및 주입
+        (function() {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+
+                // 1. 배경 네이비 그라데이션
+                const bgGrad = ctx.createLinearGradient(0, 0, 512, 512);
+                bgGrad.addColorStop(0, '#182640');
+                bgGrad.addColorStop(1, '#070b14');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, 512, 512);
+
+                // 은은한 중앙 황금빛 후광
+                const radGrad = ctx.createRadialGradient(256, 240, 20, 256, 240, 240);
+                radGrad.addColorStop(0, 'rgba(212, 175, 55, 0.25)');
+                radGrad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+                ctx.fillStyle = radGrad;
+                ctx.fillRect(0, 0, 512, 512);
+
+                // 2. 황금 방패 엠블럼
+                const goldGrad = ctx.createLinearGradient(100, 68, 412, 460);
+                goldGrad.addColorStop(0, '#fef08a');
+                goldGrad.addColorStop(0.5, '#d4af37');
+                goldGrad.addColorStop(1, '#926c15');
+
+                ctx.beginPath();
+                ctx.moveTo(256, 58);
+                ctx.lineTo(416, 124);
+                ctx.lineTo(416, 254);
+                ctx.bezierCurveTo(416, 362, 344, 434, 256, 466);
+                ctx.bezierCurveTo(168, 434, 96, 362, 96, 254);
+                ctx.lineTo(96, 124);
+                ctx.closePath();
+
+                ctx.fillStyle = '#0d1526';
+                ctx.fill();
+                ctx.lineWidth = 18;
+                ctx.strokeStyle = goldGrad;
+                ctx.stroke();
+
+                // 3. 왕관 아이콘
+                ctx.beginPath();
+                ctx.moveTo(172, 224);
+                ctx.lineTo(194, 152);
+                ctx.lineTo(256, 194);
+                ctx.lineTo(318, 152);
+                ctx.lineTo(340, 224);
+                ctx.closePath();
+                ctx.fillStyle = goldGrad;
+                ctx.fill();
+
+                // 왕관 보석 포인트
+                ctx.fillStyle = '#fef9c3';
+                [[194, 140, 11], [256, 128, 13], [318, 140, 11]].forEach(([x, y, r]) => {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // 4. NEXT FC 타이포그래피
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '900 84px -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif';
+                ctx.fillText('NEXT', 256, 296);
+
+                ctx.fillStyle = goldGrad;
+                ctx.font = '900 62px -apple-system, BlinkMacSystemFont, "Arial Black", sans-serif';
+                ctx.fillText('FC', 256, 368);
+
+                const pngDataUrl = canvas.toDataURL('image/png');
+                document.getElementById('app-touch-icon').setAttribute('href', pngDataUrl);
+                document.getElementById('app-favicon').setAttribute('href', pngDataUrl);
+            } catch (e) {}
+        })();
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome 아이콘 -->
