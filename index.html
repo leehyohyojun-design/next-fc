@@ -1,0 +1,3089 @@
+        /* 강화 성공 & 실패 애니메이션 (FC온라인 스타일 고도화) */
+        @keyframes enhanceCharging {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { transform: scale(1.04) rotate(0.8deg); box-shadow: 0 0 40px rgba(212, 175, 55, 0.85); }
+            100% { transform: scale(1.07) rotate(-0.8deg); box-shadow: 0 0 60px rgba(255, 255, 255, 0.95); }
+        }
+        .anim-charging {
+            animation: enhanceCharging 0.25s infinite alternate ease-in-out;
+        }
+
+        @keyframes enhanceSuccess {
+            0% { transform: scale(0.92) rotateY(90deg); filter: brightness(2.5); }
+            45% { transform: scale(1.14) rotateY(0deg); filter: brightness(1.8); box-shadow: 0 0 55px #fde047, 0 0 90px #d4af37; }
+            75% { transform: scale(0.98); filter: brightness(1.2); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+        .anim-success {
+            animation: enhanceSuccess 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes enhanceFailShake {
+            0%, 100% { transform: translateX(0); filter: grayscale(0); }
+            12% { transform: translateX(-16px) rotate(-3deg); filter: grayscale(0.9) brightness(0.5); }
+            25% { transform: translateX(16px) rotate(3deg); }
+            38% { transform: translateX(-14px) rotate(-2deg); }
+            52% { transform: translateX(14px) rotate(2deg); }
+            66% { transform: translateX(-8px) rotate(-1deg); }
+            80% { transform: translateX(8px) rotate(1deg); }
+        }
+        .anim-fail {
+            animation: enhanceFailShake 0.75s ease-in-out;
+        }
+
+        @keyframes screenImpactShake {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-8px, 6px); }
+            40% { transform: translate(8px, -6px); }
+            60% { transform: translate(-6px, -4px); }
+            80% { transform: translate(6px, 4px); }
+        }
+        .screen-shake {
+            animation: screenImpactShake 0.45s ease-out;
+        }
+
+        @keyframes cardHoloSweep {
+            0% { transform: translateX(-140%) skewX(-25deg); }
+            100% { transform: translateX(240%) skewX(-25deg); }
+        }
+        .holo-sweep::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 55%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+            animation: cardHoloSweep 0.9s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes maxGradePulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 0 0 50px rgba(212, 175, 55, 0.8); }
+        }
+        .max-grade-glow {
+            animation: maxGradePulse 2s infinite;
+        }
+
+        /* 워크아웃 경기장 터널 조명 및 충격파 효과 */
+        .tunnel-bg {
+            background: radial-gradient(circle at 50% 40%, #1e293b 0%, #050810 80%);
+        }
+        .spotlight-beam {
+            position: absolute;
+            top: -15%;
+            width: 220px;
+            height: 130%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 85%);
+            transform-origin: top center;
+            pointer-events: none;
+            filter: blur(10px);
+            transition: background 0.5s ease;
+        }
+        @keyframes packPulse {
+            0% { transform: scale(0.95); filter: brightness(1); }
+            50% { transform: scale(1.08); filter: brightness(1.6); }
+            100% { transform: scale(0.95); filter: brightness(1); }
+        }
+        .pack-charging {
+            animation: packPulse 0.45s infinite ease-in-out;
+        }
+        @keyframes cardFlipReveal {
+            0% { transform: perspective(900px) rotateY(90deg) scale(0.75); opacity: 0; }
+            60% { transform: perspective(900px) rotateY(-8deg) scale(1.08); opacity: 1; }
+            100% { transform: perspective(900px) rotateY(0deg) scale(1.05); opacity: 1; }
+        }
+        .anim-card-flip {
+            animation: cardFlipReveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-oswald {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        /* 커스텀 스크롤바 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b111e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3958;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        /* 선수 카드 고급 디자인 (등급별 스타일) */
+        .player-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        }
+        .player-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+        }
+
+        /* 등급별 카드 배경 */
+        .tier-normal {
+            background: linear-gradient(145deg, #2b3548 0%, #171e2b 100%);
+            border: 1px solid #475569;
+        }
+        .tier-top {
+            background: linear-gradient(145deg, #1e3a5f 0%, #0f1e36 100%);
+            border: 1px solid #38bdf8;
+        }
+        .tier-world {
+            background: linear-gradient(145deg, #3b265e 0%, #1b1030 100%);
+            border: 1px solid #c084fc;
+        }
+        .tier-legend {
+            background: linear-gradient(145deg, #523e14 0%, #241a06 50%, #42310d 100%);
+            border: 1.5px solid #f59e0b;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
+        }
+
+        /* 강화 등급 뱃지 색상 (FC온라인 스타일 오마주) */
+        .grade-1 { background: #334155; color: #cbd5e1; border: 1px solid #475569; }
+        .grade-2, .grade-3, .grade-4 {
+            background: linear-gradient(135deg, #9a5b32 0%, #613518 100%);
+            color: #ffedd5;
+            border: 1px solid #d97706;
+        }
+        .grade-5, .grade-6, .grade-7 {
+            background: linear-gradient(135deg, #cbd5e1 0%, #64748b 100%);
+            color: #0f172a;
+            border: 1px solid #f8fafc;
+            font-weight: 900;
+        }
+        .grade-8, .grade-9, .grade-10 {
+            background: linear-gradient(135deg, #fde047 0%, #ca8a04 100%);
+            color: #1e1b04;
+            border: 1px solid #fef08a;
+            font-weight: 900;
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
+        }
+        .grade-11, .grade-12, .grade-13 {
+            background: linear-gradient(135deg, #e0f2fe 0%, #7dd3fc 50%, #f0abfc 100%);
+            color: #090d16;
+            border: 1px solid #ffffff;
+            font-weight: 900;
+            box-shadow: 0 0 14px rgba(186, 230, 253, 0.65);
+        }
+
+        /* 포지션 색상 */
+        .pos-GK { color: #facc15; }
+        .pos-DF { color: #38bdf8; }
+        .pos-MF { color: #4ade80; }
+        .pos-FW { color: #f87171; }
+
+        /* 강화 성공 & 실패 애니메이션 */
+        @keyframes enhanceSuccess {
+            0% { transform: scale(1); filter: brightness(1); }
+            30% { transform: scale(1.08); filter: brightness(1.8); box-shadow: 0 0 40px #facc15; }
+            60% { transform: scale(0.98); filter: brightness(1.3); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+        .anim-success {
+            animation: enhanceSuccess 0.8s ease-out;
+        }
+
+        @keyframes enhanceFailShake {
+            0%, 100% { transform: translateX(0); filter: grayscale(0); }
+            15% { transform: translateX(-12px) rotate(-2deg); filter: grayscale(0.8) brightness(0.6); }
+            30% { transform: translateX(12px) rotate(2deg); }
+            45% { transform: translateX(-10px) rotate(-1deg); }
+            60% { transform: translateX(10px) rotate(1deg); }
+            75% { transform: translateX(-5px); }
+        }
+        .anim-fail {
+            animation: enhanceFailShake 0.65s ease-in-out;
+        }
+
+        @keyframes maxGradePulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 0 0 50px rgba(212, 175, 55, 0.8); }
+        }
+        .max-grade-glow {
+            animation: maxGradePulse 2s infinite;
+        }
+
+        /* 워크아웃 경기장 터널 조명 효과 */
+        .tunnel-bg {
+            background: radial-gradient(circle at 50% 35%, #1e293b 0%, #060911 75%);
+        }
+        .spotlight-beam {
+            position: absolute;
+            top: -10%;
+            width: 180px;
+            height: 120%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 85%);
+            transform-origin: top center;
+            pointer-events: none;
+            filter: blur(8px);
+        }
+
+        /* 전술판 축구 경기장 디자인 */
+        .pitch-board {
+            background-color: #164e33;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    rgba(255, 255, 255, 0.03) 40px,
+                    transparent 40px,
+                    transparent 80px
+                ),
+                radial-gradient(circle at 50% 50%, #1e6643 0%, #113b26 100%);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 화면 전환 페이드인 */
+        .tab-view {
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 상단 헤더 (구단명, 구단 OVR, 보유 코인, 사운드 토글, 초기화) -->
+    <header class="bg-[#131c2e] border-b border-slate-800 sticky top-0 z-30 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- 로고 및 타이틀 -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <div id="header-emblem-box" class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#8a6d1b] flex items-center justify-center text-slate-950 font-black text-xl shadow-md">
+                    <i id="header-emblem-icon" class="fa-solid fa-crown"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-black tracking-tight text-white flex items-center gap-2">
+                        <span id="header-club-name">Next Football Club</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-[#d4af37] border border-[#d4af37]/30">NEXT FC</span>
+                    </h1>
+                    <p id="header-owner-subtitle" class="text-xs text-slate-400 hidden sm:block">나만의 드림팀 구성 및 13강 도전</p>
+                </div>
+            </div>
+
+            <!-- 핵심 상태 표시바 (구단 OVR & 코인) -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <!-- 구단 OVR 요약 -->
+                <div class="bg-[#0b111e] border border-slate-700/80 rounded-xl px-3 py-1.5 flex items-center gap-2.5">
+                    <div class="text-xs text-slate-400">구단 OVR</div>
+                    <div id="header-team-ovr" class="font-oswald text-xl font-bold text-[#d4af37]">0</div>
+                </div>
+
+                <!-- 보유 코인 -->
+                <div class="bg-[#0b111e] border border-[#d4af37]/40 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-inner">
+                    <i class="fa-solid fa-coins text-[#d4af37]"></i>
+                    <span id="header-coins" class="font-oswald text-lg sm:text-xl font-bold text-white tracking-wide">0</span>
+                    <span class="text-xs text-slate-400">COIN</span>
+                </div>
+
+                <!-- 사운드 ON/OFF 버튼 -->
+                <button id="btn-sound-toggle" onclick="toggleSound()" title="효과음 켜기/끄기" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition">
+                    <i id="icon-sound" class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 메인 내비게이션 메뉴 (6개 메뉴) -->
+        <nav class="bg-[#0f1726] border-t border-slate-800/80 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between sm:justify-start sm:gap-2">
+                <button onclick="switchTab('home')" data-tab="home" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-[#d4af37] text-[#d4af37] whitespace-nowrap transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-house"></i> 홈
+                </button>
+                <button onclick="switchTab('packs')" data-tab="packs" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-box-open"></i> 선수팩
+                </button>
+                <button onclick="switchTab('club')" data-tab="club" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-users"></i> 선수 보관함 <span id="nav-player-count" class="text-xs bg-slate-800 px-1.5 py-0.5 rounded-full text-slate-300">0</span>
+                </button>
+                <button onclick="switchTab('enhance')" data-tab="enhance" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-angles-up"></i> 강화
+                </button>
+                <button onclick="switchTab('squad')" data-tab="squad" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-chess-board"></i> 구단 관리
+                </button>
+                <button onclick="switchTab('missions')" data-tab="missions" class="nav-btn flex-1 sm:flex-none px-4 py-3 text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white whitespace-nowrap transition flex items-center justify-center gap-2 relative">
+                    <i class="fa-solid fa-trophy"></i> 미션
+                    <span id="mission-badge" class="hidden w-2 h-2 rounded-full bg-red-500"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 알림 토스트 컨테이너 (alert 대신 사용) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- ==================== 1. 홈 화면 ==================== -->
+        <section id="tab-home" class="tab-view space-y-6">
+            <!-- 히어로 배너 -->
+            <div class="bg-gradient-to-r from-[#162238] via-[#1c2b47] to-[#131c2e] border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl space-y-3">
+                    <span id="home-owner-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/40">
+                        SEASON 2026 · ULTIMATE CLUB
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">
+                        <span id="home-club-title" class="text-[#d4af37]">Next Football Club</span>의<br>전설적인 <span class="text-white">13강 신화</span>에 도전하세요!
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-300">
+                        포지션별 선수팩을 개봉하여 월드클래스 및 레전드 선수를 수집하고, 강화와 전술 배치로 구단 OVR을 극대화하세요.
+                    </p>
+                    <div class="pt-3 flex flex-wrap gap-3">
+                        <button onclick="switchTab('packs')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b59124] hover:from-[#e5c148] hover:to-[#c7a12c] text-slate-950 font-black text-sm shadow-lg transition flex items-center gap-2">
+                            <i class="fa-solid fa-box-open"></i> 선수팩 개봉하러 가기
+                        </button>
+                        <button onclick="switchTab('squad')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm border border-slate-600 transition flex items-center gap-2">
+                            <i class="fa-solid fa-chess-board"></i> 내 구단 전술판 보기
+                        </button>
+                    </div>
+                </div>
+                <i class="fa-solid fa-futbol absolute -right-8 -bottom-10 text-[180px] text-white/5 pointer-events-none"></i>
+            </div>
+
+            <!-- 구단 핵심 요약 대시보드 -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                    <div class="text-xs text-slate-400 font-medium mb-1">선발 베스트 11 평균 OVR</div>
+                    <div class="flex items-end justify-between">
+                        <span id="home-team-ovr" class="font-oswald text-3xl font-bold text-[#d4af37]">0.0</span>
+                        <span id="home-squad-count" class="text-xs text-slate-400">0 / 11명 배치됨</span>
+                    </div>
+                </div>
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                    <div class="text-xs text-slate-400 font-medium mb-1">보유 선수 수</div>
+                    <div class="flex items-end justify-between">
+                        <span id="home-total-players" class="font-oswald text-3xl font-bold text-white">0</span>
+                        <span class="text-xs text-sky-400">중복 보유 가능</span>
+                    </div>
+                </div>
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                    <div class="text-xs text-slate-400 font-medium mb-1">구단 최고 강화 단계</div>
+                    <div class="flex items-end justify-between">
+                        <span id="home-max-grade" class="font-oswald text-3xl font-bold text-emerald-400">+1</span>
+                        <span class="text-xs text-slate-400">최대 +13강</span>
+                    </div>
+                </div>
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                    <div class="text-xs text-slate-400 font-medium mb-1">총 강화 성공 / 시도</div>
+                    <div class="flex items-end justify-between">
+                        <span id="home-enhance-stats" class="font-oswald text-3xl font-bold text-purple-400">0 / 0</span>
+                        <span class="text-xs text-slate-400">누적 기록</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 구단 내 최고 OVR TOP 4 선수 쇼케이스 & 게임 가이드 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-star text-[#d4af37]"></i> 구단 핵심 에이스 (TOP 4 OVR)
+                        </h3>
+                        <button onclick="switchTab('club')" class="text-xs text-[#d4af37] hover:underline">전체 보기 &rarr;</button>
+                    </div>
+                    <div id="home-top-players" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <!-- JS로 렌더링 -->
+                    </div>
+                </div>
+
+                <!-- 구단 운영 순환 가이드 & 데이터 관리 -->
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-sky-400"></i> 구단 성장 가이드
+                        </h3>
+                        <ol class="text-xs text-slate-300 space-y-2.5 list-decimal list-inside">
+                            <li><strong class="text-white">선수팩 구매:</strong> GK, DF, MF, FW 포지션별 팩에서 유명 선수를 영입합니다.</li>
+                            <li><strong class="text-white">선수 강화:</strong> 재료 제한 없이 1강부터 13강까지 도전하여 OVR을 대폭 상승시킵니다.</li>
+                            <li><strong class="text-white">구단 배치:</strong> 5가지 포메이션 중 하나를 선택해 선발 11명을 구성합니다.</li>
+                            <li><strong class="text-white">미션 보상:</strong> 일반/일일/반복 미션을 클리어하고 코인을 획득해 계속 성장합니다.</li>
+                        </ol>
+                    </div>
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+                        <span id="cloud-sync-status" class="text-xs text-emerald-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-cloud-check"></i> 계정 자동 저장 연동됨
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <button onclick="logoutAccount()" class="text-xs text-sky-400 hover:text-sky-300 font-bold underline">
+                                로그아웃 / 계정 전환
+                            </button>
+                            <button onclick="openResetModal()" class="text-xs text-rose-400 hover:text-rose-300 underline">
+                                데이터 초기화
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 2. 선수팩 상점 화면 ==================== -->
+        <section id="tab-packs" class="tab-view hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-2xl font-black text-white">포지션별 선수팩 상점</h2>
+                    <p class="text-sm text-slate-400">원하는 포지션의 팩을 개봉하여 월드클래스와 레전드 선수를 영입하세요.</p>
+                </div>
+                <div class="bg-[#131c2e] border border-slate-700 rounded-xl px-4 py-2 text-xs text-slate-300">
+                    등급 확률: <span class="text-slate-300 font-bold">일반(85~89) 55%</span> · 
+                    <span class="text-sky-400 font-bold">상위(90~94) 28%</span> · 
+                    <span class="text-purple-400 font-bold">월클(95~98) 12%</span> · 
+                    <span class="text-[#d4af37] font-bold">레전드(99~103) 5%</span>
+                </div>
+            </div>
+
+            <!-- 4가지 포지션 선수팩 카드 그리드 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- GK 팩 -->
+                <div class="bg-[#131c2e] border border-yellow-500/30 rounded-2xl p-5 flex flex-col justify-between hover:border-yellow-400 transition shadow-lg relative overflow-hidden group">
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-lg bg-yellow-500/20 text-yellow-400 font-black text-xs">GOALKEEPER</span>
+                            <i class="fa-solid fa-hands text-yellow-400 text-xl"></i>
+                        </div>
+                        <div class="h-36 rounded-xl bg-gradient-to-b from-yellow-900/40 to-slate-900 border border-yellow-500/20 flex flex-col items-center justify-center p-4 group-hover:scale-[1.02] transition">
+                            <div class="w-16 h-16 rounded-full bg-yellow-500/20 border-2 border-yellow-400 flex items-center justify-center mb-2">
+                                <span class="font-oswald text-2xl font-bold text-yellow-300">GK</span>
+                            </div>
+                            <span class="text-xs text-yellow-200/80 font-medium">최후방의 수호신 영입</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-white">골키퍼 스페셜 팩</h3>
+                            <p class="text-xs text-slate-400 mt-1">노이어, 쿠르투아, 알리송, 돈나룸마, 야신 등 최정상급 GK 1명 획득</p>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-4 border-t border-slate-800 relative z-10">
+                        <button onclick="buyPack('GK')" class="w-full py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-black text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-coins"></i> 1,000 COIN 구매
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DF 팩 -->
+                <div class="bg-[#131c2e] border border-sky-500/30 rounded-2xl p-5 flex flex-col justify-between hover:border-sky-400 transition shadow-lg relative overflow-hidden group">
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-black text-xs">DEFENDER</span>
+                            <i class="fa-solid fa-shield-halved text-sky-400 text-xl"></i>
+                        </div>
+                        <div class="h-36 rounded-xl bg-gradient-to-b from-sky-900/40 to-slate-900 border border-sky-500/20 flex flex-col items-center justify-center p-4 group-hover:scale-[1.02] transition">
+                            <div class="w-16 h-16 rounded-full bg-sky-500/20 border-2 border-sky-400 flex items-center justify-center mb-2">
+                                <span class="font-oswald text-2xl font-bold text-sky-300">DF</span>
+                            </div>
+                            <span class="text-xs text-sky-200/80 font-medium">통곡의 벽 수비진 영입</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-white">수비수 스페셜 팩</h3>
+                            <p class="text-xs text-slate-400 mt-1">반다이크, 말디니, 라모스, 뤼디거, 김민재 등 철벽 DF 1명 획득</p>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-4 border-t border-slate-800 relative z-10">
+                        <button onclick="buyPack('DF')" class="w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-coins"></i> 1,200 COIN 구매
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MF 팩 -->
+                <div class="bg-[#131c2e] border border-emerald-500/30 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-400 transition shadow-lg relative overflow-hidden group">
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-black text-xs">MIDFIELDER</span>
+                            <i class="fa-solid fa-compass text-emerald-400 text-xl"></i>
+                        </div>
+                        <div class="h-36 rounded-xl bg-gradient-to-b from-emerald-900/40 to-slate-900 border border-emerald-500/20 flex flex-col items-center justify-center p-4 group-hover:scale-[1.02] transition">
+                            <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mb-2">
+                                <span class="font-oswald text-2xl font-bold text-emerald-300">MF</span>
+                            </div>
+                            <span class="text-xs text-emerald-200/80 font-medium">중원의 마에스트로 영입</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-white">미드필더 스페셜 팩</h3>
+                            <p class="text-xs text-slate-400 mt-1">더브라위너, 모드리치, 이니에스타, 크로스, 지단 등 중원 사령관 1명 획득</p>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-4 border-t border-slate-800 relative z-10">
+                        <button onclick="buyPack('MF')" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-coins"></i> 1,400 COIN 구매
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FW 팩 -->
+                <div class="bg-[#131c2e] border border-rose-500/30 rounded-2xl p-5 flex flex-col justify-between hover:border-rose-400 transition shadow-lg relative overflow-hidden group">
+                    <div class="space-y-3 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-400 font-black text-xs">FORWARD</span>
+                            <i class="fa-solid fa-fire text-rose-400 text-xl"></i>
+                        </div>
+                        <div class="h-36 rounded-xl bg-gradient-to-b from-rose-900/40 to-slate-900 border border-rose-500/20 flex flex-col items-center justify-center p-4 group-hover:scale-[1.02] transition">
+                            <div class="w-16 h-16 rounded-full bg-rose-500/20 border-2 border-rose-400 flex items-center justify-center mb-2">
+                                <span class="font-oswald text-2xl font-bold text-rose-300">FW</span>
+                            </div>
+                            <span class="text-xs text-rose-200/80 font-medium">치명적인 골잡이 영입</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-white">공격수 스페셜 팩</h3>
+                            <p class="text-xs text-slate-400 mt-1">메시, 호날두, 음바페, 홀란, 호나우두, 손흥민 등 슈퍼스타 1명 획득</p>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-4 border-t border-slate-800 relative z-10">
+                        <button onclick="buyPack('FW')" class="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-400 hover:to-red-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-coins"></i> 1,500 COIN 구매
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 등장 가능 선수 도감 미리보기 -->
+            <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="text-base font-bold text-white">포지션별 등장 가능 선수 명단</h3>
+                    <div class="flex gap-1.5" id="pool-filter-btns">
+                        <button onclick="renderPoolPreview('ALL')" class="px-3 py-1 rounded-lg text-xs font-bold bg-[#d4af37] text-slate-950">전체</button>
+                        <button onclick="renderPoolPreview('GK')" class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">GK</button>
+                        <button onclick="renderPoolPreview('DF')" class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">DF</button>
+                        <button onclick="renderPoolPreview('MF')" class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">MF</button>
+                        <button onclick="renderPoolPreview('FW')" class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700">FW</button>
+                    </div>
+                </div>
+                <div id="pack-pool-list" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-64 overflow-y-auto pr-1">
+                    <!-- JS로 렌더링 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 3. 선수 보관함 화면 ==================== -->
+        <section id="tab-club" class="tab-view hidden space-y-5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#131c2e] border border-slate-800 rounded-2xl p-4">
+                <div>
+                    <h2 class="text-xl font-black text-white">선수 보관함</h2>
+                    <p class="text-xs text-slate-400">카드를 클릭하면 상세 정보 확인 및 바로 강화를 진행할 수 있습니다.</p>
+                </div>
+
+                <!-- 검색, 포지션 필터, 정렬 컨트롤 -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <!-- 이름 검색 -->
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="club-search" oninput="renderClub()" placeholder="선수 이름 검색..." class="bg-[#0b111e] border border-slate-700 rounded-xl pl-8 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#d4af37] w-40 sm:w-48">
+                    </div>
+
+                    <!-- 포지션 필터 -->
+                    <select id="club-pos-filter" onchange="renderClub()" class="bg-[#0b111e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#d4af37]">
+                        <option value="ALL">모든 포지션</option>
+                        <option value="GK">GK (골키퍼)</option>
+                        <option value="DF">DF (수비수)</option>
+                        <option value="MF">MF (미드필더)</option>
+                        <option value="FW">FW (공격수)</option>
+                    </select>
+
+                    <!-- 정렬 기준 -->
+                    <select id="club-sort" onchange="renderClub()" class="bg-[#0b111e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#d4af37]">
+                        <option value="ovr-desc">최종 OVR 높은순</option>
+                        <option value="ovr-asc">최종 OVR 낮은순</option>
+                        <option value="grade-desc">강화 단계 높은순</option>
+                        <option value="grade-asc">강화 단계 낮은순</option>
+                        <option value="recent">최근 획득순</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 선수 카드 그리드 -->
+            <div id="club-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- JS로 렌더링 -->
+            </div>
+        </section>
+
+        <!-- ==================== 4. 선수 강화 화면 ==================== -->
+        <section id="tab-enhance" class="tab-view hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- 왼쪽: 강화 대상 선수 선택 리스트 (4컬럼) -->
+                <div class="lg:col-span-4 bg-[#131c2e] border border-slate-800 rounded-2xl p-4 flex flex-col h-[620px]">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-bold text-white">강화할 선수 선택</h3>
+                        <select id="enhance-pos-filter" onchange="renderEnhanceSidebar()" class="bg-[#0b111e] border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
+                            <option value="ALL">전체</option>
+                            <option value="GK">GK</option>
+                            <option value="DF">DF</option>
+                            <option value="MF">MF</option>
+                            <option value="FW">FW</option>
+                        </select>
+                    </div>
+                    <div id="enhance-player-list" class="flex-1 overflow-y-auto space-y-2 pr-1">
+                        <!-- JS로 렌더링 -->
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 메인 강화 스테이지 (8컬럼) -->
+                <div id="enhance-stage-container" class="lg:col-span-8 bg-[#131c2e] border border-slate-800 rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden">
+                    <!-- 배경 은은한 광원 -->
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none"></div>
+
+                    <!-- 강화 성공/실패 풀스테이지 플래시 오버레이 -->
+                    <div id="enhance-stage-flash" class="absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300 z-20"></div>
+
+                    <div id="enhance-stage-empty" class="flex-1 flex flex-col items-center justify-center text-center py-16 space-y-3">
+                        <div class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 text-2xl">
+                            <i class="fa-solid fa-angles-up"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-300">강화할 선수를 선택해 주세요</h3>
+                        <p class="text-xs text-slate-500">왼쪽 목록에서 선수를 선택하면 1강부터 최대 13강까지 강화를 진행할 수 있습니다.</p>
+                    </div>
+
+                    <div id="enhance-stage-active" class="hidden flex-1 flex flex-col justify-between space-y-6 relative z-10">
+                        <!-- 상단 타이틀 & 재료 무제한 안내 -->
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded bg-[#d4af37]/20 text-[#d4af37] text-xs font-bold">강화 센터</span>
+                                <span class="text-xs text-emerald-400 font-medium"><i class="fa-solid fa-infinity"></i> 강화 재료 무제한 지원</span>
+                            </div>
+                            <div id="enhance-result-banner" class="text-sm font-black"></div>
+                        </div>
+
+                        <!-- 중앙: 현재 선수 카드 & 단계 비교 -->
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 py-2">
+                            <!-- 선수 카드 컨테이너 -->
+                            <div class="relative flex flex-col items-center">
+                                <div id="enhance-card-wrapper" class="w-52 relative rounded-xl overflow-hidden">
+                                    <!-- JS로 카드 렌더링 -->
+                                </div>
+                                <!-- 강화 실패 시 깨짐(Crack) 오버레이 -->
+                                <div id="enhance-crack-overlay" class="hidden absolute inset-0 pointer-events-none flex items-center justify-center z-20">
+                                    <svg class="w-full h-full opacity-90 drop-shadow-[0_0_8px_rgba(244,63,94,0.9)]" viewBox="0 0 200 260" fill="none">
+                                        <path d="M100 10 L85 65 L115 105 L75 155 L110 205 L90 250" stroke="#fda4af" stroke-width="3" stroke-linecap="round"/>
+                                        <path d="M85 65 L40 90 M115 105 L165 85 M75 155 L30 175 M110 205 L160 225" stroke="#fb7185" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <!-- 강화 진행 게이지 바 (충전 연출용) -->
+                                <div id="enhance-charge-box" class="hidden w-52 mt-3 bg-slate-900 border border-[#d4af37]/50 rounded-full p-1 shadow-lg">
+                                    <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                        <div id="enhance-charge-bar" class="h-full bg-gradient-to-r from-amber-400 via-yellow-200 to-white transition-all duration-75" style="width: 0%"></div>
+                                    </div>
+                                    <div class="text-[10px] text-center font-black text-[#d4af37] mt-1 tracking-widest animate-pulse">ENHANCING...</div>
+                                </div>
+                            </div>
+
+                            <!-- 강화 스펙 변화 정보 박스 -->
+                            <div class="w-full md:w-80 bg-[#0b111e] border border-slate-700/80 rounded-2xl p-5 space-y-4">
+                                <!-- 단계 변화 -->
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-slate-400">강화 단계</span>
+                                    <div class="flex items-center gap-2 font-oswald text-xl font-bold">
+                                        <span id="enh-curr-grade" class="px-2.5 py-0.5 rounded text-sm">+1</span>
+                                        <i class="fa-solid fa-arrow-right text-slate-500 text-sm"></i>
+                                        <span id="enh-next-grade" class="px-2.5 py-0.5 rounded text-sm">+2</span>
+                                    </div>
+                                </div>
+
+                                <!-- OVR 변화 -->
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-slate-400">최종 OVR 변화</span>
+                                    <div class="flex items-center gap-2 font-oswald text-xl font-bold">
+                                        <span id="enh-curr-ovr" class="text-white">90</span>
+                                        <i class="fa-solid fa-arrow-right text-slate-500 text-sm"></i>
+                                        <span id="enh-next-ovr" class="text-[#d4af37]">91</span>
+                                        <span id="enh-ovr-diff" class="text-xs text-emerald-400 font-sans">(+1)</span>
+                                    </div>
+                                </div>
+
+                                <!-- 성공 확률 게이지 -->
+                                <div class="space-y-1.5 pt-2 border-t border-slate-800">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-slate-400">강화 성공 확률</span>
+                                        <span id="enh-prob-text" class="font-oswald text-2xl font-bold text-emerald-400">100%</span>
+                                    </div>
+                                    <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                                        <div id="enh-prob-bar" class="h-full bg-gradient-to-r from-emerald-500 to-[#d4af37] transition-all duration-300" style="width: 100%"></div>
+                                    </div>
+                                    <p id="enh-fail-warning" class="text-[11px] text-rose-400 pt-1">
+                                        * 실패 시 현재 단계보다 낮은 단계(1 ~ <span id="enh-drop-max">1</span>강)로 무작위 하락합니다.
+                                    </p>
+                                </div>
+
+                                <!-- 선수별 개별 시도 횟수 통계 -->
+                                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-center">
+                                    <div class="bg-[#131c2e] rounded-xl p-2">
+                                        <div class="text-[11px] text-slate-400">이 선수의 총 시도</div>
+                                        <div id="enh-total-tries" class="font-oswald text-lg font-bold text-white">0회</div>
+                                    </div>
+                                    <div class="bg-[#131c2e] rounded-xl p-2">
+                                        <div class="text-[11px] text-slate-400">현재 단계 시도</div>
+                                        <div id="enh-stage-tries" class="font-oswald text-lg font-bold text-sky-400">0회</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 하단: 강화 버튼 및 최근 로그 -->
+                        <div class="space-y-3">
+                            <button id="btn-do-enhance" onclick="executeEnhance()" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#d4af37] via-[#e6c149] to-[#b89223] hover:brightness-110 active:scale-[0.99] text-slate-950 font-black text-lg shadow-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-hammer"></i> 강화 시도하기
+                            </button>
+
+                            <!-- 이 선수의 최근 강화 기록 -->
+                            <div class="bg-[#0b111e] border border-slate-800 rounded-xl p-3">
+                                <div class="text-xs font-bold text-slate-400 mb-1.5 flex items-center justify-between">
+                                    <span>이 선수의 최근 강화 기록</span>
+                                    <span id="enh-player-wl" class="text-slate-500">성공 0 / 실패 0</span>
+                                </div>
+                                <div id="enh-history-log" class="flex flex-wrap gap-1.5 min-h-[24px] items-center text-xs text-slate-500">
+                                    아직 강화 기록이 없습니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 전체 강화 확률표 안내 -->
+            <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-4">
+                <h4 class="text-xs font-bold text-slate-300 mb-2.5 flex items-center gap-2">
+                    <i class="fa-solid fa-table text-[#d4af37]"></i> 공식 강화 확률 및 OVR 상승표 (1강 ~ 13강)
+                </h4>
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2 text-center text-xs">
+                    <!-- JS로 12개 구간 자동 생성 -->
+                    <div id="enhance-table-grid" class="contents"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 5. 구단 관리 (전술판) 화면 ==================== -->
+        <section id="tab-squad" class="tab-view hidden space-y-5">
+            <!-- 상단 전술 컨트롤 바 -->
+            <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div>
+                        <div class="text-xs text-slate-400">선발 11명 평균 OVR</div>
+                        <div class="flex items-baseline gap-2">
+                            <span id="squad-avg-ovr" class="font-oswald text-3xl font-black text-[#d4af37]">0.0</span>
+                            <span id="squad-filled-badge" class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300">0/11명</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 포메이션 선택 -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <label for="formation-select" class="text-xs font-bold text-slate-300">포메이션:</label>
+                    <select id="formation-select" onchange="changeFormation(this.value)" class="bg-[#0b111e] border border-[#d4af37]/50 rounded-xl px-4 py-2 text-sm font-bold text-white focus:outline-none">
+                        <option value="4-3-3">4-3-3 (기본 밸런스)</option>
+                        <option value="4-2-4">4-2-4 (극단적 공격형)</option>
+                        <option value="4-2-3-1">4-2-3-1 (현대 축구 표준)</option>
+                        <option value="4-4-2">4-4-2 (클래식 투톱)</option>
+                        <option value="3-5-2">3-5-2 (중원 장악 스리백)</option>
+                    </select>
+                    <button onclick="autoFillSquad()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-[#d4af37] border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 자동 베스트 11 배치
+                    </button>
+                </div>
+            </div>
+
+            <!-- 축구 경기장 전술판 (11명 배치) -->
+            <div class="pitch-board relative w-full h-[640px] sm:h-[700px] rounded-2xl overflow-hidden select-none">
+                <!-- 경기장 라인 SVG -->
+                <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-35" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <!-- 외곽선 -->
+                    <rect x="4" y="3" width="92" height="94" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                    <!-- 하프라인 -->
+                    <line x1="4" y1="50" x2="96" y2="50" stroke="#ffffff" stroke-width="0.4" />
+                    <!-- 센터 서클 -->
+                    <circle cx="50" cy="50" r="11" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                    <circle cx="50" cy="50" r="0.7" fill="#ffffff" />
+                    <!-- 상단 페널티 박스 -->
+                    <rect x="26" y="3" width="48" height="15" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                    <rect x="38" y="3" width="24" height="6" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                    <!-- 하단 페널티 박스 (GK 진영) -->
+                    <rect x="26" y="82" width="48" height="15" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                    <rect x="38" y="91" width="24" height="6" fill="none" stroke="#ffffff" stroke-width="0.4" />
+                </svg>
+
+                <!-- 11개 포지션 슬롯이 렌더링되는 영역 -->
+                <div id="pitch-slots-container" class="relative w-full h-full">
+                    <!-- JS로 동적 배치 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 6. 미션 화면 ==================== -->
+        <section id="tab-missions" class="tab-view hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-2xl font-black text-white">구단 미션 & 보상</h2>
+                    <p class="text-sm text-slate-400">미션을 달성하고 코인을 획득하여 더 강력한 선수팩에 도전하세요.</p>
+                </div>
+                <div class="text-xs text-slate-400 bg-[#131c2e] border border-slate-800 px-3.5 py-2 rounded-xl">
+                    일일 미션 기준일: <span id="mission-date-display" class="text-white font-bold"></span>
+                </div>
+            </div>
+
+            <!-- 미션 카테고리별 리스트 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 업적 (일반) 미션 -->
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5 space-y-3">
+                    <h3 class="text-base font-black text-[#d4af37] flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-medal"></i> 구단 성장 업적 (1회)
+                    </h3>
+                    <div id="mission-list-achievement" class="space-y-3"></div>
+                </div>
+
+                <!-- 일일 미션 -->
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5 space-y-3">
+                    <h3 class="text-base font-black text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-calendar-day"></i> 일일 미션 (매일 초기화)
+                    </h3>
+                    <div id="mission-list-daily" class="space-y-3"></div>
+                </div>
+
+                <!-- 반복 미션 -->
+                <div class="bg-[#131c2e] border border-slate-800 rounded-2xl p-5 space-y-3">
+                    <h3 class="text-base font-black text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-rotate"></i> 무한 반복 미션
+                    </h3>
+                    <div id="mission-list-repeatable" class="space-y-3"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== 선수팩 워크아웃 풀스크린 오버레이 ==================== -->
+    <div id="walkout-overlay" class="fixed inset-0 z-50 hidden tunnel-bg flex flex-col items-center justify-center p-4 overflow-hidden">
+        <!-- 경기장 상단 조명 빔 -->
+        <div id="wo-beam-left" class="spotlight-beam -rotate-25 left-1/4"></div>
+        <div id="wo-beam-right" class="spotlight-beam rotate-25 right-1/4"></div>
+        <div id="walkout-flare" class="absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none"></div>
+        <!-- 화면 전체 섬광 플래시 -->
+        <div id="wo-white-flash" class="absolute inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-300 z-30"></div>
+
+        <!-- 스킵 버튼 -->
+        <button onclick="skipWalkout()" class="absolute top-6 right-6 z-40 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold backdrop-blur border border-white/20 transition">
+            SKIP <i class="fa-solid fa-forward-step ml-1"></i>
+        </button>
+
+        <!-- 워크아웃 단계별 연출 컨테이너 -->
+        <div class="relative z-20 flex flex-col items-center text-center max-w-md w-full space-y-5">
+            <!-- 상단 상태 텍스트 -->
+            <div id="wo-stage-label" class="text-xs sm:text-sm font-black tracking-[0.25em] text-[#d4af37] uppercase animate-pulse">
+                STADIUM TUNNEL OPENING...
+            </div>
+
+            <!-- 실루엣 & 카드 공개 영역 -->
+            <div id="wo-center-box" class="relative w-64 h-80 flex items-center justify-center">
+                <!-- 0단계: 팩 개봉 에너지 코어 -->
+                <div id="wo-pack-core" class="w-44 h-60 rounded-2xl bg-gradient-to-b from-[#d4af37]/30 to-slate-900 border-2 border-[#d4af37] flex flex-col items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.4)] pack-charging">
+                    <i class="fa-solid fa-futbol text-5xl text-[#d4af37] animate-spin" style="animation-duration: 3s;"></i>
+                    <span class="mt-4 text-xs font-black tracking-widest text-[#f3e5ab]">OPENING PACK</span>
+                </div>
+
+                <!-- 1단계: 터널 국기 & 실루엣 -->
+                <div id="wo-silhouette" class="hidden w-52 h-68 rounded-2xl bg-slate-900/95 border border-slate-600 flex flex-col items-center justify-center shadow-2xl transition-all duration-500 p-4">
+                    <div id="wo-big-flag" class="text-6xl mb-2 drop-shadow-lg transform scale-75 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-user-secret text-6xl text-slate-600 animate-pulse"></i>
+                    <span id="wo-pos-badge" class="mt-3 px-3 py-0.5 rounded-full bg-slate-800 text-xs font-black tracking-widest text-[#d4af37]">POSITION</span>
+                </div>
+
+                <!-- 2단계: 실제 선수 카드 등장 -->
+                <div id="wo-card-reveal" class="hidden w-60">
+                    <!-- JS로 카드 삽입 -->
+                </div>
+            </div>
+
+            <!-- 순차 텍스트 공개 영역 (포지션 -> 이름 -> OVR) -->
+            <div class="min-h-[84px] flex flex-col items-center justify-center space-y-1">
+                <div id="wo-reveal-pos-nation" class="opacity-0 transition-all duration-300 text-sm font-bold text-slate-300"></div>
+                <div id="wo-reveal-name" class="opacity-0 transition-all duration-300 text-2xl sm:text-3xl font-black text-white tracking-tight"></div>
+                <div id="wo-reveal-ovr" class="opacity-0 transition-all duration-300 font-oswald text-3xl font-bold text-[#d4af37]"></div>
+            </div>
+
+            <!-- 확인 버튼 -->
+            <button id="wo-btn-confirm" onclick="closeWalkout()" class="hidden w-full py-3.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b59124] text-slate-950 font-black text-base shadow-xl transition hover:brightness-110">
+                보관함으로 보내기
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== 모달 1: 선수 상세 정보 모달 ==================== -->
+    <div id="modal-player-detail" class="fixed inset-0 z-40 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this) closeModal('modal-player-detail')">
+        <div class="bg-[#131c2e] border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-lg font-black text-white">선수 상세 프로필</h3>
+                <button onclick="closeModal('modal-player-detail')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="modal-detail-content" class="space-y-4">
+                <!-- JS로 렌더링 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 모달 2: 구단 포지션 선수 선택 모달 ==================== -->
+    <div id="modal-squad-select" class="fixed inset-0 z-40 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this) closeModal('modal-squad-select')">
+        <div class="bg-[#131c2e] border border-slate-700 rounded-2xl max-w-2xl w-full p-5 flex flex-col max-h-[82vh] shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                <div>
+                    <h3 class="text-lg font-black text-white">선발 선수 배치 (<span id="squad-modal-pos-label" class="text-[#d4af37]"></span>)</h3>
+                    <p class="text-xs text-slate-400">해당 포지션에 배치할 선수를 선택하세요. (이미 선발 중인 선수는 교체됩니다)</p>
+                </div>
+                <button onclick="closeModal('modal-squad-select')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="squad-modal-list" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 pr-1">
+                <!-- JS로 렌더링 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 모달 3: 데이터 초기화 확인 모달 ==================== -->
+    <div id="modal-reset" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#131c2e] border border-rose-500/40 rounded-2xl max-w-sm w-full p-6 space-y-4 text-center shadow-2xl">
+            <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-black text-white">구단 데이터를 초기화할까요?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                현재 로그인된 계정의 모든 선수, 강화 등급, 코인, 미션 기록이 초기 상태로 되돌아갑니다.
+            </p>
+            <div class="flex gap-2 pt-2">
+                <button onclick="closeModal('modal-reset')" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">취소</button>
+                <button onclick="resetGameData()" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs">초기화 실행</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 온보딩 오버레이: 전용 아이디/비밀번호 로그인 & 구단 창단 ==================== -->
+    <div id="onboarding-overlay" class="fixed inset-0 z-50 hidden bg-[#070b14]/95 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-[#131c2e] border border-[#d4af37]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 my-auto">
+            <!-- 상단 타이틀 -->
+            <div class="text-center space-y-1.5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] text-xs font-black tracking-wider">
+                    NEXT FOOTBALL CLUB ACCOUNT
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">구단주 계정 로그인 / 창단</h2>
+                <p class="text-xs text-slate-400">전용 아이디와 비밀번호로 구단 데이터를 안전하게 저장하고 이어하세요.</p>
+            </div>
+
+            <!-- 탭 전환 버튼 (신규 구단 창단 vs 기존 아이디 로그인) -->
+            <div class="grid grid-cols-2 gap-2 bg-[#0b111e] p-1.5 rounded-2xl border border-slate-800">
+                <button type="button" id="auth-tab-register" onclick="switchAuthMode('register')" class="py-2.5 rounded-xl bg-[#d4af37] text-slate-950 font-black text-xs sm:text-sm transition">
+                    <i class="fa-solid fa-user-plus mr-1"></i> 신규 구단 창단
+                </button>
+                <button type="button" id="auth-tab-login" onclick="switchAuthMode('login')" class="py-2.5 rounded-xl text-slate-400 hover:text-white font-bold text-xs sm:text-sm transition">
+                    <i class="fa-solid fa-right-to-bracket mr-1"></i> 기존 아이디 로그인
+                </button>
+            </div>
+
+            <!-- [모드 1] 신규 구단 창단 (회원가입) -->
+            <div id="auth-panel-register" class="space-y-4">
+                <!-- 실시간 구단 엠블럼 & 명판 미리보기 -->
+                <div class="bg-[#0b111e] border border-slate-800 rounded-2xl p-3.5 flex items-center gap-3.5">
+                    <div id="ob-preview-emblem" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d4af37] to-[#8a6d1b] flex items-center justify-center text-slate-950 text-2xl shadow-lg shrink-0 transition-all">
+                        <i id="ob-preview-icon" class="fa-solid fa-crown"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="text-[11px] font-bold text-[#d4af37]">구단주: <span id="ob-preview-owner" class="text-white">신규 구단주</span></div>
+                        <div id="ob-preview-club" class="text-base sm:text-lg font-black text-white truncate">Next Football Club</div>
+                        <div class="text-[11px] text-emerald-400 font-medium"><i class="fa-solid fa-gift mr-1"></i>창단 지원금 18,000 COIN 즉시 지급</div>
+                    </div>
+                </div>
+
+                <!-- 전용 아이디 & 비밀번호 입력 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="reg-userid" class="block text-xs font-bold text-slate-300 mb-1">전용 아이디 <span class="text-rose-400">*</span></label>
+                        <input type="text" id="reg-userid" maxlength="16" placeholder="영문/숫자 4~16자" class="w-full bg-[#0b111e] border border-slate-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="reg-password" class="block text-xs font-bold text-slate-300 mb-1">전용 비밀번호 <span class="text-rose-400">*</span></label>
+                        <input type="password" id="reg-password" maxlength="20" placeholder="4자 이상 입력" class="w-full bg-[#0b111e] border border-slate-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- 구단주 이름 & 구단명 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label for="ob-input-owner" class="block text-xs font-bold text-slate-300 mb-1">구단주 닉네임 <span class="text-rose-400">*</span></label>
+                        <input type="text" id="ob-input-owner" maxlength="12" oninput="updateOnboardingPreview()" placeholder="예: 손흥민, 펩" class="w-full bg-[#0b111e] border border-slate-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="ob-input-club" class="block text-xs font-bold text-slate-300 mb-1">구단 이름 <span class="text-rose-400">*</span></label>
+                        <input type="text" id="ob-input-club" maxlength="20" value="Next Football Club" oninput="updateOnboardingPreview()" placeholder="구단명 입력" class="w-full bg-[#0b111e] border border-slate-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- 엠블럼 아이콘 & 컬러 선택 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">엠블럼 상징</label>
+                        <div id="ob-icon-choices" class="grid grid-cols-5 gap-1.5">
+                            <button type="button" onclick="selectObIcon('fa-crown', this)" class="ob-icon-btn py-2 rounded-xl bg-[#d4af37]/20 border border-[#d4af37] text-[#d4af37] text-base transition"><i class="fa-solid fa-crown"></i></button>
+                            <button type="button" onclick="selectObIcon('fa-shield-halved', this)" class="ob-icon-btn py-2 rounded-xl bg-[#0b111e] border border-slate-700 text-slate-400 hover:text-white text-base transition"><i class="fa-solid fa-shield-halved"></i></button>
+                            <button type="button" onclick="selectObIcon('fa-futbol', this)" class="ob-icon-btn py-2 rounded-xl bg-[#0b111e] border border-slate-700 text-slate-400 hover:text-white text-base transition"><i class="fa-solid fa-futbol"></i></button>
+                            <button type="button" onclick="selectObIcon('fa-bolt', this)" class="ob-icon-btn py-2 rounded-xl bg-[#0b111e] border border-slate-700 text-slate-400 hover:text-white text-base transition"><i class="fa-solid fa-bolt"></i></button>
+                            <button type="button" onclick="selectObIcon('fa-dragon', this)" class="ob-icon-btn py-2 rounded-xl bg-[#0b111e] border border-slate-700 text-slate-400 hover:text-white text-base transition"><i class="fa-solid fa-dragon"></i></button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">엠블럼 컬러</label>
+                        <div id="ob-color-choices" class="grid grid-cols-5 gap-1.5">
+                            <button type="button" onclick="selectObColor('gold', this)" class="ob-color-btn h-9 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#8a6d1b] ring-2 ring-white transition"></button>
+                            <button type="button" onclick="selectObColor('royal', this)" class="ob-color-btn h-9 rounded-xl bg-gradient-to-br from-sky-400 to-blue-700 opacity-70 hover:opacity-100 transition"></button>
+                            <button type="button" onclick="selectObColor('crimson', this)" class="ob-color-btn h-9 rounded-xl bg-gradient-to-br from-rose-500 to-red-800 opacity-70 hover:opacity-100 transition"></button>
+                            <button type="button" onclick="selectObColor('emerald', this)" class="ob-color-btn h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-800 opacity-70 hover:opacity-100 transition"></button>
+                            <button type="button" onclick="selectObColor('purple', this)" class="ob-color-btn h-9 rounded-xl bg-gradient-to-br from-purple-400 to-indigo-800 opacity-70 hover:opacity-100 transition"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-register-submit" onclick="registerNewAccount()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#d4af37] via-[#e6c149] to-[#b89223] hover:brightness-110 active:scale-[0.99] text-slate-950 font-black text-base shadow-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-flag-checkered"></i> 아이디 생성 및 구단 창단
+                </button>
+            </div>
+
+            <!-- [모드 2] 기존 아이디 로그인 -->
+            <div id="auth-panel-login" class="hidden space-y-4 py-2">
+                <div class="bg-[#0b111e] border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-1">
+                    <div class="font-bold text-sky-400"><i class="fa-solid fa-circle-info mr-1"></i>저장된 구단 불러오기</div>
+                    <p class="text-slate-400">이전에 구단을 창단할 때 등록한 전용 아이디와 비밀번호를 입력하면 모든 선수단과 강화 기록이 자동으로 복원됩니다.</p>
+                </div>
+
+                <div>
+                    <label for="login-userid" class="block text-xs font-bold text-slate-300 mb-1.5">전용 아이디</label>
+                    <input type="text" id="login-userid" maxlength="16" placeholder="아이디를 입력하세요" class="w-full bg-[#0b111e] border border-slate-700 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
+                </div>
+
+                <div>
+                    <label for="login-password" class="block text-xs font-bold text-slate-300 mb-1.5">비밀번호</label>
+                    <input type="password" id="login-password" maxlength="20" onkeydown="if(event.key==='Enter') loginExistingAccount()" placeholder="비밀번호를 입력하세요" class="w-full bg-[#0b111e] border border-slate-700 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
+                </div>
+
+                <button id="btn-login-submit" onclick="loginExistingAccount()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:brightness-110 active:scale-[0.99] text-white font-black text-base shadow-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> 로그인하여 구단 접속하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // 클라우드 데이터베이스 연결 초기화
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        let db = null;
+        let auth = null;
+        let cloudReady = false;
+
+        async function initCloudDB() {
+            try {
+                if (typeof __firebase_config !== 'undefined') {
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    const app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    cloudReady = true;
+                }
+            } catch (e) {
+                console.warn('클라우드 연결 대기 중:', e);
+            }
+        }
+        initCloudDB();
+
+        // 비밀번호 해싱 (안전한 저장용)
+        async function hashPassword(pw) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode('NEXT_FC_SALT_' + pw);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // 클라우드에 현재 계정 데이터 동기화
+        window.syncAccountToCloud = async function(stateObj) {
+            if (!stateObj || !stateObj.accountId || !stateObj.passwordHash) return;
+            if (!cloudReady || !db || !auth?.currentUser) return;
+            try {
+                const accountRef = doc(db, 'artifacts', appId, 'public', 'data', 'nfc_accounts', stateObj.accountId);
+                await setDoc(accountRef, {
+                    accountId: stateObj.accountId,
+                    passwordHash: stateObj.passwordHash,
+                    stateJson: JSON.stringify(stateObj),
+                    updatedAt: Date.now()
+                });
+            } catch (e) {
+                console.warn('클라우드 동기화 지연:', e);
+            }
+        };
+
+        // 클라우드에서 계정 조회
+        window.fetchAccountFromCloud = async function(accountId) {
+            if (!cloudReady) await initCloudDB();
+            if (!cloudReady || !db || !auth?.currentUser) return null;
+            try {
+                const accountRef = doc(db, 'artifacts', appId, 'public', 'data', 'nfc_accounts', accountId);
+                const snap = await getDoc(accountRef);
+                return snap.exists() ? snap.data() : null;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        window.hashUserPassword = hashPassword;
+    </script>
+
+    <script>
+        /* =========================================================================
+           1. 실제 유명 축구선수 데이터베이스 (포지션별 엄선 및 게임 밸런스 OVR 설계)
+           - 일반 네임드: 85~89
+           - 상위 네임드: 90~94
+           - 월드클래스: 95~98
+           - 레전드: 99~103
+        ========================================================================= */
+        const PLAYER_DATABASE = [
+            // ================= GK (골키퍼) =================
+            { id: 'gk_yashin', name: '레프 야신', en: 'L. Yashin', pos: 'GK', ovr: 101, nation: '러시아', flag: '🇷🇺', club: '디나모 모스크바' },
+            { id: 'gk_buffon', name: '잔루이지 부폰', en: 'G. Buffon', pos: 'GK', ovr: 99, nation: '이탈리아', flag: '🇮🇹', club: '유벤투스' },
+            { id: 'gk_neuer', name: '마누엘 노이어', en: 'M. Neuer', pos: 'GK', ovr: 97, nation: '독일', flag: '🇩🇪', club: '바이에른 뮌헨' },
+            { id: 'gk_courtois', name: '티보 쿠르투아', en: 'T. Courtois', pos: 'GK', ovr: 96, nation: '벨기에', flag: '🇧🇪', club: '레알 마드리드' },
+            { id: 'gk_alisson', name: '알리송 베커', en: 'Alisson', pos: 'GK', ovr: 95, nation: '브라질', flag: '🇧🇷', club: '리버풀' },
+            { id: 'gk_donnarumma', name: '잔루이지 돈나룸마', en: 'G. Donnarumma', pos: 'GK', ovr: 93, nation: '이탈리아', flag: '🇮🇹', club: '파리 생제르맹' },
+            { id: 'gk_ederson', name: '에데르송', en: 'Ederson', pos: 'GK', ovr: 92, nation: '브라질', flag: '🇧🇷', club: '맨체스터 시티' },
+            { id: 'gk_terstegen', name: '테어 슈테겐', en: 'ter Stegen', pos: 'GK', ovr: 91, nation: '독일', flag: '🇩🇪', club: 'FC 바르셀로나' },
+            { id: 'gk_oblak', name: '얀 오블락', en: 'J. Oblak', pos: 'GK', ovr: 91, nation: '슬로베니아', flag: '🇸🇮', club: '아틀레티코 마드리드' },
+            { id: 'gk_martinez', name: '에밀리아노 마르티네스', en: 'E. Martínez', pos: 'GK', ovr: 89, nation: '아르헨티나', flag: '🇦🇷', club: '애스턴 빌라' },
+            { id: 'gk_maignan', name: '마이크 메냥', en: 'M. Maignan', pos: 'GK', ovr: 88, nation: '프랑스', flag: '🇫🇷', club: 'AC 밀란' },
+            { id: 'gk_sommer', name: '얀 좀머', en: 'Y. Sommer', pos: 'GK', ovr: 87, nation: '스위스', flag: '🇨🇭', club: '인테르' },
+            { id: 'gk_raya', name: '다비드 라야', en: 'David Raya', pos: 'GK', ovr: 86, nation: '스페인', flag: '🇪🇸', club: '아스널' },
+
+            // ================= DF (수비수) =================
+            { id: 'df_maldini', name: '파올로 말디니', en: 'P. Maldini', pos: 'DF', ovr: 102, nation: '이탈리아', flag: '🇮🇹', club: 'AC 밀란' },
+            { id: 'df_beckenbauer', name: '프란츠 베켄바워', en: 'F. Beckenbauer', pos: 'DF', ovr: 101, nation: '독일', flag: '🇩🇪', club: '바이에른 뮌헨' },
+            { id: 'df_carlos', name: '호베르투 카를로스', en: 'R. Carlos', pos: 'DF', ovr: 99, nation: '브라질', flag: '🇧🇷', club: '레알 마드리드' },
+            { id: 'df_vandijk', name: '버질 반다이크', en: 'V. van Dijk', pos: 'DF', ovr: 97, nation: '네덜란드', flag: '🇳🇱', club: '리버풀' },
+            { id: 'df_ramos', name: '세르히오 라모스', en: 'S. Ramos', pos: 'DF', ovr: 96, nation: '스페인', flag: '🇪🇸', club: '레알 마드리드' },
+            { id: 'df_dias', name: '후벵 디아스', en: 'Rúben Dias', pos: 'DF', ovr: 95, nation: '포르투갈', flag: '🇵🇹', club: '맨체스터 시티' },
+            { id: 'df_rudiger', name: '안토니오 뤼디거', en: 'A. Rüdiger', pos: 'DF', ovr: 93, nation: '독일', flag: '🇩🇪', club: '레알 마드리드' },
+            { id: 'df_saliba', name: '윌리엄 살리바', en: 'W. Saliba', pos: 'DF', ovr: 92, nation: '프랑스', flag: '🇫🇷', club: '아스널' },
+            { id: 'df_hakimi', name: '아슈라프 하키미', en: 'A. Hakimi', pos: 'DF', ovr: 91, nation: '모로코', flag: '🇲🇦', club: '파리 생제르맹' },
+            { id: 'df_kim', name: '김민재', en: 'Min Jae Kim', pos: 'DF', ovr: 90, nation: '대한민국', flag: '🇰🇷', club: '바이에른 뮌헨' },
+            { id: 'df_theo', name: '테오 에르난데스', en: 'T. Hernández', pos: 'DF', ovr: 90, nation: '프랑스', flag: '🇫🇷', club: 'AC 밀란' },
+            { id: 'df_trent', name: '알렉산더-아놀드', en: 'Alexander-Arnold', pos: 'DF', ovr: 89, nation: '잉글랜드', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', club: '리버풀' },
+            { id: 'df_gvardiol', name: '요슈코 그바르디올', en: 'J. Gvardiol', pos: 'DF', ovr: 88, nation: '크로아티아', flag: '🇭🇷', club: '맨체스터 시티' },
+            { id: 'df_araujo', name: '로날드 아라우호', en: 'R. Araújo', pos: 'DF', ovr: 87, nation: '우루과이', flag: '🇺🇾', club: 'FC 바르셀로나' },
+            { id: 'df_bastoni', name: '알레산드로 바스토니', en: 'A. Bastoni', pos: 'DF', ovr: 86, nation: '이탈리아', flag: '🇮🇹', club: '인테르' },
+
+            // ================= MF (미드필더) =================
+            { id: 'mf_zidane', name: '지네딘 지단', en: 'Z. Zidane', pos: 'MF', ovr: 102, nation: '프랑스', flag: '🇫🇷', club: '레알 마드리드' },
+            { id: 'mf_gullit', name: '루드 굴리트', en: 'R. Gullit', pos: 'MF', ovr: 101, nation: '네덜란드', flag: '🇳🇱', club: 'AC 밀란' },
+            { id: 'mf_iniesta', name: '안드레스 이니에스타', en: 'A. Iniesta', pos: 'MF', ovr: 99, nation: '스페인', flag: '🇪🇸', club: 'FC 바르셀로나' },
+            { id: 'mf_kdb', name: '케빈 더브라위너', en: 'K. De Bruyne', pos: 'MF', ovr: 97, nation: '벨기에', flag: '🇧🇪', club: '맨체스터 시티' },
+            { id: 'mf_modric', name: '루카 모드리치', en: 'L. Modrić', pos: 'MF', ovr: 96, nation: '크로아티아', flag: '🇭🇷', club: '레알 마드리드' },
+            { id: 'mf_rodri', name: '로드리', en: 'Rodri', pos: 'MF', ovr: 96, nation: '스페인', flag: '🇪🇸', club: '맨체스터 시티' },
+            { id: 'mf_kroos', name: '토니 크로스', en: 'T. Kroos', pos: 'MF', ovr: 95, nation: '독일', flag: '🇩🇪', club: '레알 마드리드' },
+            { id: 'mf_bellingham', name: '주드 벨링엄', en: 'J. Bellingham', pos: 'MF', ovr: 94, nation: '잉글랜드', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', club: '레알 마드리드' },
+            { id: 'mf_valverde', name: '페데리코 발베르데', en: 'F. Valverde', pos: 'MF', ovr: 92, nation: '우루과이', flag: '🇺🇾', club: '레알 마드리드' },
+            { id: 'mf_pedri', name: '페드리', en: 'Pedri', pos: 'MF', ovr: 91, nation: '스페인', flag: '🇪🇸', club: 'FC 바르셀로나' },
+            { id: 'mf_musiala', name: '자말 무시알라', en: 'J. Musiala', pos: 'MF', ovr: 91, nation: '독일', flag: '🇩🇪', club: '바이에른 뮌헨' },
+            { id: 'mf_bruno', name: '브루노 페르난데스', en: 'Bruno Fernandes', pos: 'MF', ovr: 89, nation: '포르투갈', flag: '🇵🇹', club: '맨체스터 유나이티드' },
+            { id: 'mf_odegaard', name: '마르틴 외데고르', en: 'M. Ødegaard', pos: 'MF', ovr: 89, nation: '노르웨이', flag: '🇳🇴', club: '아스널' },
+            { id: 'mf_rice', name: '데클런 라이스', en: 'D. Rice', pos: 'MF', ovr: 88, nation: '잉글랜드', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', club: '아스널' },
+            { id: 'mf_kangin', name: '이강인', en: 'Kang In Lee', pos: 'MF', ovr: 86, nation: '대한민국', flag: '🇰🇷', club: '파리 생제르맹' },
+
+            // ================= FW (공격수) =================
+            { id: 'fw_messi', name: '리오넬 메시', en: 'L. Messi', pos: 'FW', ovr: 103, nation: '아르헨티나', flag: '🇦🇷', club: '인터 마이애미' },
+            { id: 'fw_cr7', name: '크리스티아누 호날두', en: 'C. Ronaldo', pos: 'FW', ovr: 102, nation: '포르투갈', flag: '🇵🇹', club: '알 나스르' },
+            { id: 'fw_r9', name: '호나우두', en: 'Ronaldo', pos: 'FW', ovr: 101, nation: '브라질', flag: '🇧🇷', club: '레알 마드리드' },
+            { id: 'fw_henry', name: '티에리 앙리', en: 'T. Henry', pos: 'FW', ovr: 99, nation: '프랑스', flag: '🇫🇷', club: '아스널' },
+            { id: 'fw_mbappe', name: '킬리안 음바페', en: 'K. Mbappé', pos: 'FW', ovr: 98, nation: '프랑스', flag: '🇫🇷', club: '레알 마드리드' },
+            { id: 'fw_haaland', name: '엘링 홀란', en: 'E. Haaland', pos: 'FW', ovr: 97, nation: '노르웨이', flag: '🇳🇴', club: '맨체스터 시티' },
+            { id: 'fw_vinicius', name: '비니시우스 주니오르', en: 'Vini Jr.', pos: 'FW', ovr: 96, nation: '브라질', flag: '🇧🇷', club: '레알 마드리드' },
+            { id: 'fw_kane', name: '해리 케인', en: 'H. Kane', pos: 'FW', ovr: 95, nation: '잉글랜드', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', club: '바이에른 뮌헨' },
+            { id: 'fw_son', name: '손흥민', en: 'Heung Min Son', pos: 'FW', ovr: 94, nation: '대한민국', flag: '🇰🇷', club: '토트넘 홋스퍼' },
+            { id: 'fw_salah', name: '모하메드 살라', en: 'M. Salah', pos: 'FW', ovr: 94, nation: '이집트', flag: '🇪🇬', club: '리버풀' },
+            { id: 'fw_lewandowski', name: '로베르트 레반도프스키', en: 'R. Lewandowski', pos: 'FW', ovr: 92, nation: '폴란드', flag: '🇵🇱', club: 'FC 바르셀로나' },
+            { id: 'fw_yamal', name: '라민 야말', en: 'Lamine Yamal', pos: 'FW', ovr: 91, nation: '스페인', flag: '🇪🇸', club: 'FC 바르셀로나' },
+            { id: 'fw_lautaro', name: '라우타로 마르티네스', en: 'L. Martínez', pos: 'FW', ovr: 89, nation: '아르헨티나', flag: '🇦🇷', club: '인테르' },
+            { id: 'fw_saka', name: '부카요 사카', en: 'B. Saka', pos: 'FW', ovr: 89, nation: '잉글랜드', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', club: '아스널' },
+            { id: 'fw_leao', name: '하파엘 레앙', en: 'Rafael Leão', pos: 'FW', ovr: 87, nation: '포르투갈', flag: '🇵🇹', club: 'AC 밀란' },
+            { id: 'fw_griezmann', name: '앙투안 그리즈만', en: 'A. Griezmann', pos: 'FW', ovr: 86, nation: '프랑스', flag: '🇫🇷', club: '아틀레티코 마드리드' }
+        ];
+
+        /* =========================================================================
+           2. 강화 확률 및 OVR 상승 테이블 (요구사항 100% 정확 반영)
+           키(key)는 현재 강화 단계 (1 -> 2강 시도는 key: 1)
+        ========================================================================= */
+        const ENHANCE_TABLE = {
+            1:  { next: 2,  prob: 100, ovrGain: 1 },
+            2:  { next: 3,  prob: 81,  ovrGain: 1 },
+            3:  { next: 4,  prob: 64,  ovrGain: 2 },
+            4:  { next: 5,  prob: 50,  ovrGain: 2 },
+            5:  { next: 6,  prob: 26,  ovrGain: 2 },
+            6:  { next: 7,  prob: 15,  ovrGain: 3 },
+            7:  { next: 8,  prob: 7,   ovrGain: 4 },
+            8:  { next: 9,  prob: 5,   ovrGain: 2 },
+            9:  { next: 10, prob: 4,   ovrGain: 2 },
+            10: { next: 11, prob: 3,   ovrGain: 2 },
+            11: { next: 12, prob: 2,   ovrGain: 3 },
+            12: { next: 13, prob: 1,   ovrGain: 3 }
+        };
+
+        // 특정 강화 단계에서의 누적 OVR 보너스 계산 헬퍼
+        function getBonusOvrByGrade(grade) {
+            let bonus = 0;
+            for (let g = 1; g < grade; g++) {
+                if (ENHANCE_TABLE[g]) {
+                    bonus += ENHANCE_TABLE[g].ovrGain;
+                }
+            }
+            return bonus;
+        }
+
+        // 선수의 최종 OVR 계산 (기본 OVR + 강화 상승 OVR)
+        function getPlayerFinalOvr(playerInstance) {
+            const base = PLAYER_DATABASE.find(p => p.id === playerInstance.baseId);
+            if (!base) return 0;
+            return base.ovr + getBonusOvrByGrade(playerInstance.grade);
+        }
+
+        /* =========================================================================
+           3. 포메이션 5종 좌표 및 슬롯 정의 (x%, y%는 경기장 위 위치)
+        ========================================================================= */
+        const FORMATIONS = {
+            '4-3-3': [
+                { slotIdx: 0, role: 'LW',  pos: 'FW', x: 20, y: 18 },
+                { slotIdx: 1, role: 'ST',  pos: 'FW', x: 50, y: 13 },
+                { slotIdx: 2, role: 'RW',  pos: 'FW', x: 80, y: 18 },
+                { slotIdx: 3, role: 'LCM', pos: 'MF', x: 26, y: 42 },
+                { slotIdx: 4, role: 'CM',  pos: 'MF', x: 50, y: 46 },
+                { slotIdx: 5, role: 'RCM', pos: 'MF', x: 74, y: 42 },
+                { slotIdx: 6, role: 'LB',  pos: 'DF', x: 16, y: 68 },
+                { slotIdx: 7, role: 'LCB', pos: 'DF', x: 38, y: 72 },
+                { slotIdx: 8, role: 'RCB', pos: 'DF', x: 62, y: 72 },
+                { slotIdx: 9, role: 'RB',  pos: 'DF', x: 84, y: 68 },
+                { slotIdx: 10, role: 'GK', pos: 'GK', x: 50, y: 90 }
+            ],
+            '4-2-4': [
+                { slotIdx: 0, role: 'LW',  pos: 'FW', x: 16, y: 19 },
+                { slotIdx: 1, role: 'LS',  pos: 'FW', x: 39, y: 13 },
+                { slotIdx: 2, role: 'RS',  pos: 'FW', x: 61, y: 13 },
+                { slotIdx: 3, role: 'RW',  pos: 'FW', x: 84, y: 19 },
+                { slotIdx: 4, role: 'LCM', pos: 'MF', x: 35, y: 44 },
+                { slotIdx: 5, role: 'RCM', pos: 'MF', x: 65, y: 44 },
+                { slotIdx: 6, role: 'LB',  pos: 'DF', x: 16, y: 68 },
+                { slotIdx: 7, role: 'LCB', pos: 'DF', x: 38, y: 72 },
+                { slotIdx: 8, role: 'RCB', pos: 'DF', x: 62, y: 72 },
+                { slotIdx: 9, role: 'RB',  pos: 'DF', x: 84, y: 68 },
+                { slotIdx: 10, role: 'GK', pos: 'GK', x: 50, y: 90 }
+            ],
+            '4-2-3-1': [
+                { slotIdx: 0, role: 'ST',  pos: 'FW', x: 50, y: 13 },
+                { slotIdx: 1, role: 'LAM', pos: 'MF', x: 22, y: 31 },
+                { slotIdx: 2, role: 'CAM', pos: 'MF', x: 50, y: 31 },
+                { slotIdx: 3, role: 'RAM', pos: 'MF', x: 78, y: 31 },
+                { slotIdx: 4, role: 'LDM', pos: 'MF', x: 35, y: 50 },
+                { slotIdx: 5, role: 'RDM', pos: 'MF', x: 65, y: 50 },
+                { slotIdx: 6, role: 'LB',  pos: 'DF', x: 16, y: 69 },
+                { slotIdx: 7, role: 'LCB', pos: 'DF', x: 38, y: 73 },
+                { slotIdx: 8, role: 'RCB', pos: 'DF', x: 62, y: 73 },
+                { slotIdx: 9, role: 'RB',  pos: 'DF', x: 84, y: 69 },
+                { slotIdx: 10, role: 'GK', pos: 'GK', x: 50, y: 90 }
+            ],
+            '4-4-2': [
+                { slotIdx: 0, role: 'LS',  pos: 'FW', x: 36, y: 16 },
+                { slotIdx: 1, role: 'RS',  pos: 'FW', x: 64, y: 16 },
+                { slotIdx: 2, role: 'LM',  pos: 'MF', x: 16, y: 42 },
+                { slotIdx: 3, role: 'LCM', pos: 'MF', x: 38, y: 44 },
+                { slotIdx: 4, role: 'RCM', pos: 'MF', x: 62, y: 44 },
+                { slotIdx: 5, role: 'RM',  pos: 'MF', x: 84, y: 42 },
+                { slotIdx: 6, role: 'LB',  pos: 'DF', x: 16, y: 68 },
+                { slotIdx: 7, role: 'LCB', pos: 'DF', x: 38, y: 72 },
+                { slotIdx: 8, role: 'RCB', pos: 'DF', x: 62, y: 72 },
+                { slotIdx: 9, role: 'RB',  pos: 'DF', x: 84, y: 68 },
+                { slotIdx: 10, role: 'GK', pos: 'GK', x: 50, y: 90 }
+            ],
+            '3-5-2': [
+                { slotIdx: 0, role: 'LS',  pos: 'FW', x: 36, y: 15 },
+                { slotIdx: 1, role: 'RS',  pos: 'FW', x: 64, y: 15 },
+                { slotIdx: 2, role: 'CAM', pos: 'MF', x: 50, y: 32 },
+                { slotIdx: 3, role: 'LM',  pos: 'MF', x: 15, y: 44 },
+                { slotIdx: 4, role: 'LDM', pos: 'MF', x: 36, y: 49 },
+                { slotIdx: 5, role: 'RDM', pos: 'MF', x: 64, y: 49 },
+                { slotIdx: 6, role: 'RM',  pos: 'MF', x: 85, y: 44 },
+                { slotIdx: 7, role: 'LCB', pos: 'DF', x: 25, y: 71 },
+                { slotIdx: 8, role: 'CB',  pos: 'DF', x: 50, y: 73 },
+                { slotIdx: 9, role: 'RCB', pos: 'DF', x: 75, y: 71 },
+                { slotIdx: 10, role: 'GK', pos: 'GK', x: 50, y: 90 }
+            ]
+        };
+
+        const PACK_PRICES = { GK: 1000, DF: 1200, MF: 1400, FW: 1500 };
+
+        const EMBLEM_COLORS = {
+            gold: 'from-[#d4af37] to-[#8a6d1b] text-slate-950',
+            royal: 'from-sky-400 to-blue-700 text-white',
+            crimson: 'from-rose-500 to-red-800 text-white',
+            emerald: 'from-emerald-400 to-teal-800 text-slate-950',
+            purple: 'from-purple-400 to-indigo-800 text-white'
+        };
+
+        /* =========================================================================
+           4. 게임 상태 관리 (localStorage 연동)
+        ========================================================================= */
+        const STORAGE_KEY = 'NEXT_FC_SAVE_V1';
+
+        function getTodayStr() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function createInitialState() {
+            return {
+                ownerCreated: false,
+                accountId: '',
+                passwordHash: '',
+                ownerName: '',
+                clubName: 'Next Football Club',
+                emblemIcon: 'fa-crown',
+                emblemColor: 'gold',
+                coins: 18000, // 시작 시 11명 베스트11을 충분히 뽑아 구성할 수 있는 초기 자금 지급
+                soundEnabled: true,
+                players: [], // 각 요소: { uid, baseId, grade, totalTries, stageTries, successCount, failCount, history: [], createdAt }
+                formation: '4-3-3',
+                squad: Array(11).fill(null), // 11개 슬롯에 배치된 선수 uid
+                selectedEnhanceUid: null,
+                stats: {
+                    packsOpened: 0,
+                    enhanceAttempts: 0,
+                    enhanceSuccesses: 0,
+                    maxGradeReached: 1
+                },
+                dailyDate: getTodayStr(),
+                dailyStats: {
+                    packsOpened: 0,
+                    enhanceAttempts: 0,
+                    enhanceSuccesses: 0
+                },
+                claimedAchievements: [], // 1회성 업적 ID 목록
+                claimedDaily: [],        // 오늘 수령한 일일 미션 ID 목록
+                repeatableCounts: {      // 반복 미션 완료 횟수 기록
+                    rep_pack: 0,
+                    rep_enhance: 0
+                }
+            };
+        }
+
+        let gameState = loadGameState();
+
+        function loadGameState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return createInitialState();
+                const parsed = JSON.parse(raw);
+                const base = createInitialState();
+                const merged = { ...base, ...parsed };
+
+                // 일일 미션 날짜 체크 및 초기화
+                const today = getTodayStr();
+                if (merged.dailyDate !== today) {
+                    merged.dailyDate = today;
+                    merged.dailyStats = { packsOpened: 0, enhanceAttempts: 0, enhanceSuccesses: 0 };
+                    merged.claimedDaily = [];
+                }
+                if (!Array.isArray(merged.squad) || merged.squad.length !== 11) {
+                    merged.squad = Array(11).fill(null);
+                }
+                return merged;
+            } catch (e) {
+                console.error('세이브 데이터 로드 오류:', e);
+                return createInitialState();
+            }
+        }
+
+        function saveGameState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+                if (gameState.accountId) {
+                    localStorage.setItem('NEXT_FC_ACC_' + gameState.accountId, JSON.stringify(gameState));
+                    if (typeof window.syncAccountToCloud === 'function') {
+                        window.syncAccountToCloud(gameState);
+                    }
+                }
+                updateGlobalUI();
+            } catch (e) {
+                console.error('세이브 데이터 저장 오류:', e);
+            }
+        }
+
+        /* =========================================================================
+           5. Web Audio API 기반 효과음 합성 엔진 (외부 사운드 파일 불필요)
+        ========================================================================= */
+        const AudioEngine = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            },
+            playTone(freq, type, duration, delay = 0, vol = 0.15) {
+                if (!gameState.soundEnabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime + delay);
+
+                gain.gain.setValueAtTime(vol, this.ctx.currentTime + delay);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + delay + duration);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(this.ctx.currentTime + delay);
+                osc.stop(this.ctx.currentTime + delay + duration);
+            },
+            playClick() {
+                this.playTone(520, 'sine', 0.08, 0, 0.08);
+            },
+            playCoin() {
+                this.playTone(987.77, 'sine', 0.12, 0, 0.12);
+                this.playTone(1318.51, 'sine', 0.25, 0.09, 0.14);
+            },
+            playEnhanceSuccess(isHighGrade = false) {
+                // 화려한 상승 팡파르 아르페지오
+                const notes = isHighGrade
+                    ? [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98]
+                    : [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((n, idx) => {
+                    this.playTone(n, 'triangle', 0.35, idx * 0.07, 0.18);
+                });
+            },
+            playEnhanceFail() {
+                // 낮고 무거운 하강 사운드
+                this.playTone(220, 'sawtooth', 0.25, 0, 0.14);
+                this.playTone(165, 'sawtooth', 0.4, 0.18, 0.14);
+            },
+            playHeartbeat(step = 0) {
+                // 강화 게이지 충전 시 심장박동 긴장음
+                const freq = 95 + step * 18;
+                this.playTone(freq, 'sine', 0.12, 0, 0.2);
+                this.playTone(freq * 1.25, 'triangle', 0.1, 0.09, 0.12);
+            },
+            playPackBoom() {
+                // 팩 개봉 폭발 임팩트 사운드
+                this.playTone(110, 'sawtooth', 0.35, 0, 0.22);
+                this.playTone(55, 'sine', 0.5, 0.02, 0.28);
+            },
+            playWalkoutReveal(isSpecial = false) {
+                if (isSpecial) {
+                    [392.00, 493.88, 587.33, 783.99, 987.77].forEach((n, i) => {
+                        this.playTone(n, 'triangle', 0.45, i * 0.08, 0.16);
+                    });
+                } else {
+                    this.playTone(440, 'sine', 0.2, 0, 0.12);
+                    this.playTone(659.25, 'sine', 0.35, 0.12, 0.14);
+                }
+            }
+        };
+
+        function toggleSound() {
+            gameState.soundEnabled = !gameState.soundEnabled;
+            updateSoundIcon();
+            saveGameState();
+            if (gameState.soundEnabled) AudioEngine.playClick();
+        }
+
+        function updateSoundIcon() {
+            const icon = document.getElementById('icon-sound');
+            icon.className = gameState.soundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark text-slate-500';
+        }
+
+        /* =========================================================================
+           6. UI 유틸리티 & 선수 카드 컴포넌트 렌더러
+        ========================================================================= */
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colors = {
+                info: 'bg-slate-800 border-slate-600 text-white',
+                success: 'bg-emerald-950/95 border-emerald-500 text-emerald-200',
+                error: 'bg-rose-950/95 border-rose-500 text-rose-200',
+                gold: 'bg-amber-950/95 border-[#d4af37] text-[#f3e5ab]'
+            };
+            const icons = {
+                info: 'fa-circle-info text-sky-400',
+                success: 'fa-circle-check text-emerald-400',
+                error: 'fa-circle-exclamation text-rose-400',
+                gold: 'fa-crown text-[#d4af37]'
+            };
+
+            toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-2xl text-xs sm:text-sm font-bold transition-all duration-300 transform translate-y-2 opacity-0 ${colors[type] || colors.info}`;
+            toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i><span>${message}</span>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2800);
+        }
+
+        function getTierClass(baseOvr) {
+            if (baseOvr >= 99) return 'tier-legend';
+            if (baseOvr >= 95) return 'tier-world';
+            if (baseOvr >= 90) return 'tier-top';
+            return 'tier-normal';
+        }
+
+        function getTierName(baseOvr) {
+            if (baseOvr >= 99) return { label: 'LEGEND', color: 'text-[#d4af37]' };
+            if (baseOvr >= 95) return { label: 'WORLD CLASS', color: 'text-purple-300' };
+            if (baseOvr >= 90) return { label: 'TOP CLASS', color: 'text-sky-300' };
+            return { label: 'NAMED', color: 'text-slate-300' };
+        }
+
+        // 선수의 미니 페이스온 아바타 (이니셜 + 국기 + 포지션 엠블럼 기반 고급 대체 그래픽)
+        function renderMiniFaceonHTML(basePlayer, sizeClass = 'w-16 h-16') {
+            const initials = basePlayer.en
+                .split(' ')
+                .map(part => part[0])
+                .join('')
+                .slice(0, 2)
+                .toUpperCase();
+
+            const ringColors = {
+                GK: 'from-yellow-400/30 to-amber-700/40 border-yellow-400/60 text-yellow-200',
+                DF: 'from-sky-400/30 to-blue-800/40 border-sky-400/60 text-sky-200',
+                MF: 'from-emerald-400/30 to-teal-800/40 border-emerald-400/60 text-emerald-200',
+                FW: 'from-rose-400/30 to-red-800/40 border-rose-400/60 text-rose-200'
+            };
+
+            return `
+                <div class="relative ${sizeClass} rounded-full bg-gradient-to-b ${ringColors[basePlayer.pos]} border-2 flex items-center justify-center shadow-inner mx-auto shrink-0">
+                    <i class="fa-solid fa-user-tie text-white/15 text-3xl absolute"></i>
+                    <span class="font-oswald font-bold text-lg sm:text-xl tracking-wider relative z-10 drop-shadow">${initials}</span>
+                    <span class="absolute -bottom-1 -right-1 text-sm bg-slate-900/90 rounded-full px-1 border border-slate-700 shadow">${basePlayer.flag}</span>
+                </div>
+            `;
+        }
+
+        // 완성형 선수 카드 HTML 생성
+        function renderPlayerCardHTML(playerInstance, options = {}) {
+            const base = PLAYER_DATABASE.find(p => p.id === playerInstance.baseId);
+            if (!base) return '';
+            const finalOvr = getPlayerFinalOvr(playerInstance);
+            const bonusOvr = finalOvr - base.ovr;
+            const tierClass = getTierClass(base.ovr);
+            const tierInfo = getTierName(base.ovr);
+            const isMax = playerInstance.grade === 13;
+            const isInSquad = gameState.squad.includes(playerInstance.uid);
+
+            return `
+                <div ${options.onClick ? `onclick="${options.onClick}"` : ''} class="player-card ${tierClass} ${isMax ? 'max-grade-glow' : ''} p-3.5 flex flex-col justify-between cursor-pointer select-none">
+                    <!-- 상단: OVR, 포지션 & 강화 등급 뱃지 -->
+                    <div class="flex items-start justify-between">
+                        <div class="leading-none">
+                            <div class="font-oswald text-2xl sm:text-3xl font-black text-white drop-shadow">${finalOvr}</div>
+                            <div class="text-xs font-black pos-${base.pos} tracking-wider mt-0.5">${base.pos}</div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="grade-${playerInstance.grade} px-2 py-0.5 rounded text-xs font-oswald font-bold shadow">
+                                +${playerInstance.grade}
+                            </span>
+                            ${isInSquad ? '<span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">선발</span>' : ''}
+                        </div>
+                    </div>
+
+                    <!-- 중앙: 미니 페이스온 -->
+                    <div class="my-3">
+                        ${renderMiniFaceonHTML(base, 'w-16 h-16 sm:w-18 sm:h-18')}
+                    </div>
+
+                    <!-- 하단: 선수 이름, 소속팀, 기본 OVR 비교 -->
+                    <div class="text-center space-y-1">
+                        <div class="text-[10px] font-bold tracking-widest ${tierInfo.color}">${tierInfo.label}</div>
+                        <div class="text-sm font-black text-white truncate" title="${base.name}">${base.name}</div>
+                        <div class="text-[11px] text-slate-300/80 truncate">${base.flag} ${base.club}</div>
+                        <div class="pt-1.5 mt-1 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-300">
+                            <span>기본 ${base.ovr}</span>
+                            <span class="text-emerald-400 font-bold">${bonusOvr > 0 ? `강화 +${bonusOvr}` : '강화 +0'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* =========================================================================
+           7. 내비게이션 및 전역 상태 업데이트
+        ========================================================================= */
+        let currentTab = 'home';
+
+        function switchTab(tabId) {
+            AudioEngine.playClick();
+            currentTab = tabId;
+
+            document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.remove('border-transparent', 'text-slate-400');
+                    btn.classList.add('border-[#d4af37]', 'text-[#d4af37]');
+                } else {
+                    btn.classList.add('border-transparent', 'text-slate-400');
+                    btn.classList.remove('border-[#d4af37]', 'text-[#d4af37]');
+                }
+            });
+
+            // 탭별 데이터 갱신
+            if (tabId === 'home') renderHome();
+            if (tabId === 'packs') renderPoolPreview('ALL');
+            if (tabId === 'club') renderClub();
+            if (tabId === 'enhance') renderEnhanceTab();
+            if (tabId === 'squad') renderSquadTab();
+            if (tabId === 'missions') renderMissionsTab();
+        }
+
+        function calculateTeamOvr() {
+            const activePlayers = gameState.squad
+                .map(uid => gameState.players.find(p => p.uid === uid))
+                .filter(Boolean);
+
+            if (activePlayers.length === 0) return { avg: 0, count: 0 };
+            const sum = activePlayers.reduce((acc, p) => acc + getPlayerFinalOvr(p), 0);
+            return {
+                avg: Math.round((sum / activePlayers.length) * 10) / 10,
+                count: activePlayers.length
+            };
+        }
+
+        function updateGlobalUI() {
+            document.getElementById('header-coins').textContent = gameState.coins.toLocaleString();
+            document.getElementById('nav-player-count').textContent = gameState.players.length;
+
+            const teamInfo = calculateTeamOvr();
+            document.getElementById('header-team-ovr').textContent = teamInfo.avg.toFixed(1);
+
+            // 수령 가능한 미션이 있는지 뱃지 표시
+            const hasClaimable = checkAnyClaimableMission();
+            const badge = document.getElementById('mission-badge');
+            if (hasClaimable) badge.classList.remove('hidden');
+            else badge.classList.add('hidden');
+
+            // 구단주 및 구단 프로필 헤더 반영
+            const clubTitle = gameState.clubName || 'Next Football Club';
+            const ownerTitle = gameState.ownerName || '구단주';
+            const accLabel = gameState.accountId ? ` (ID: ${gameState.accountId})` : '';
+            const colorClass = EMBLEM_COLORS[gameState.emblemColor] || EMBLEM_COLORS.gold;
+            const iconClass = gameState.emblemIcon || 'fa-crown';
+
+            document.getElementById('header-club-name').textContent = clubTitle;
+            document.getElementById('header-owner-subtitle').textContent = `구단주: ${ownerTitle}${accLabel}`;
+            const headerBox = document.getElementById('header-emblem-box');
+            headerBox.className = `w-10 h-10 rounded-xl bg-gradient-to-br ${colorClass} flex items-center justify-center font-black text-xl shadow-md`;
+            document.getElementById('header-emblem-icon').className = `fa-solid ${iconClass}`;
+        }
+
+        /* =========================================================================
+           8-1. 전용 아이디/비밀번호 로그인 & 구단 창단 온보딩 로직
+        ========================================================================= */
+        let tempObIcon = 'fa-crown';
+        let tempObColor = 'gold';
+
+        function switchAuthMode(mode) {
+            AudioEngine.playClick();
+            const btnReg = document.getElementById('auth-tab-register');
+            const btnLog = document.getElementById('auth-tab-login');
+            const panelReg = document.getElementById('auth-panel-register');
+            const panelLog = document.getElementById('auth-panel-login');
+
+            if (mode === 'register') {
+                btnReg.className = 'py-2.5 rounded-xl bg-[#d4af37] text-slate-950 font-black text-xs sm:text-sm transition';
+                btnLog.className = 'py-2.5 rounded-xl text-slate-400 hover:text-white font-bold text-xs sm:text-sm transition';
+                panelReg.classList.remove('hidden');
+                panelLog.classList.add('hidden');
+            } else {
+                btnLog.className = 'py-2.5 rounded-xl bg-sky-500 text-white font-black text-xs sm:text-sm transition';
+                btnReg.className = 'py-2.5 rounded-xl text-slate-400 hover:text-white font-bold text-xs sm:text-sm transition';
+                panelLog.classList.remove('hidden');
+                panelReg.classList.add('hidden');
+            }
+        }
+
+        function openOnboarding(defaultMode = 'register') {
+            tempObIcon = 'fa-crown';
+            tempObColor = 'gold';
+            document.getElementById('reg-userid').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('ob-input-owner').value = '';
+            document.getElementById('ob-input-club').value = 'Next Football Club';
+            document.getElementById('login-userid').value = '';
+            document.getElementById('login-password').value = '';
+            switchAuthMode(defaultMode);
+            updateOnboardingPreview();
+            document.getElementById('onboarding-overlay').classList.remove('hidden');
+        }
+
+        function selectObIcon(icon, btn) {
+            AudioEngine.playClick();
+            tempObIcon = icon;
+            document.querySelectorAll('.ob-icon-btn').forEach(b => {
+                b.className = 'ob-icon-btn py-2 rounded-xl bg-[#0b111e] border border-slate-700 text-slate-400 hover:text-white text-base transition';
+            });
+            btn.className = 'ob-icon-btn py-2 rounded-xl bg-[#d4af37]/20 border border-[#d4af37] text-[#d4af37] text-base transition';
+            updateOnboardingPreview();
+        }
+
+        function selectObColor(colorKey, btn) {
+            AudioEngine.playClick();
+            tempObColor = colorKey;
+            document.querySelectorAll('.ob-color-btn').forEach(b => {
+                b.classList.remove('ring-2', 'ring-white');
+                b.classList.add('opacity-70');
+            });
+            btn.classList.remove('opacity-70');
+            btn.classList.add('ring-2', 'ring-white');
+            updateOnboardingPreview();
+        }
+
+        function updateOnboardingPreview() {
+            const ownerVal = document.getElementById('ob-input-owner').value.trim() || '신규 구단주';
+            const clubVal = document.getElementById('ob-input-club').value.trim() || 'Next Football Club';
+
+            document.getElementById('ob-preview-owner').textContent = ownerVal;
+            document.getElementById('ob-preview-club').textContent = clubVal;
+
+            const emblemBox = document.getElementById('ob-preview-emblem');
+            const colorClass = EMBLEM_COLORS[tempObColor] || EMBLEM_COLORS.gold;
+            emblemBox.className = `w-14 h-14 rounded-2xl bg-gradient-to-br ${colorClass} flex items-center justify-center text-2xl shadow-lg shrink-0 transition-all`;
+            document.getElementById('ob-preview-icon').className = `fa-solid ${tempObIcon}`;
+        }
+
+        async function registerNewAccount() {
+            const accountId = document.getElementById('reg-userid').value.trim().toLowerCase();
+            const password = document.getElementById('reg-password').value;
+            const ownerInput = document.getElementById('ob-input-owner').value.trim();
+            const clubInput = document.getElementById('ob-input-club').value.trim();
+
+            if (!/^[a-z0-9_]{4,16}$/.test(accountId)) {
+                AudioEngine.playEnhanceFail();
+                showToast('아이디는 영문 소문자, 숫자, 밑줄(_) 4~16자로 입력해 주세요.', 'error');
+                document.getElementById('reg-userid').focus();
+                return;
+            }
+            if (!password || password.length < 4) {
+                AudioEngine.playEnhanceFail();
+                showToast('비밀번호는 4자 이상으로 설정해 주세요.', 'error');
+                document.getElementById('reg-password').focus();
+                return;
+            }
+            if (!ownerInput) {
+                AudioEngine.playEnhanceFail();
+                showToast('구단주 닉네임을 입력해 주세요!', 'error');
+                document.getElementById('ob-input-owner').focus();
+                return;
+            }
+            if (!clubInput) {
+                AudioEngine.playEnhanceFail();
+                showToast('구단 이름을 입력해 주세요!', 'error');
+                document.getElementById('ob-input-club').focus();
+                return;
+            }
+
+            const btn = document.getElementById('btn-register-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 계정 생성 확인 중...';
+
+            try {
+                // 중복 아이디 검사 (클라우드 및 로컬 확인)
+                const existingCloud = typeof window.fetchAccountFromCloud === 'function'
+                    ? await window.fetchAccountFromCloud(accountId)
+                    : null;
+                const existingLocal = localStorage.getItem('NEXT_FC_ACC_' + accountId);
+
+                if (existingCloud || existingLocal) {
+                    AudioEngine.playEnhanceFail();
+                    showToast('이미 사용 중인 아이디입니다! 다른 아이디를 입력해 주세요.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> 아이디 생성 및 구단 창단';
+                    return;
+                }
+
+                const pwHash = typeof window.hashUserPassword === 'function'
+                    ? await window.hashUserPassword(password)
+                    : btoa(password);
+
+                const freshState = createInitialState();
+                freshState.ownerCreated = true;
+                freshState.accountId = accountId;
+                freshState.passwordHash = pwHash;
+                freshState.ownerName = ownerInput;
+                freshState.clubName = clubInput;
+                freshState.emblemIcon = tempObIcon;
+                freshState.emblemColor = tempObColor;
+
+                gameState = freshState;
+                saveGameState();
+
+                AudioEngine.playWalkoutReveal(true);
+                document.getElementById('onboarding-overlay').classList.add('hidden');
+                switchTab('home');
+                showToast(`계정(${accountId}) 생성 완료! '${clubInput}' 구단이 창단되었습니다!`, 'gold');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> 아이디 생성 및 구단 창단';
+            }
+        }
+
+        async function loginExistingAccount() {
+            const accountId = document.getElementById('login-userid').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+
+            if (!accountId || !password) {
+                AudioEngine.playEnhanceFail();
+                showToast('아이디와 비밀번호를 모두 입력해 주세요.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btn-login-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 구단 데이터 불러오는 중...';
+
+            try {
+                const pwHash = typeof window.hashUserPassword === 'function'
+                    ? await window.hashUserPassword(password)
+                    : btoa(password);
+
+                let loadedState = null;
+
+                // 1순위: 클라우드 DB에서 조회
+                if (typeof window.fetchAccountFromCloud === 'function') {
+                    const cloudDoc = await window.fetchAccountFromCloud(accountId);
+                    if (cloudDoc) {
+                        if (cloudDoc.passwordHash !== pwHash) {
+                            AudioEngine.playEnhanceFail();
+                            showToast('비밀번호가 일치하지 않습니다.', 'error');
+                            return;
+                        }
+                        loadedState = JSON.parse(cloudDoc.stateJson);
+                    }
+                }
+
+                // 2순위: 로컬 저장소에서 조회
+                if (!loadedState) {
+                    const localRaw = localStorage.getItem('NEXT_FC_ACC_' + accountId);
+                    if (localRaw) {
+                        const parsed = JSON.parse(localRaw);
+                        if (parsed.passwordHash !== pwHash) {
+                            AudioEngine.playEnhanceFail();
+                            showToast('비밀번호가 일치하지 않습니다.', 'error');
+                            return;
+                        }
+                        loadedState = parsed;
+                    }
+                }
+
+                if (!loadedState) {
+                    AudioEngine.playEnhanceFail();
+                    showToast('존재하지 않는 아이디입니다. 신규 구단 창단을 먼저 진행해 주세요.', 'error');
+                    return;
+                }
+
+                const base = createInitialState();
+                gameState = { ...base, ...loadedState };
+                saveGameState();
+
+                AudioEngine.playWalkoutReveal(true);
+                document.getElementById('onboarding-overlay').classList.add('hidden');
+                switchTab('home');
+                showToast(`환영합니다, ${gameState.ownerName} 구단주님! 구단 데이터를 불러왔습니다.`, 'gold');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> 로그인하여 구단 접속하기';
+            }
+        }
+
+        function logoutAccount() {
+            AudioEngine.playClick();
+            localStorage.removeItem(STORAGE_KEY);
+            gameState = createInitialState();
+            updateGlobalUI();
+            openOnboarding('login');
+            showToast('로그아웃되었습니다. 다른 아이디로 로그인하거나 새 구단을 창단하세요.', 'info');
+        }
+
+        /* =========================================================================
+           9. 홈 화면 렌더링
+        ========================================================================= */
+        function renderHome() {
+            document.getElementById('home-owner-badge').textContent = `OWNER · ${gameState.ownerName || '구단주'} | SEASON 2026`;
+            document.getElementById('home-club-title').textContent = gameState.clubName || 'Next Football Club';
+
+            const teamInfo = calculateTeamOvr();
+            document.getElementById('home-team-ovr').textContent = teamInfo.avg.toFixed(1);
+            document.getElementById('home-squad-count').textContent = `${teamInfo.count} / 11명 배치됨`;
+            document.getElementById('home-total-players').textContent = `${gameState.players.length}명`;
+
+            const maxGrade = gameState.players.reduce((max, p) => Math.max(max, p.grade), 1);
+            document.getElementById('home-max-grade').textContent = `+${maxGrade}`;
+            document.getElementById('home-enhance-stats').textContent = `${gameState.stats.enhanceSuccesses} / ${gameState.stats.enhanceAttempts}`;
+
+            const topContainer = document.getElementById('home-top-players');
+            if (gameState.players.length === 0) {
+                topContainer.innerHTML = `
+                    <div class="col-span-full py-10 text-center text-xs text-slate-500 border border-dashed border-slate-700 rounded-xl">
+                        아직 보유한 선수가 없습니다. [선수팩] 메뉴에서 첫 선수를 영입해 보세요!
+                    </div>
+                `;
+                return;
+            }
+
+            const sorted = [...gameState.players]
+                .sort((a, b) => getPlayerFinalOvr(b) - getPlayerFinalOvr(a))
+                .slice(0, 4);
+
+            topContainer.innerHTML = sorted
+                .map(p => renderPlayerCardHTML(p, { onClick: `openPlayerDetail('${p.uid}')` }))
+                .join('');
+        }
+
+        /* =========================================================================
+           10. 선수팩 시스템 & 드라마틱 워크아웃 연출
+        ========================================================================= */
+        let walkoutTimers = [];
+        let currentWalkoutPlayer = null;
+
+        function renderPoolPreview(posFilter = 'ALL') {
+            const btns = document.querySelectorAll('#pool-filter-btns button');
+            btns.forEach(b => {
+                const isMatch = (posFilter === 'ALL' && b.textContent === '전체') || b.textContent === posFilter;
+                b.className = isMatch
+                    ? 'px-3 py-1 rounded-lg text-xs font-bold bg-[#d4af37] text-slate-950'
+                    : 'px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700';
+            });
+
+            const list = PLAYER_DATABASE
+                .filter(p => posFilter === 'ALL' || p.pos === posFilter)
+                .sort((a, b) => b.ovr - a.ovr);
+
+            const container = document.getElementById('pack-pool-list');
+            container.innerHTML = list.map(p => {
+                const tier = getTierName(p.ovr);
+                return `
+                    <div class="bg-[#0b111e] border border-slate-800 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                        <div class="truncate pr-1">
+                            <span class="font-bold pos-${p.pos} mr-1">${p.pos}</span>
+                            <span class="text-white font-bold">${p.name}</span>
+                        </div>
+                        <span class="font-oswald font-bold ${tier.color} shrink-0">${p.ovr}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function drawPlayerByPosition(pos) {
+            const pool = PLAYER_DATABASE.filter(p => p.pos === pos);
+            // 등급별 가중치 부여 (일반 55%, 상위 28%, 월클 12%, 레전드 5%)
+            const roll = Math.random() * 100;
+            let filteredPool = [];
+
+            if (roll < 5) {
+                filteredPool = pool.filter(p => p.ovr >= 99);
+            } else if (roll < 17) {
+                filteredPool = pool.filter(p => p.ovr >= 95 && p.ovr <= 98);
+            } else if (roll < 45) {
+                filteredPool = pool.filter(p => p.ovr >= 90 && p.ovr <= 94);
+            } else {
+                filteredPool = pool.filter(p => p.ovr <= 89);
+            }
+
+            if (filteredPool.length === 0) filteredPool = pool;
+            const chosenBase = filteredPool[Math.floor(Math.random() * filteredPool.length)];
+
+            // 독립적인 선수 인스턴스 생성 (중복 보유 시에도 완전히 별도 강화 상태 유지)
+            return {
+                uid: 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+                baseId: chosenBase.id,
+                grade: 1,
+                totalTries: 0,
+                stageTries: 0,
+                successCount: 0,
+                failCount: 0,
+                history: [],
+                createdAt: Date.now()
+            };
+        }
+
+        function buyPack(pos) {
+            const price = PACK_PRICES[pos];
+            if (gameState.coins < price) {
+                AudioEngine.playEnhanceFail();
+                showToast(`코인이 부족합니다! (필요 코인: ${price.toLocaleString()} COIN)`, 'error');
+                return;
+            }
+
+            gameState.coins -= price;
+            const newPlayer = drawPlayerByPosition(pos);
+            gameState.players.push(newPlayer);
+
+            // 통계 업데이트
+            gameState.stats.packsOpened += 1;
+            gameState.dailyStats.packsOpened += 1;
+            gameState.repeatableCounts.rep_pack += 1;
+
+            // 빈 선발 슬롯 중 동일 포지션 자리가 비어있으면 편의상 자동 추천 배치 (선택적 편의 기능)
+            const formationSlots = FORMATIONS[gameState.formation];
+            const emptyMatchingSlot = formationSlots.find(s => s.pos === pos && gameState.squad[s.slotIdx] === null);
+            if (emptyMatchingSlot) {
+                gameState.squad[emptyMatchingSlot.slotIdx] = newPlayer.uid;
+            }
+
+            saveGameState();
+            startWalkout(newPlayer);
+        }
+
+        function startWalkout(playerInstance) {
+            clearWalkoutTimers();
+            currentWalkoutPlayer = playerInstance;
+            const base = PLAYER_DATABASE.find(p => p.id === playerInstance.baseId);
+            const isHighTier = base.ovr >= 95;
+            const isLegend = base.ovr >= 99;
+
+            const overlay = document.getElementById('walkout-overlay');
+            const stageLabel = document.getElementById('wo-stage-label');
+            const packCore = document.getElementById('wo-pack-core');
+            const silhouette = document.getElementById('wo-silhouette');
+            const bigFlag = document.getElementById('wo-big-flag');
+            const posBadge = document.getElementById('wo-pos-badge');
+            const cardReveal = document.getElementById('wo-card-reveal');
+            const posNationEl = document.getElementById('wo-reveal-pos-nation');
+            const nameEl = document.getElementById('wo-reveal-name');
+            const ovrEl = document.getElementById('wo-reveal-ovr');
+            const btnConfirm = document.getElementById('wo-btn-confirm');
+            const flare = document.getElementById('walkout-flare');
+            const whiteFlash = document.getElementById('wo-white-flash');
+            const beamLeft = document.getElementById('wo-beam-left');
+            const beamRight = document.getElementById('wo-beam-right');
+
+            // 초기화
+            overlay.classList.remove('hidden');
+            packCore.classList.remove('hidden');
+            silhouette.classList.add('hidden');
+            silhouette.classList.remove('scale-110');
+            cardReveal.classList.add('hidden');
+            cardReveal.classList.remove('anim-card-flip', 'holo-sweep');
+            cardReveal.innerHTML = renderPlayerCardHTML(playerInstance);
+
+            bigFlag.textContent = base.flag;
+            posBadge.textContent = `${base.pos} · ${base.nation}`;
+
+            posNationEl.className = 'opacity-0 transition-all duration-300 text-sm font-bold text-slate-300';
+            nameEl.className = 'opacity-0 transition-all duration-300 text-2xl sm:text-3xl font-black text-white tracking-tight';
+            ovrEl.className = 'opacity-0 transition-all duration-300 font-oswald text-3xl font-bold text-[#d4af37]';
+            btnConfirm.classList.add('hidden');
+
+            flare.style.opacity = '0';
+            whiteFlash.style.opacity = '0';
+
+            // 등급별 터널 스포트라이트 색상 테마 설정
+            if (isLegend) {
+                flare.style.background = 'radial-gradient(circle, rgba(212,175,55,0.55) 0%, transparent 72%)';
+                beamLeft.style.background = 'linear-gradient(180deg, rgba(250,204,21,0.45) 0%, transparent 85%)';
+                beamRight.style.background = 'linear-gradient(180deg, rgba(250,204,21,0.45) 0%, transparent 85%)';
+            } else if (isHighTier) {
+                flare.style.background = 'radial-gradient(circle, rgba(168,85,247,0.48) 0%, transparent 72%)';
+                beamLeft.style.background = 'linear-gradient(180deg, rgba(192,132,252,0.4) 0%, transparent 85%)';
+                beamRight.style.background = 'linear-gradient(180deg, rgba(56,189,248,0.4) 0%, transparent 85%)';
+            } else {
+                flare.style.background = 'radial-gradient(circle, rgba(56,189,248,0.28) 0%, transparent 72%)';
+                beamLeft.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 85%)';
+                beamRight.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 85%)';
+            }
+
+            stageLabel.textContent = 'PLAYER PACK CHARGING...';
+            AudioEngine.playTone(180, 'sine', 0.65, 0, 0.16);
+
+            // 1단계 (0.75초): 팩 폭발 섬광 + 국기 및 포지션 실루엣 등장 (FC온라인 국기 점등 오마주)
+            walkoutTimers.push(setTimeout(() => {
+                whiteFlash.style.opacity = '0.85';
+                setTimeout(() => { whiteFlash.style.opacity = '0'; }, 160);
+
+                packCore.classList.add('hidden');
+                silhouette.classList.remove('hidden');
+                flare.style.opacity = '1';
+                stageLabel.textContent = isLegend ? '★ LEGENDARY WALKOUT ★' : (isHighTier ? 'WORLD CLASS WALKOUT!' : 'STADIUM TUNNEL OPENING...');
+
+                requestAnimationFrame(() => {
+                    bigFlag.classList.remove('scale-75');
+                    bigFlag.classList.add('scale-110');
+                });
+
+                posNationEl.textContent = `${base.flag} ${base.nation} · ${base.pos}`;
+                posNationEl.classList.remove('opacity-0');
+                AudioEngine.playPackBoom();
+            }, 750));
+
+            // 2단계 (1.65초): 소속 클럽 및 선수 이름 공개
+            walkoutTimers.push(setTimeout(() => {
+                silhouette.classList.add('scale-105');
+                posNationEl.textContent = `${base.flag} ${base.nation} · ${base.pos} (${base.club})`;
+                nameEl.textContent = base.name;
+                nameEl.classList.remove('opacity-0');
+                AudioEngine.playTone(440, 'triangle', 0.3, 0, 0.15);
+            }, 1650));
+
+            // 3단계 (2.55초): 섬광과 함께 선수 카드 3D 플립 & OVR 완전 공개
+            walkoutTimers.push(setTimeout(() => {
+                revealWalkoutFinal(base, isHighTier, isLegend);
+            }, 2550));
+        }
+
+        function revealWalkoutFinal(base, isHighTier, isLegend) {
+            const stageLabel = document.getElementById('wo-stage-label');
+            const packCore = document.getElementById('wo-pack-core');
+            const silhouette = document.getElementById('wo-silhouette');
+            const cardReveal = document.getElementById('wo-card-reveal');
+            const posNationEl = document.getElementById('wo-reveal-pos-nation');
+            const nameEl = document.getElementById('wo-reveal-name');
+            const ovrEl = document.getElementById('wo-reveal-ovr');
+            const btnConfirm = document.getElementById('wo-btn-confirm');
+            const flare = document.getElementById('walkout-flare');
+            const whiteFlash = document.getElementById('wo-white-flash');
+
+            whiteFlash.style.opacity = isHighTier ? '0.95' : '0.6';
+            setTimeout(() => { whiteFlash.style.opacity = '0'; }, 220);
+
+            flare.style.opacity = '1';
+            packCore.classList.add('hidden');
+            silhouette.classList.add('hidden');
+            cardReveal.classList.remove('hidden');
+            cardReveal.classList.add('anim-card-flip', 'holo-sweep');
+
+            posNationEl.textContent = `${base.flag} ${base.nation} · ${base.pos} (${base.club})`;
+            posNationEl.classList.remove('opacity-0');
+            nameEl.textContent = base.name;
+            nameEl.classList.remove('opacity-0');
+
+            const tier = getTierName(base.ovr);
+            ovrEl.innerHTML = `<span class="text-sm font-sans ${tier.color} mr-2">[${tier.label}]</span>OVR ${base.ovr}`;
+            ovrEl.classList.remove('opacity-0');
+
+            stageLabel.textContent = 'PLAYER ACQUIRED!';
+            btnConfirm.classList.remove('hidden');
+
+            AudioEngine.playWalkoutReveal(isHighTier);
+
+            if (isHighTier && typeof confetti === 'function') {
+                confetti({
+                    particleCount: isLegend ? 150 : 80,
+                    spread: 85,
+                    origin: { y: 0.6 },
+                    colors: isLegend ? ['#d4af37', '#fef08a', '#ffffff'] : ['#c084fc', '#38bdf8', '#ffffff']
+                });
+            }
+        }
+
+        function skipWalkout() {
+            clearWalkoutTimers();
+            if (!currentWalkoutPlayer) return;
+            const base = PLAYER_DATABASE.find(p => p.id === currentWalkoutPlayer.baseId);
+            revealWalkoutFinal(base, base.ovr >= 95, base.ovr >= 99);
+        }
+
+        function clearWalkoutTimers() {
+            walkoutTimers.forEach(t => clearTimeout(t));
+            walkoutTimers = [];
+        }
+
+        function closeWalkout() {
+            clearWalkoutTimers();
+            document.getElementById('walkout-overlay').classList.add('hidden');
+            showToast('선수가 보관함에 등록되었습니다!', 'success');
+        }
+
+        /* =========================================================================
+           11. 선수 보관함 & 상세 모달
+        ========================================================================= */
+        function renderClub() {
+            const keyword = document.getElementById('club-search').value.trim().toLowerCase();
+            const posFilter = document.getElementById('club-pos-filter').value;
+            const sortBy = document.getElementById('club-sort').value;
+
+            let list = gameState.players.map(p => {
+                const base = PLAYER_DATABASE.find(b => b.id === p.baseId);
+                return { instance: p, base, finalOvr: getPlayerFinalOvr(p) };
+            });
+
+            if (keyword) {
+                list = list.filter(item =>
+                    item.base.name.toLowerCase().includes(keyword) ||
+                    item.base.en.toLowerCase().includes(keyword) ||
+                    item.base.club.toLowerCase().includes(keyword)
+                );
+            }
+
+            if (posFilter !== 'ALL') {
+                list = list.filter(item => item.base.pos === posFilter);
+            }
+
+            list.sort((a, b) => {
+                if (sortBy === 'ovr-desc') return b.finalOvr - a.finalOvr;
+                if (sortBy === 'ovr-asc') return a.finalOvr - b.finalOvr;
+                if (sortBy === 'grade-desc') return b.instance.grade - a.instance.grade || b.finalOvr - a.finalOvr;
+                if (sortBy === 'grade-asc') return a.instance.grade - b.instance.grade;
+                if (sortBy === 'recent') return b.instance.createdAt - a.instance.createdAt;
+                return 0;
+            });
+
+            const grid = document.getElementById('club-grid');
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-sm text-slate-500 bg-[#131c2e] border border-slate-800 rounded-2xl">
+                        조건에 해당하는 보유 선수가 없습니다.
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = list
+                .map(item => renderPlayerCardHTML(item.instance, { onClick: `openPlayerDetail('${item.instance.uid}')` }))
+                .join('');
+        }
+
+        function openPlayerDetail(uid) {
+            AudioEngine.playClick();
+            const p = gameState.players.find(item => item.uid === uid);
+            if (!p) return;
+            const base = PLAYER_DATABASE.find(b => b.id === p.baseId);
+            const finalOvr = getPlayerFinalOvr(p);
+            const bonusOvr = finalOvr - base.ovr;
+
+            const content = document.getElementById('modal-detail-content');
+            content.innerHTML = `
+                <div class="flex items-center gap-4 bg-[#0b111e] p-4 rounded-xl border border-slate-800">
+                    ${renderMiniFaceonHTML(base, 'w-20 h-20')}
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-xs font-black bg-slate-800 pos-${base.pos}">${base.pos}</span>
+                            <span class="grade-${p.grade} px-2 py-0.5 rounded text-xs font-oswald font-bold">+${p.grade}강</span>
+                        </div>
+                        <h4 class="text-xl font-black text-white">${base.name}</h4>
+                        <p class="text-xs text-slate-400">${base.flag} ${base.nation} · ${base.club}</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="bg-[#0b111e] p-3 rounded-xl border border-slate-800">
+                        <div class="text-[11px] text-slate-400">기본 OVR</div>
+                        <div class="font-oswald text-xl font-bold text-slate-200">${base.ovr}</div>
+                    </div>
+                    <div class="bg-[#0b111e] p-3 rounded-xl border border-slate-800">
+                        <div class="text-[11px] text-slate-400">강화 보너스</div>
+                        <div class="font-oswald text-xl font-bold text-emerald-400">+${bonusOvr}</div>
+                    </div>
+                    <div class="bg-[#0b111e] p-3 rounded-xl border border-[#d4af37]/40">
+                        <div class="text-[11px] text-[#d4af37]">최종 OVR</div>
+                        <div class="font-oswald text-2xl font-black text-[#d4af37]">${finalOvr}</div>
+                    </div>
+                </div>
+
+                <div class="bg-[#0b111e] p-3.5 rounded-xl border border-slate-800 text-xs space-y-1.5 text-slate-300">
+                    <div class="flex justify-between"><span>총 강화 시도 횟수</span><span class="font-bold text-white">${p.totalTries}회</span></div>
+                    <div class="flex justify-between"><span>현재 단계(+${p.grade}강) 시도 횟수</span><span class="font-bold text-sky-400">${p.stageTries}회</span></div>
+                    <div class="flex justify-between"><span>성공 / 실패 기록</span><span class="font-bold"><span class="text-emerald-400">${p.successCount}승</span> / <span class="text-rose-400">${p.failCount}패</span></span></div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button onclick="goToEnhancePlayer('${p.uid}')" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b59124] text-slate-950 font-black text-sm shadow-lg hover:brightness-110 transition">
+                        <i class="fa-solid fa-angles-up mr-1"></i> 이 선수 강화하기
+                    </button>
+                    <button onclick="closeModal('modal-player-detail')" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm">
+                        닫기
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('modal-player-detail').classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function goToEnhancePlayer(uid) {
+            closeModal('modal-player-detail');
+            gameState.selectedEnhanceUid = uid;
+            switchTab('enhance');
+        }
+
+        /* =========================================================================
+           12. 선수 강화 시스템 (1강 ~ 13강, 정확한 확률 및 무작위 단계 하락)
+        ========================================================================= */
+        let isEnhancing = false;
+
+        function renderEnhanceTable() {
+            const container = document.getElementById('enhance-table-grid');
+            let html = '';
+            for (let g = 1; g <= 12; g++) {
+                const info = ENHANCE_TABLE[g];
+                html += `
+                    <div class="bg-[#0b111e] border border-slate-800 rounded-xl p-2">
+                        <div class="font-bold text-slate-300">${g}&rarr;${info.next}강</div>
+                        <div class="font-oswald text-sm font-bold text-[#d4af37]">${info.prob}%</div>
+                        <div class="text-[10px] text-emerald-400">OVR +${info.ovrGain}</div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderEnhanceTab() {
+            renderEnhanceTable();
+            renderEnhanceSidebar();
+            renderEnhanceStage();
+        }
+
+        function renderEnhanceSidebar() {
+            const posFilter = document.getElementById('enhance-pos-filter').value;
+            const listContainer = document.getElementById('enhance-player-list');
+
+            const filtered = gameState.players
+                .map(p => ({ instance: p, base: PLAYER_DATABASE.find(b => b.id === p.baseId), finalOvr: getPlayerFinalOvr(p) }))
+                .filter(item => posFilter === 'ALL' || item.base.pos === posFilter)
+                .sort((a, b) => b.finalOvr - a.finalOvr);
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `<div class="text-center text-xs text-slate-500 py-10">선택 가능한 선수가 없습니다.</div>`;
+                return;
+            }
+
+            listContainer.innerHTML = filtered.map(item => {
+                const isSelected = item.instance.uid === gameState.selectedEnhanceUid;
+                return `
+                    <div onclick="selectEnhancePlayer('${item.instance.uid}')" class="p-2.5 rounded-xl border cursor-pointer transition flex items-center justify-between ${isSelected ? 'bg-[#d4af37]/15 border-[#d4af37]' : 'bg-[#0b111e] border-slate-800 hover:border-slate-600'}">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="grade-${item.instance.grade} px-2 py-0.5 rounded text-xs font-oswald font-bold shrink-0">+${item.instance.grade}</span>
+                            <div class="truncate">
+                                <div class="text-xs font-bold text-white truncate">${item.base.name}</div>
+                                <div class="text-[10px] text-slate-400"><span class="pos-${item.base.pos} font-bold">${item.base.pos}</span> · 기본 ${item.base.ovr}</div>
+                            </div>
+                        </div>
+                        <div class="font-oswald text-lg font-bold text-[#d4af37] shrink-0 pl-2">${item.finalOvr}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectEnhancePlayer(uid) {
+            if (isEnhancing) return;
+            AudioEngine.playClick();
+            gameState.selectedEnhanceUid = uid;
+            document.getElementById('enhance-result-banner').innerHTML = '';
+            renderEnhanceSidebar();
+            renderEnhanceStage();
+        }
+
+        function renderEnhanceStage() {
+            const emptyBox = document.getElementById('enhance-stage-empty');
+            const activeBox = document.getElementById('enhance-stage-active');
+
+            const player = gameState.players.find(p => p.uid === gameState.selectedEnhanceUid);
+            if (!player) {
+                emptyBox.classList.remove('hidden');
+                activeBox.classList.add('hidden');
+                return;
+            }
+
+            emptyBox.classList.add('hidden');
+            activeBox.classList.remove('hidden');
+
+            // 카드 렌더링
+            document.getElementById('enhance-card-wrapper').innerHTML = renderPlayerCardHTML(player);
+
+            const currGrade = player.grade;
+            const currOvr = getPlayerFinalOvr(player);
+            const currGradeEl = document.getElementById('enh-curr-grade');
+            const nextGradeEl = document.getElementById('enh-next-grade');
+            const btnEnhance = document.getElementById('btn-do-enhance');
+
+            currGradeEl.textContent = `+${currGrade}`;
+            currGradeEl.className = `grade-${currGrade} px-2.5 py-0.5 rounded text-sm font-oswald`;
+
+            document.getElementById('enh-total-tries').textContent = `${player.totalTries}회`;
+            document.getElementById('enh-stage-tries').textContent = `${player.stageTries}회`;
+            document.getElementById('enh-player-wl').textContent = `성공 ${player.successCount} / 실패 ${player.failCount}`;
+
+            // 최근 기록 뱃지 렌더
+            const historyEl = document.getElementById('enh-history-log');
+            if (!player.history || player.history.length === 0) {
+                historyEl.innerHTML = '아직 강화 기록이 없습니다.';
+            } else {
+                historyEl.innerHTML = player.history.slice(-10).reverse().map(h => {
+                    if (h.success) {
+                        return `<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">성공 (+${h.from}&rarr;+${h.to})</span>`;
+                    } else {
+                        return `<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold">실패 (+${h.from}&rarr;+${h.to})</span>`;
+                    }
+                }).join('');
+            }
+
+            // 최고 단계(13강) 도달 시 처리
+            if (currGrade >= 13) {
+                nextGradeEl.textContent = 'MAX';
+                nextGradeEl.className = 'grade-13 px-2.5 py-0.5 rounded text-sm font-oswald';
+                document.getElementById('enh-curr-ovr').textContent = currOvr;
+                document.getElementById('enh-next-ovr').textContent = currOvr;
+                document.getElementById('enh-ovr-diff').textContent = '(최고 등급)';
+                document.getElementById('enh-prob-text').textContent = 'MAX';
+                document.getElementById('enh-prob-bar').style.width = '100%';
+                document.getElementById('enh-fail-warning').textContent = '★ 전설의 13강 최고 단계에 도달한 선수입니다!';
+                btnEnhance.disabled = true;
+                btnEnhance.className = 'w-full py-4 rounded-xl bg-slate-800 text-[#d4af37] border border-[#d4af37]/50 font-black text-base cursor-not-allowed flex items-center justify-center gap-2';
+                btnEnhance.innerHTML = '<i class="fa-solid fa-crown"></i> 최고 강화 단계 (+13강) 달성 완료';
+                return;
+            }
+
+            // 1~12강 강화 정보 표시
+            const rule = ENHANCE_TABLE[currGrade];
+            nextGradeEl.textContent = `+${rule.next}`;
+            nextGradeEl.className = `grade-${rule.next} px-2.5 py-0.5 rounded text-sm font-oswald`;
+
+            document.getElementById('enh-curr-ovr').textContent = currOvr;
+            document.getElementById('enh-next-ovr').textContent = currOvr + rule.ovrGain;
+            document.getElementById('enh-ovr-diff').textContent = `(+${rule.ovrGain})`;
+
+            document.getElementById('enh-prob-text').textContent = `${rule.prob}%`;
+            document.getElementById('enh-prob-bar').style.width = `${rule.prob}%`;
+
+            if (currGrade === 1) {
+                document.getElementById('enh-fail-warning').textContent = '* 1강 → 2강 구간은 100% 확률로 성공합니다.';
+            } else {
+                document.getElementById('enh-fail-warning').innerHTML = `* 실패 시 현재 단계보다 낮은 단계(1 ~ <span class="font-bold underline">${currGrade - 1}</span>강)로 무작위 하락합니다.`;
+            }
+
+            btnEnhance.disabled = false;
+            btnEnhance.className = 'w-full py-4 rounded-xl bg-gradient-to-r from-[#d4af37] via-[#e6c149] to-[#b89223] hover:brightness-110 active:scale-[0.99] text-slate-950 font-black text-lg shadow-xl transition flex items-center justify-center gap-2';
+            btnEnhance.innerHTML = `<i class="fa-solid fa-hammer"></i> +${currGrade}강 &rarr; +${rule.next}강 강화 시도 (성공률 ${rule.prob}%)`;
+        }
+
+        function executeEnhance() {
+            if (isEnhancing) return;
+            const player = gameState.players.find(p => p.uid === gameState.selectedEnhanceUid);
+            if (!player || player.grade >= 13) return;
+
+            isEnhancing = true;
+            const currGrade = player.grade;
+            const rule = ENHANCE_TABLE[currGrade];
+
+            const cardWrapper = document.getElementById('enhance-card-wrapper');
+            const stageContainer = document.getElementById('enhance-stage-container');
+            const stageFlash = document.getElementById('enhance-stage-flash');
+            const crackOverlay = document.getElementById('enhance-crack-overlay');
+            const chargeBox = document.getElementById('enhance-charge-box');
+            const chargeBar = document.getElementById('enhance-charge-bar');
+            const banner = document.getElementById('enhance-result-banner');
+            const btnEnhance = document.getElementById('btn-do-enhance');
+
+            // 이전 연출 클래스 초기화
+            cardWrapper.classList.remove('anim-success', 'anim-fail', 'holo-sweep', 'anim-charging');
+            stageContainer.classList.remove('screen-shake');
+            crackOverlay.classList.add('hidden');
+            banner.innerHTML = `<span class="text-[#d4af37] animate-pulse">강화 에너지 충전 중...</span>`;
+
+            // 버튼 비활성화 및 충전 UI 시작
+            btnEnhance.disabled = true;
+            btnEnhance.innerHTML = '<i class="fa-solid fa-bolt fa-spin"></i> 강화 게이지 충전 중...';
+            chargeBox.classList.remove('hidden');
+            chargeBar.style.width = '0%';
+            cardWrapper.classList.add('anim-charging');
+
+            // FC온라인 스타일 심장박동 게이지 충전 시퀀스 (약 1.05초)
+            let progress = 0;
+            let beatStep = 0;
+            AudioEngine.playHeartbeat(0);
+
+            const chargeInterval = setInterval(() => {
+                progress += 10;
+                chargeBar.style.width = `${Math.min(100, progress)}%`;
+                if (progress === 30 || progress === 60 || progress === 90) {
+                    beatStep++;
+                    AudioEngine.playHeartbeat(beatStep);
+                }
+            }, 95);
+
+            setTimeout(() => {
+                clearInterval(chargeInterval);
+                chargeBox.classList.add('hidden');
+                cardWrapper.classList.remove('anim-charging');
+
+                // 정확한 확률 판정 (0 ~ 100 미만 난수)
+                const roll = Math.random() * 100;
+                const isSuccess = roll < rule.prob;
+
+                player.totalTries += 1;
+                player.stageTries += 1;
+                gameState.stats.enhanceAttempts += 1;
+                gameState.dailyStats.enhanceAttempts += 1;
+
+                saveGameState();
+                renderEnhanceSidebar();
+                renderEnhanceStage();
+
+                const updatedCardWrapper = document.getElementById('enhance-card-wrapper');
+                void updatedCardWrapper.offsetWidth; // 리플로우 강제
+
+                if (isSuccess) {
+                    const newGrade = rule.next;
+                    player.grade = newGrade;
+                    player.stageTries = 0;
+                    player.successCount += 1;
+                    player.history.push({ success: true, from: currGrade, to: newGrade });
+
+                    gameState.stats.enhanceSuccesses += 1;
+                    gameState.dailyStats.enhanceSuccesses += 1;
+                    gameState.repeatableCounts.rep_enhance += 1;
+                    if (newGrade > gameState.stats.maxGradeReached) {
+                        gameState.stats.maxGradeReached = newGrade;
+                    }
+
+                    saveGameState();
+                    renderEnhanceSidebar();
+                    renderEnhanceStage();
+
+                    const finalCard = document.getElementById('enhance-card-wrapper');
+                    void finalCard.offsetWidth;
+                    finalCard.classList.add('anim-success', 'holo-sweep');
+
+                    // 스테이지 황금빛 섬광
+                    stageFlash.style.background = 'radial-gradient(circle, rgba(250,204,21,0.45) 0%, transparent 75%)';
+                    stageFlash.style.opacity = '1';
+                    setTimeout(() => { stageFlash.style.opacity = '0'; }, 400);
+
+                    AudioEngine.playEnhanceSuccess(newGrade >= 8);
+
+                    if (newGrade === 13) {
+                        banner.innerHTML = `<span class="text-[#d4af37] animate-bounce inline-block">★ 전설의 +13강 신화 달성!! ★</span>`;
+                        showToast('축하합니다! 최고 단계인 +13강 달성에 성공했습니다!', 'gold');
+                        if (typeof confetti === 'function') {
+                            confetti({ particleCount: 180, spread: 95, origin: { y: 0.55 }, colors: ['#d4af37', '#ffffff', '#38bdf8'] });
+                        }
+                    } else {
+                        banner.innerHTML = `<span class="text-emerald-400 font-black">강화 성공! (+${currGrade} &rarr; +${newGrade}강)</span>`;
+                        if (newGrade >= 5 && typeof confetti === 'function') {
+                            confetti({ particleCount: 65, spread: 65, origin: { y: 0.65 }, colors: ['#fde047', '#34d399', '#ffffff'] });
+                        }
+                    }
+                } else {
+                    // 실패 시: 현재 강화 단계보다 낮은 단계(1 ~ currGrade - 1) 중 무작위로 하락
+                    const maxDropGrade = Math.max(1, currGrade - 1);
+                    const droppedGrade = Math.floor(Math.random() * maxDropGrade) + 1;
+
+                    player.grade = droppedGrade;
+                    player.stageTries = 0;
+                    player.failCount += 1;
+                    player.history.push({ success: false, from: currGrade, to: droppedGrade });
+
+                    saveGameState();
+                    renderEnhanceSidebar();
+                    renderEnhanceStage();
+
+                    const finalCard = document.getElementById('enhance-card-wrapper');
+                    void finalCard.offsetWidth;
+                    finalCard.classList.add('anim-fail');
+                    stageContainer.classList.add('screen-shake');
+                    crackOverlay.classList.remove('hidden');
+
+                    // 스테이지 붉은 경고 섬광
+                    stageFlash.style.background = 'radial-gradient(circle, rgba(244,63,94,0.4) 0%, transparent 75%)';
+                    stageFlash.style.opacity = '1';
+                    setTimeout(() => { stageFlash.style.opacity = '0'; }, 450);
+                    setTimeout(() => { crackOverlay.classList.add('hidden'); }, 1300);
+
+                    AudioEngine.playEnhanceFail();
+                    banner.innerHTML = `<span class="text-rose-400 font-black">강화 실패... (+${currGrade} &rarr; +${droppedGrade}강 하락)</span>`;
+                }
+
+                isEnhancing = false;
+            }, 1050);
+        }
+
+                cardWrapper.classList.add('anim-success');
+                AudioEngine.playEnhanceSuccess(newGrade >= 8);
+
+                if (newGrade === 13) {
+                    banner.innerHTML = `<span class="text-[#d4af37] animate-bounce inline-block">★ 전설의 +13강 신화 달성!! ★</span>`;
+                    showToast('축하합니다! 최고 단계인 +13강 달성에 성공했습니다!', 'gold');
+                    if (typeof confetti === 'function') {
+                        confetti({ particleCount: 160, spread: 90, origin: { y: 0.55 }, colors: ['#d4af37', '#ffffff', '#38bdf8'] });
+                    }
+                } else {
+                    banner.innerHTML = `<span class="text-emerald-400">강화 성공! (+${currGrade} &rarr; +${newGrade}강)</span>`;
+                    if (newGrade >= 5 && typeof confetti === 'function') {
+                        confetti({ particleCount: 55, spread: 60, origin: { y: 0.65 } });
+                    }
+                }
+            } else {
+                // 실패 시: 현재 강화 단계보다 낮은 단계(1 ~ currGrade - 1) 중 무작위로 하락
+                const maxDropGrade = Math.max(1, currGrade - 1);
+                const droppedGrade = Math.floor(Math.random() * maxDropGrade) + 1;
+
+                player.grade = droppedGrade;
+                player.stageTries = 0; // 단계가 변경되었으므로 현재 단계 시도 횟수 초기화
+                player.failCount += 1;
+                player.history.push({ success: false, from: currGrade, to: droppedGrade });
+
+                cardWrapper.classList.add('anim-fail');
+                AudioEngine.playEnhanceFail();
+                banner.innerHTML = `<span class="text-rose-400">강화 실패... (+${currGrade} &rarr; +${droppedGrade}강 하락)</span>`;
+            }
+
+            saveGameState();
+            renderEnhanceSidebar();
+            renderEnhanceStage();
+
+            setTimeout(() => {
+                isEnhancing = false;
+            }, 350);
+        }
+
+        /* =========================================================================
+           13. 구단 관리 (전술판 11명 배치 및 포메이션 변경)
+        ========================================================================= */
+        let activeSlotIndex = null;
+
+        function renderSquadTab() {
+            document.getElementById('formation-select').value = gameState.formation;
+            const teamInfo = calculateTeamOvr();
+            document.getElementById('squad-avg-ovr').textContent = teamInfo.avg.toFixed(1);
+            document.getElementById('squad-filled-badge').textContent = `${teamInfo.count}/11명`;
+
+            const slots = FORMATIONS[gameState.formation];
+            const container = document.getElementById('pitch-slots-container');
+
+            container.innerHTML = slots.map(slot => {
+                const assignedUid = gameState.squad[slot.slotIdx];
+                const player = assignedUid ? gameState.players.find(p => p.uid === assignedUid) : null;
+                const base = player ? PLAYER_DATABASE.find(b => b.id === player.baseId) : null;
+
+                if (!player || !base) {
+                    return `
+                        <div onclick="openSquadSelectModal(${slot.slotIdx})" style="left: ${slot.x}%; top: ${slot.y}%;" class="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer group">
+                            <div class="w-16 h-20 sm:w-20 sm:h-24 rounded-xl bg-slate-950/75 border-2 border-dashed border-white/40 group-hover:border-[#d4af37] group-hover:scale-105 transition flex flex-col items-center justify-center shadow-lg">
+                                <span class="text-[10px] font-black pos-${slot.pos}">${slot.role}</span>
+                                <i class="fa-solid fa-plus text-white/60 group-hover:text-[#d4af37] my-1"></i>
+                                <span class="text-[9px] text-slate-400">배치</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const finalOvr = getPlayerFinalOvr(player);
+                const isPosMatch = base.pos === slot.pos;
+
+                return `
+                    <div onclick="openSquadSelectModal(${slot.slotIdx})" style="left: ${slot.x}%; top: ${slot.y}%;" class="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer group z-10">
+                        <div class="w-20 sm:w-24 rounded-xl ${getTierClass(base.ovr)} p-1.5 sm:p-2 text-center shadow-2xl group-hover:scale-105 transition relative">
+                            <!-- 상단 포지션 역할 & OVR -->
+                            <div class="flex items-center justify-between text-[10px] font-bold px-0.5">
+                                <span class="${isPosMatch ? 'text-emerald-300' : 'text-amber-300'}">${slot.role}</span>
+                                <span class="grade-${player.grade} px-1 rounded text-[9px] font-oswald">+${player.grade}</span>
+                            </div>
+                            <!-- OVR & 국기 -->
+                            <div class="flex items-center justify-center gap-1 my-0.5">
+                                <span class="font-oswald text-base sm:text-lg font-black text-white leading-none">${finalOvr}</span>
+                                <span class="text-xs">${base.flag}</span>
+                            </div>
+                            <!-- 이름 -->
+                            <div class="text-[10px] sm:text-[11px] font-black text-white truncate bg-black/40 rounded px-1 py-0.5">
+                                ${base.name}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function changeFormation(newFormation) {
+            AudioEngine.playClick();
+            gameState.formation = newFormation;
+            saveGameState();
+            renderSquadTab();
+            showToast(`포메이션이 ${newFormation}(으)로 변경되었습니다.`, 'info');
+        }
+
+        function openSquadSelectModal(slotIdx) {
+            AudioEngine.playClick();
+            activeSlotIndex = slotIdx;
+            const slot = FORMATIONS[gameState.formation][slotIdx];
+            document.getElementById('squad-modal-pos-label').textContent = `${slot.role} (${slot.pos} 권장)`;
+
+            const listContainer = document.getElementById('squad-modal-list');
+            const currentAssignedUid = gameState.squad[slotIdx];
+
+            // 해당 포지션 선수를 우선 정렬하고, 그 외 선수도 선택 가능하게 표시
+            const sortedPlayers = [...gameState.players].sort((a, b) => {
+                const baseA = PLAYER_DATABASE.find(x => x.id === a.baseId);
+                const baseB = PLAYER_DATABASE.find(x => x.id === b.baseId);
+                const matchA = baseA.pos === slot.pos ? 1 : 0;
+                const matchB = baseB.pos === slot.pos ? 1 : 0;
+                if (matchA !== matchB) return matchB - matchA;
+                return getPlayerFinalOvr(b) - getPlayerFinalOvr(a);
+            });
+
+            let html = '';
+            if (currentAssignedUid) {
+                html += `
+                    <button onclick="assignPlayerToSlot(null)" class="col-span-full py-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 border border-rose-500/40 text-rose-300 text-xs font-bold transition">
+                        <i class="fa-solid fa-user-minus mr-1"></i> 현재 슬롯 선수 해제하기
+                    </button>
+                `;
+            }
+
+            if (sortedPlayers.length === 0) {
+                html += `<div class="col-span-full py-8 text-center text-xs text-slate-500">보유한 선수가 없습니다. 선수팩을 먼저 구매해 주세요.</div>`;
+            } else {
+                html += sortedPlayers.map(p => {
+                    const base = PLAYER_DATABASE.find(b => b.id === p.baseId);
+                    const finalOvr = getPlayerFinalOvr(p);
+                    const inOtherSlot = gameState.squad.includes(p.uid) && p.uid !== currentAssignedUid;
+                    const isSamePos = base.pos === slot.pos;
+
+                    return `
+                        <div onclick="assignPlayerToSlot('${p.uid}')" class="p-3 rounded-xl bg-[#0b111e] hover:bg-slate-800 border ${isSamePos ? 'border-slate-700' : 'border-slate-800/60 opacity-75'} cursor-pointer flex items-center justify-between transition">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <span class="grade-${p.grade} px-2 py-0.5 rounded text-xs font-oswald font-bold">+${p.grade}</span>
+                                <div class="truncate">
+                                    <div class="text-xs font-bold text-white truncate">${base.name}</div>
+                                    <div class="text-[10px] text-slate-400">
+                                        <span class="pos-${base.pos} font-bold">${base.pos}</span> · ${base.flag} ${base.club}
+                                        ${inOtherSlot ? '<span class="text-amber-400 ml-1">[선발 중]</span>' : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="font-oswald text-xl font-black text-[#d4af37] pl-2">${finalOvr}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            listContainer.innerHTML = html;
+            document.getElementById('modal-squad-select').classList.remove('hidden');
+        }
+
+        function assignPlayerToSlot(uid) {
+            if (activeSlotIndex === null) return;
+            AudioEngine.playClick();
+
+            if (uid === null) {
+                gameState.squad[activeSlotIndex] = null;
+            } else {
+                // 다른 슬롯에 이미 배치된 선수라면 기존 슬롯과 스왑(교체)
+                const existingIdx = gameState.squad.indexOf(uid);
+                const prevUidInTarget = gameState.squad[activeSlotIndex];
+                if (existingIdx !== -1) {
+                    gameState.squad[existingIdx] = prevUidInTarget;
+                }
+                gameState.squad[activeSlotIndex] = uid;
+            }
+
+            saveGameState();
+            closeModal('modal-squad-select');
+            renderSquadTab();
+        }
+
+        function autoFillSquad() {
+            if (gameState.players.length === 0) {
+                showToast('보유한 선수가 없어 자동 배치를 할 수 없습니다.', 'error');
+                return;
+            }
+            AudioEngine.playClick();
+            const slots = FORMATIONS[gameState.formation];
+            const newSquad = Array(11).fill(null);
+            const usedUids = new Set();
+
+            // 1차 패스: 각 슬롯의 포지션과 일치하는 최고 OVR 선수 배치
+            slots.forEach(slot => {
+                const candidates = gameState.players
+                    .filter(p => !usedUids.has(p.uid))
+                    .map(p => ({ p, base: PLAYER_DATABASE.find(b => b.id === p.baseId), ovr: getPlayerFinalOvr(p) }))
+                    .filter(item => item.base.pos === slot.pos)
+                    .sort((a, b) => b.ovr - a.ovr);
+
+                if (candidates.length > 0) {
+                    newSquad[slot.slotIdx] = candidates[0].p.uid;
+                    usedUids.add(candidates[0].p.uid);
+                }
+            });
+
+            // 2차 패스: 빈 슬롯이 있다면 남은 선수 중 최고 OVR 순으로 채움
+            slots.forEach(slot => {
+                if (newSquad[slot.slotIdx] === null) {
+                    const remaining = gameState.players
+                        .filter(p => !usedUids.has(p.uid))
+                        .sort((a, b) => getPlayerFinalOvr(b) - getPlayerFinalOvr(a));
+
+                    if (remaining.length > 0) {
+                        newSquad[slot.slotIdx] = remaining[0].uid;
+                        usedUids.add(remaining[0].uid);
+                    }
+                }
+            });
+
+            gameState.squad = newSquad;
+            saveGameState();
+            renderSquadTab();
+            showToast('최고 OVR 기준으로 베스트 11이 자동 배치되었습니다!', 'success');
+        }
+
+        /* =========================================================================
+           14. 미션 시스템 (업적 미션 / 일일 미션 / 무한 반복 미션)
+        ========================================================================= */
+        const ACHIEVEMENT_MISSIONS = [
+            { id: 'ach_pack_1',   title: '첫 영입의 설렘',       desc: '선수팩 1회 개봉하기',         target: 1,   reward: 1500, getVal: s => s.stats.packsOpened },
+            { id: 'ach_player_5', title: '스쿼드 확장 I',        desc: '보유 선수 5명 달성',          target: 5,   reward: 2500, getVal: s => s.players.length },
+            { id: 'ach_player_10',title: '베스트 11 완성의 길',   desc: '보유 선수 10명 달성',         target: 10,  reward: 4000, getVal: s => s.players.length },
+            { id: 'ach_enh_1',    title: '강화의 첫걸음',        desc: '선수 강화 1회 성공하기',      target: 1,   reward: 2000, getVal: s => s.stats.enhanceSuccesses },
+            { id: 'ach_grade_5',  title: '은빛 카리스마 (+5강)', desc: '선수 5강 이상 달성',          target: 5,   reward: 5000, getVal: s => s.players.reduce((m, p) => Math.max(m, p.grade), 1) },
+            { id: 'ach_grade_10', title: '황금빛 전설 (+10강)',  desc: '선수 10강 이상 달성',         target: 10,  reward: 15000,getVal: s => s.players.reduce((m, p) => Math.max(m, p.grade), 1) },
+            { id: 'ach_grade_13', title: 'NEXT FC의 신 (+13강)', desc: '최고 단계 13강 달성',         target: 13,  reward: 50000,getVal: s => s.players.reduce((m, p) => Math.max(m, p.grade), 1) },
+            { id: 'ach_ovr_95',   title: '월드클래스 구단',      desc: '구단 평균 OVR 95 이상 (11명)',target: 95,  reward: 8000, getVal: () => { const t = calculateTeamOvr(); return t.count >= 11 ? t.avg : 0; } },
+            { id: 'ach_ovr_102',  title: '갈락티코 드림팀',      desc: '구단 평균 OVR 102 이상 (11명)',target: 102,reward: 20000,getVal: () => { const t = calculateTeamOvr(); return t.count >= 11 ? t.avg : 0; } }
+        ];
+
+        const DAILY_MISSIONS = [
+            { id: 'day_pack_2',   title: '오늘의 스카우팅',      desc: '오늘 선수팩 2회 개봉',        target: 2,   reward: 2500, getVal: s => s.dailyStats.packsOpened },
+            { id: 'day_enh_5',    title: '오늘의 훈련장',        desc: '오늘 선수 강화 5회 시도',     target: 5,   reward: 2000, getVal: s => s.dailyStats.enhanceAttempts },
+            { id: 'day_succ_3',   title: '오늘의 강화 장인',     desc: '오늘 선수 강화 3회 성공',     target: 3,   reward: 3500, getVal: s => s.dailyStats.enhanceSuccesses }
+        ];
+
+        const REPEATABLE_MISSIONS = [
+            { id: 'rep_pack',     title: '끊임없는 영입',        desc: '선수팩 3회 개봉할 때마다 보상', step: 3, reward: 2200, getTotal: s => s.stats.packsOpened },
+            { id: 'rep_enhance',  title: '불굴의 강화 도전자',   desc: '강화 5회 성공할 때마다 보상',   step: 5, reward: 2500, getTotal: s => s.stats.enhanceSuccesses }
+        ];
+
+        function checkAnyClaimableMission() {
+            const achReady = ACHIEVEMENT_MISSIONS.some(m => !gameState.claimedAchievements.includes(m.id) && m.getVal(gameState) >= m.target);
+            if (achReady) return true;
+
+            const dayReady = DAILY_MISSIONS.some(m => !gameState.claimedDaily.includes(m.id) && m.getVal(gameState) >= m.target);
+            if (dayReady) return true;
+
+            const repReady = REPEATABLE_MISSIONS.some(m => {
+                const doneCount = gameState.repeatableCounts[m.id] || 0;
+                const progress = m.getTotal(gameState) - doneCount * m.step;
+                return progress >= m.step;
+            });
+            return repReady;
+        }
+
+        function renderMissionsTab() {
+            document.getElementById('mission-date-display').textContent = gameState.dailyDate;
+
+            // 1. 업적 미션
+            document.getElementById('mission-list-achievement').innerHTML = ACHIEVEMENT_MISSIONS.map(m => {
+                const claimed = gameState.claimedAchievements.includes(m.id);
+                const curr = Math.min(m.target, Math.floor(m.getVal(gameState) * 10) / 10);
+                const canClaim = !claimed && m.getVal(gameState) >= m.target;
+                const pct = Math.min(100, Math.round((curr / m.target) * 100));
+
+                return `
+                    <div class="bg-[#0b111e] border ${canClaim ? 'border-[#d4af37]' : 'border-slate-800'} rounded-xl p-3.5 space-y-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="text-xs font-black text-white">${m.title}</div>
+                                <div class="text-[11px] text-slate-400">${m.desc}</div>
+                            </div>
+                            <span class="text-xs font-oswald font-bold text-[#d4af37] shrink-0">+${m.reward.toLocaleString()} C</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#d4af37]" style="width: ${pct}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">${curr} / ${m.target}</span>
+                            ${claimed
+                                ? '<span class="px-3 py-1 rounded-lg bg-slate-800 text-slate-500 text-xs font-bold">수령 완료</span>'
+                                : `<button onclick="claimAchievement('${m.id}')" ${canClaim ? '' : 'disabled'} class="px-3 py-1 rounded-lg text-xs font-black transition ${canClaim ? 'bg-[#d4af37] text-slate-950 hover:brightness-110' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">보상 받기</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. 일일 미션
+            document.getElementById('mission-list-daily').innerHTML = DAILY_MISSIONS.map(m => {
+                const claimed = gameState.claimedDaily.includes(m.id);
+                const curr = Math.min(m.target, m.getVal(gameState));
+                const canClaim = !claimed && curr >= m.target;
+                const pct = Math.min(100, Math.round((curr / m.target) * 100));
+
+                return `
+                    <div class="bg-[#0b111e] border ${canClaim ? 'border-sky-400' : 'border-slate-800'} rounded-xl p-3.5 space-y-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="text-xs font-black text-white">${m.title}</div>
+                                <div class="text-[11px] text-slate-400">${m.desc}</div>
+                            </div>
+                            <span class="text-xs font-oswald font-bold text-sky-400 shrink-0">+${m.reward.toLocaleString()} C</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-sky-400" style="width: ${pct}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">${curr} / ${m.target}</span>
+                            ${claimed
+                                ? '<span class="px-3 py-1 rounded-lg bg-slate-800 text-slate-500 text-xs font-bold">오늘 완료</span>'
+                                : `<button onclick="claimDaily('${m.id}')" ${canClaim ? '' : 'disabled'} class="px-3 py-1 rounded-lg text-xs font-black transition ${canClaim ? 'bg-sky-400 text-slate-950 hover:brightness-110' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">보상 받기</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 3. 반복 미션
+            document.getElementById('mission-list-repeatable').innerHTML = REPEATABLE_MISSIONS.map(m => {
+                const doneCount = gameState.repeatableCounts[m.id] || 0;
+                const rawProgress = m.getTotal(gameState) - doneCount * m.step;
+                const displayProgress = Math.min(m.step, rawProgress);
+                const canClaim = rawProgress >= m.step;
+                const pct = Math.min(100, Math.round((displayProgress / m.step) * 100));
+
+                return `
+                    <div class="bg-[#0b111e] border ${canClaim ? 'border-emerald-400' : 'border-slate-800'} rounded-xl p-3.5 space-y-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="text-xs font-black text-white">${m.title} <span class="text-[10px] text-emerald-400">(${doneCount}회 완료)</span></div>
+                                <div class="text-[11px] text-slate-400">${m.desc}</div>
+                            </div>
+                            <span class="text-xs font-oswald font-bold text-emerald-400 shrink-0">+${m.reward.toLocaleString()} C</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400" style="width: ${pct}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">${displayProgress} / ${m.step}</span>
+                            <button onclick="claimRepeatable('${m.id}')" ${canClaim ? '' : 'disabled'} class="px-3 py-1 rounded-lg text-xs font-black transition ${canClaim ? 'bg-emerald-400 text-slate-950 hover:brightness-110' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">보상 받기</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function claimAchievement(id) {
+            const m = ACHIEVEMENT_MISSIONS.find(x => x.id === id);
+            if (!m || gameState.claimedAchievements.includes(id)) return;
+            if (m.getVal(gameState) < m.target) return;
+
+            gameState.claimedAchievements.push(id);
+            gameState.coins += m.reward;
+            AudioEngine.playCoin();
+            saveGameState();
+            renderMissionsTab();
+            showToast(`업적 달성 보상 ${m.reward.toLocaleString()} COIN을 획득했습니다!`, 'gold');
+        }
+
+        function claimDaily(id) {
+            const m = DAILY_MISSIONS.find(x => x.id === id);
+            if (!m || gameState.claimedDaily.includes(id)) return;
+            if (m.getVal(gameState) < m.target) return;
+
+            gameState.claimedDaily.push(id);
+            gameState.coins += m.reward;
+            AudioEngine.playCoin();
+            saveGameState();
+            renderMissionsTab();
+            showToast(`일일 미션 보상 ${m.reward.toLocaleString()} COIN을 획득했습니다!`, 'gold');
+        }
+
+        function claimRepeatable(id) {
+            const m = REPEATABLE_MISSIONS.find(x => x.id === id);
+            if (!m) return;
+            const doneCount = gameState.repeatableCounts[id] || 0;
+            const rawProgress = m.getTotal(gameState) - doneCount * m.step;
+            if (rawProgress < m.step) return;
+
+            gameState.repeatableCounts[id] = doneCount + 1;
+            gameState.coins += m.reward;
+            AudioEngine.playCoin();
+            saveGameState();
+            renderMissionsTab();
+            showToast(`반복 미션 보상 ${m.reward.toLocaleString()} COIN을 획득했습니다!`, 'gold');
+        }
+
+        /* =========================================================================
+           15. 데이터 초기화 및 초기 실행 부트스트랩
+        ========================================================================= */
+        function openResetModal() {
+            document.getElementById('modal-reset').classList.remove('hidden');
+        }
+
+        function resetGameData() {
+            const preservedId = gameState.accountId;
+            const preservedPw = gameState.passwordHash;
+            const preservedOwner = gameState.ownerName;
+            const preservedClub = gameState.clubName;
+            const preservedIcon = gameState.emblemIcon;
+            const preservedColor = gameState.emblemColor;
+
+            gameState = createInitialState();
+            if (preservedId) {
+                gameState.ownerCreated = true;
+                gameState.accountId = preservedId;
+                gameState.passwordHash = preservedPw;
+                gameState.ownerName = preservedOwner;
+                gameState.clubName = preservedClub;
+                gameState.emblemIcon = preservedIcon;
+                gameState.emblemColor = preservedColor;
+                saveGameState();
+                closeModal('modal-reset');
+                switchTab('home');
+                showToast('현재 계정의 구단 진행도가 초기화되었습니다.', 'info');
+            } else {
+                localStorage.removeItem(STORAGE_KEY);
+                saveGameState();
+                closeModal('modal-reset');
+                switchTab('home');
+                openOnboarding('register');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateSoundIcon();
+            updateGlobalUI();
+            renderHome();
+            if (!gameState.ownerCreated) {
+                openOnboarding('register');
+            }
+        });
+    </script>
+</body>
+</html>
