@@ -19,7 +19,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* 카드 광채 및 워크아웃 애니메이션 */
         @keyframes shineSweep {
             0% { transform: translateX(-140%) skewX(-25deg); }
             100% { transform: translateX(240%) skewX(-25deg); }
@@ -66,14 +65,12 @@
             animation: spotlightPulse 1.5s infinite ease-in-out;
         }
 
-        /* 3D 방패(Shield) 폴리곤 실루엣 */
         .fc-shield-outer {
             clip-path: polygon(50% 0%, 96% 11%, 100% 72%, 50% 100%, 0% 72%, 4% 11%);
         }
         .fc-shield-inner {
             clip-path: polygon(50% 1.8%, 94.2% 12.2%, 98% 71.2%, 50% 98.2%, 2% 71.2%, 5.8% 12.2%);
         }
-        /* 선수 미페 상반신 자연스러운 페이드 융합 */
         .player-face-blend {
             mask-image: radial-gradient(ellipse 80% 85% at 50% 42%, #000 62%, transparent 98%);
             -webkit-mask-image: radial-gradient(ellipse 80% 85% at 50% 42%, #000 62%, transparent 98%);
@@ -108,7 +105,7 @@
             </div>
 
             <button onclick="createClub()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:brightness-110 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition active:scale-98">
-                구단 창단 완료하기 (15,000 COIN + 6 NG토큰 지급)
+                구단 창단 완료하기 (20,000 COIN + 6 NG토큰 지급)
             </button>
         </div>
     </div>
@@ -121,7 +118,6 @@
             <span>스킵</span> <i class="fa-solid fa-forward-step text-[10px]"></i>
         </button>
 
-        <!-- [PHASE 1 ~ 3] 3D 원근 황금 LED 스타디움 터널 + 스파클 + 순차 힌트 -->
         <div id="walkout-tunnel-scene" class="relative w-full h-full flex items-center justify-center overflow-hidden bg-[#13110d]">
             <div id="walkout-tunnel-camera" class="relative w-full h-full flex items-center justify-center">
                 <svg viewBox="0 0 1000 562" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
@@ -234,7 +230,6 @@
             </div>
         </div>
 
-        <!-- [PHASE 4] 최종 그라운드 워크아웃 무대 -->
         <div id="walkout-final-stage" class="hidden relative w-full h-full flex flex-col items-center justify-between py-6 px-3 overflow-hidden bg-gradient-to-b from-[#0b0a08] via-[#1c1811] to-[#2e2618]">
             <div id="walkout-fireworks-bg" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
 
@@ -388,7 +383,7 @@
             <div class="flex items-center gap-1.5 shrink-0">
                 <div class="px-2.5 py-1 rounded-full bg-slate-900 border border-amber-500/40 flex items-center gap-1 shadow-inner" title="선수팩 구매 & 방출 재화">
                     <i class="fa-solid fa-coins text-amber-400 text-[11px]"></i>
-                    <span id="header-coins" class="text-[11px] font-black text-amber-300">15,000</span>
+                    <span id="header-coins" class="text-[11px] font-black text-amber-300">20,000</span>
                 </div>
                 <div class="px-2.5 py-1 rounded-full bg-slate-900 border border-cyan-400/45 flex items-center gap-1 shadow-inner" title="강화 재료 전용 NG토큰 (미션 획득)">
                     <i class="fa-solid fa-gem text-cyan-400 text-[11px]"></i>
@@ -399,7 +394,7 @@
         </div>
     </header>
 
-    <!-- ==================== 6. 메인 콘텐츠 영역 (5개 탭) ==================== -->
+    <!-- ==================== 6. 메인 콘텐츠 영역 (6개 탭) ==================== -->
     <main class="flex-1 max-w-3xl w-full mx-auto px-4 pt-4 pb-24">
 
         <!-- [TAB 1: 홈] -->
@@ -452,10 +447,10 @@
                 <div class="flex items-center justify-between mb-2.5">
                     <div>
                         <h2 class="text-base font-black text-white flex items-center gap-1.5">
-                            <span>포지션 스카우트 선수팩 (LIVE & ICON)</span>
+                            <span>포지션 스카우트 선수팩 (2026-27 LIVE & ICON)</span>
                             <button onclick="openHelpModal('packs')" class="w-5 h-5 rounded-full bg-slate-800 text-[10px] text-slate-300 font-black">?</button>
                         </h2>
-                        <p class="text-[11px] text-slate-400">NAMED(85~89) 55% · TOP CLASS(90~93) 27% · WORLD CLASS(94~96) 13% · LEGEND/ICON(97~105) 5%</p>
+                        <p class="text-[11px] text-slate-400">NAMED(85~89) 55% · TOP CLASS(90~93) 27% · WORLD CLASS(94~96) 13% · LEGEND(97~105) 3% · ICON(105~110) 2%</p>
                     </div>
                 </div>
                 <div id="position-packs-grid" class="grid grid-cols-2 gap-2.5"></div>
@@ -466,7 +461,7 @@
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-wider text-cyan-400">NG TOKEN EXCHANGE · 1개 단위 구매</span>
                         <h2 class="text-base font-black text-white">등급별 전용 강화 재료 상점 (NG토큰 전용)</h2>
-                        <p class="text-[11px] text-slate-400">미션으로 얻은 NG토큰으로 필요한 만큼 <b>1개씩</b> 구매할 수 있습니다. (강화 1회당 3개 소모)</p>
+                        <p class="text-[11px] text-slate-400">미션으로 얻은 NG토큰으로 필요한 만큼 <b>1개씩</b> 구매할 수 있습니다. (1~3개 선택 투입 가능)</p>
                     </div>
                 </div>
                 <div id="material-packs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
@@ -481,7 +476,7 @@
                         <span>선수 강화 (+0 ~ +10)</span>
                         <button onclick="openHelpModal('enhance')" class="w-5 h-5 rounded-full bg-slate-800 text-[10px] text-slate-300 font-black">?</button>
                     </h2>
-                    <p class="text-[11px] text-slate-400">동일 등급 재료 3개 소모 · 크리티컬 최대 +5 도달 상한 (+5 이상 크리티컬 없음)</p>
+                    <p class="text-[11px] text-slate-400">재료 1개(1/3 확률) · 2개(2/3 확률) · 3개(100% 기본 확률) 자유 투입 · 크리티컬 최대 +5 상한</p>
                 </div>
             </div>
 
@@ -540,14 +535,13 @@
             </div>
         </section>
 
-        <!-- [TAB 5: 경기 (실시간 2D 전술 경기 & 결정적 찬스 조작)] -->
+        <!-- [TAB 5: 경기 (하이라이트 직접 조종 모드)] -->
         <section id="tab-match" class="hidden space-y-4">
-            <!-- 컵 대회 선택 화면 -->
             <div id="match-lobby-view" class="space-y-4">
                 <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-4">
                     <div class="flex items-center justify-between mb-2">
                         <div>
-                            <span class="px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-300 text-[10px] font-black">VS AI CUP CHALLENGE</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-300 text-[10px] font-black">HIGHLIGHT ACTION MATCH</span>
                             <h2 class="text-base font-black text-white mt-1">구단 공식 컵 매치</h2>
                         </div>
                         <div class="text-right">
@@ -556,16 +550,14 @@
                         </div>
                     </div>
                     <p class="text-[11px] text-slate-300 leading-relaxed">
-                        내 베스트 11(포메이션 · 강화 · 팀컬러)이 90분간 격돌합니다! 결정적 찬스가 찾아오면 <b>슈팅 코스</b>와 <b>GK 선방 방향</b>을 직접 조작해 승리를 쟁취하세요.
+                        결정적 공격 찬스에는 <b>터치·스와이프로 직접 슈팅 궤적</b>을 긋고, 수비 위기에는 <b>골키퍼를 직접 슬라이드해 선방</b>하는 하이라이트 조종 모드입니다!
                     </p>
                 </div>
 
                 <div id="match-cups-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
 
-            <!-- 실시간 경기장 화면 -->
             <div id="match-arena-view" class="hidden space-y-3">
-                <!-- 스코어보드 -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2 min-w-0 flex-1">
@@ -593,30 +585,25 @@
                     </div>
                 </div>
 
-                <!-- 2D 미니 축구 경기장 & 결정적 찬스 오버레이 -->
-                <div class="relative rounded-2xl overflow-hidden border-2 border-emerald-600/60 bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 aspect-[16/10] shadow-2xl">
+                <!-- 2D 미니 축구 경기장 & 하이라이트 직접 조종 HUD -->
+                <div class="relative rounded-2xl overflow-hidden border-2 border-emerald-600/60 bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 aspect-[16/10] shadow-2xl touch-none select-none">
                     <canvas id="match-pitch-canvas" class="w-full h-full block"></canvas>
 
-                    <!-- 결정적 찬스 인터랙티브 조작 패널 -->
-                    <div id="match-chance-overlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center z-20">
-                        <span id="chance-badge" class="px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/50 text-[10px] font-black text-amber-300 uppercase tracking-widest mb-1.5">DECISIVE MOMENT</span>
-                        <h3 id="chance-title" class="text-base sm:text-lg font-black text-white">⚡ 결정적 득점 찬스!</h3>
-                        <p id="chance-desc" class="text-xs text-slate-300 mt-1 mb-3">슈팅 코스를 선택하세요!</p>
-
-                        <div class="w-full max-w-xs mb-3">
-                            <div class="flex justify-between text-[10px] font-bold text-slate-400 mb-1">
-                                <span>찬스 성공 보정률</span>
-                                <span id="chance-prob-text" class="text-emerald-400 font-black">68%</span>
-                            </div>
-                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                                <div id="chance-prob-bar" class="h-full bg-gradient-to-r from-amber-400 to-emerald-400 transition-all duration-300" style="width: 68%"></div>
-                            </div>
+                    <div id="match-highlight-hud" class="hidden absolute top-2.5 inset-x-3 z-20 flex items-center justify-between gap-2 pointer-events-none">
+                        <div id="highlight-mode-pill" class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] shadow-lg flex items-center gap-1.5">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span id="highlight-mode-text">공격 하이라이트! 골문을 향해 드래그하여 슛!</span>
                         </div>
-
-                        <div id="chance-buttons-grid" class="grid grid-cols-3 gap-2 w-full max-w-sm"></div>
+                        <div class="px-2.5 py-1 rounded-full bg-slate-950/85 border border-white/20 text-xs font-black text-amber-300 shadow">
+                            <span id="highlight-timer-text">4.5s</span>
+                        </div>
                     </div>
 
-                    <!-- 경기 종료 결과 모달 오버레이 -->
+                    <div id="match-highlight-footer" class="hidden absolute bottom-2.5 inset-x-3 z-20 px-3 py-1.5 rounded-xl bg-slate-950/85 border border-white/15 backdrop-blur-md flex items-center justify-between text-[11px] pointer-events-none">
+                        <span id="highlight-player-label" class="font-black text-white">슈터: 손흥민 (OVR 97)</span>
+                        <span id="highlight-guide-sub" class="text-emerald-300 font-bold">공 주변을 터치해 골대로 스와이프!</span>
+                    </div>
+
                     <div id="match-result-overlay" class="hidden absolute inset-0 bg-slate-950/92 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center z-30">
                         <div id="match-result-badge" class="px-3 py-1 rounded-full text-[11px] font-black mb-1">FULL TIME</div>
                         <h3 id="match-result-title" class="text-2xl font-black text-white">경기 승리!</h3>
@@ -628,7 +615,6 @@
                     </div>
                 </div>
 
-                <!-- 실시간 중계 문자 로그 -->
                 <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
                     <div class="flex items-center justify-between mb-1.5">
                         <span class="text-[11px] font-black text-slate-300"><i class="fa-solid fa-broadcast-tower text-emerald-400 mr-1.5"></i>실시간 중계 로그</span>
@@ -698,10 +684,17 @@
             { id: 'ARS', name: '아스널', primary: '#EF0107', secondary: '#063672', accent: '#9C824A' },
             { id: 'TOT', name: '토트넘 홋스퍼', primary: '#FFFFFF', secondary: '#132257', accent: '#94A3B8' },
             { id: 'LIV', name: '리버풀', primary: '#C8102E', secondary: '#00B2A9', accent: '#F6EB61' },
+            { id: 'CHE', name: '첼시', primary: '#034694', secondary: '#0A192F', accent: '#DBA111' },
+            { id: 'ATM', name: '아틀레티코 마드리드', primary: '#CB3524', secondary: '#272E61', accent: '#FFFFFF' },
             { id: 'BAY', name: '바이에른 뮌헨', primary: '#DC052D', secondary: '#0066B2', accent: '#FFFFFF' },
             { id: 'PSG', name: '파리 생제르맹', primary: '#004170', secondary: '#DA291C', accent: '#FFFFFF' },
             { id: 'INT', name: '인테르', primary: '#010E80', secondary: '#000000', accent: '#D4AF37' },
             { id: 'ACM', name: 'AC 밀란', primary: '#FB090B', secondary: '#000000', accent: '#FFFFFF' },
+            { id: 'NAP', name: 'SSC 나폴리', primary: '#12A0D7', secondary: '#003C82', accent: '#FFFFFF' },
+            { id: 'LAF', name: 'LAFC', primary: '#C39E6D', secondary: '#000000', accent: '#FFFFFF' },
+            { id: 'MIA', name: '인터 마이애미', primary: '#F7B5CD', secondary: '#231F20', accent: '#FFFFFF' },
+            { id: 'ALN', name: '알 나스르', primary: '#FFDF00', secondary: '#003399', accent: '#FFFFFF' },
+            { id: 'ALH', name: '알 힐랄', primary: '#0055A5', secondary: '#001F3F', accent: '#FFFFFF' },
             { id: 'ICN', name: 'ICON 레전드', primary: '#FDE68A', secondary: '#451A03', accent: '#F59E0B' },
             { id: 'NXU', name: '넥스트 유나이티드', primary: '#F59E0B', secondary: '#0F172A', accent: '#38BDF8' }
         ];
@@ -734,9 +727,11 @@
                 '스페인': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="15" y="0" fill="#AA151B"/><rect width="90" height="30" y="15" fill="#F1BF00"/><rect width="90" height="15" y="45" fill="#AA151B"/><rect width="8" height="12" x="24" y="24" fill="#AA151B"/></svg>`,
                 '독일': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="20" y="0" fill="#000000"/><rect width="90" height="20" y="20" fill="#DD0000"/><rect width="90" height="20" y="40" fill="#FFCE00"/></svg>`,
                 '노르웨이': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#BA0C2F"/><rect width="14" height="60" x="24" fill="#FFFFFF"/><rect width="90" height="14" y="23" fill="#FFFFFF"/><rect width="8" height="60" x="27" fill="#00205B"/><rect width="90" height="8" y="26" fill="#00205B"/></svg>`,
+                '덴마크': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#C8102E"/><rect width="10" height="60" x="28" fill="#FFFFFF"/><rect width="90" height="10" y="25" fill="#FFFFFF"/></svg>`,
                 '벨기에': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="30" height="60" x="0" fill="#000000"/><rect width="30" height="60" x="30" fill="#FDDA24"/><rect width="30" height="60" x="60" fill="#EF3340"/></svg>`,
                 '네덜란드': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="20" y="0" fill="#AE1C28"/><rect width="90" height="20" y="20" fill="#FFFFFF"/><rect width="90" height="20" y="40" fill="#21468B"/></svg>`,
                 '이탈리아': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="30" height="60" x="0" fill="#009246"/><rect width="30" height="60" x="30" fill="#FFFFFF"/><rect width="30" height="60" x="60" fill="#CE2B37"/></svg>`,
+                '러시아': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="20" y="0" fill="#FFFFFF"/><rect width="90" height="20" y="20" fill="#0039A6"/><rect width="90" height="20" y="40" fill="#D52B1E"/></svg>`,
                 '이집트': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="20" y="0" fill="#CE1126"/><rect width="90" height="20" y="20" fill="#FFFFFF"/><rect width="90" height="20" y="40" fill="#000000"/><circle cx="45" cy="30" r="5" fill="#C09300"/></svg>`,
                 '우루과이': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#FFFFFF"/><rect width="90" height="7" y="7" fill="#0038A8"/><rect width="90" height="7" y="21" fill="#0038A8"/><rect width="90" height="7" y="35" fill="#0038A8"/><rect width="90" height="7" y="49" fill="#0038A8"/><rect width="34" height="30" fill="#FFFFFF"/><circle cx="17" cy="15" r="7" fill="#FCD116"/></svg>`,
                 '크로아티아': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="20" y="0" fill="#FF0000"/><rect width="90" height="20" y="20" fill="#FFFFFF"/><rect width="90" height="20" y="40" fill="#171796"/><rect x="37" y="18" width="16" height="20" fill="#FF0000" stroke="#FFFFFF" stroke-width="1.5"/></svg>`,
@@ -746,19 +741,27 @@
                 '조지아': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#FFFFFF"/><rect width="12" height="60" x="39" fill="#FF0000"/><rect width="90" height="12" y="24" fill="#FF0000"/></svg>`,
                 '스웨덴': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#006AA7"/><rect width="12" height="60" x="26" fill="#FECC02"/><rect width="90" height="12" y="24" fill="#FECC02"/></svg>`,
                 '캐나다': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="22" height="60" x="0" fill="#FF0000"/><rect width="46" height="60" x="22" fill="#FFFFFF"/><rect width="22" height="60" x="68" fill="#FF0000"/><polygon points="45,16 49,28 58,28 51,35 54,45 45,39 36,45 39,35 32,28 41,28" fill="#FF0000"/></svg>`,
-                '세네갈': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="30" height="60" x="0" fill="#00853F"/><rect width="30" height="60" x="30" fill="#FDEF42"/><rect width="30" height="60" x="60" fill="#E31B23"/><polygon points="45,23 47,29 53,29 48,32 50,38 45,34 40,38 42,32 37,29 43,29" fill="#00853F"/></svg>`
+                '모로코': `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#C1272D"/><polygon points="45,18 48,27 58,27 50,33 53,42 45,36 37,42 40,33 32,27 42,27" fill="none" stroke="#006233" stroke-width="2.5"/></svg>`
             };
             return flags[nation] || `<svg viewBox="0 0 90 60" class="w-full h-full"><rect width="90" height="60" fill="#1e3a8a"/><circle cx="45" cy="30" r="14" fill="#38bdf8"/></svg>`;
         }
 
-        function getPlayerTier(baseOvr) {
-            if (baseOvr >= 97) return 'LEGEND';
-            if (baseOvr >= 94) return 'WORLD CLASS';
-            if (baseOvr >= 90) return 'TOP CLASS';
+        function getPlayerTier(playerOrOvr, statusArg) {
+            if (typeof playerOrOvr === 'object' && playerOrOvr !== null) {
+                if (playerOrOvr.status === 'ICON') return 'ICON';
+                const ovr = playerOrOvr.baseOvr;
+                if (ovr >= 97) return 'LEGEND';
+                if (ovr >= 94) return 'WORLD CLASS';
+                if (ovr >= 90) return 'TOP CLASS';
+                return 'NAMED';
+            }
+            if (statusArg === 'ICON') return 'ICON';
+            if (playerOrOvr >= 97) return 'LEGEND';
+            if (playerOrOvr >= 94) return 'WORLD CLASS';
+            if (playerOrOvr >= 90) return 'TOP CLASS';
             return 'NAMED';
         }
 
-        // NG토큰 1개 단위 구매 가격 & 등급별 차등 방출가
         const TIER_META = {
             'NAMED': {
                 label: 'NAMED',
@@ -767,8 +770,11 @@
                 baseRelease: 250,
                 stepBonus: 40,
                 enhanceMult: 220,
-                outerBg: 'from-slate-300 via-slate-400 to-slate-600',
+                outerBg: 'from-slate-300 via-slate-500 to-slate-700',
                 innerBg: 'from-slate-800 via-slate-900 to-slate-950',
+                namePlate: 'bg-slate-950/90 border-slate-400/40 text-white',
+                ovrColor: 'text-slate-100',
+                shimmer: false,
                 badgeBg: 'bg-slate-600 text-white'
             },
             'TOP CLASS': {
@@ -778,8 +784,11 @@
                 baseRelease: 550,
                 stepBonus: 70,
                 enhanceMult: 420,
-                outerBg: 'from-sky-300 via-blue-500 to-indigo-700',
+                outerBg: 'from-cyan-300 via-blue-500 to-indigo-700',
                 innerBg: 'from-blue-950 via-slate-900 to-slate-950',
+                namePlate: 'bg-blue-950/95 border-cyan-400/50 text-cyan-50',
+                ovrColor: 'text-cyan-200',
+                shimmer: false,
                 badgeBg: 'bg-blue-600 text-white'
             },
             'WORLD CLASS': {
@@ -789,41 +798,63 @@
                 baseRelease: 1100,
                 stepBonus: 120,
                 enhanceMult: 750,
-                outerBg: 'from-fuchsia-300 via-purple-500 to-indigo-800',
-                innerBg: 'from-purple-950 via-slate-900 to-slate-950',
+                outerBg: 'from-fuchsia-300 via-purple-500 to-violet-800',
+                innerBg: 'from-purple-950 via-[#1a0b2e] to-slate-950',
+                namePlate: 'bg-purple-950/95 border-fuchsia-400/60 text-fuchsia-50',
+                ovrColor: 'text-fuchsia-200',
+                shimmer: true,
                 badgeBg: 'bg-purple-600 text-white'
             },
             'LEGEND': {
                 label: 'LEGEND',
-                ko: '레전드 & ICON (OVR 97~105)',
+                ko: '레전드 (OVR 97~105)',
                 ngPrice: 7,
                 baseRelease: 2200,
                 stepBonus: 220,
                 enhanceMult: 1400,
-                outerBg: 'from-amber-200 via-yellow-400 to-amber-600',
-                innerBg: 'from-amber-950 via-stone-900 to-slate-950',
-                badgeBg: 'bg-amber-400 text-slate-950'
+                outerBg: 'from-rose-400 via-amber-400 to-red-700',
+                innerBg: 'from-rose-950 via-[#2a0a12] to-slate-950',
+                namePlate: 'bg-rose-950/95 border-amber-400/70 text-amber-100',
+                ovrColor: 'text-amber-300',
+                shimmer: true,
+                badgeBg: 'bg-gradient-to-r from-rose-600 to-amber-500 text-white'
+            },
+            'ICON': {
+                label: 'ICON',
+                ko: '아이콘 레전드 (OVR 105~110)',
+                ngPrice: 10,
+                baseRelease: 3500,
+                stepBonus: 320,
+                enhanceMult: 2000,
+                outerBg: 'from-amber-100 via-yellow-300 to-amber-500',
+                innerBg: 'from-[#3a2a0d] via-[#1f1607] to-[#0d0a04]',
+                namePlate: 'bg-[#1a1306]/95 border-amber-200/80 text-amber-100',
+                ovrColor: 'text-amber-200',
+                shimmer: true,
+                badgeBg: 'bg-gradient-to-r from-amber-300 to-yellow-500 text-slate-950'
             }
         };
 
-        // +0 ~ +10 기본 강화 성공 확률표
         const ENHANCE_RATES = {
-            0: 100, // +0 -> +1
-            1: 100, // +1 -> +2
-            2: 85,  // +2 -> +3 (실패 시 1단계 하락)
-            3: 65,  // +3 -> +4
-            4: 50,  // +4 -> +5
-            5: 25,  // +5 -> +6
-            6: 12,  // +6 -> +7
-            7: 7,   // +7 -> +8
-            8: 4,   // +8 -> +9
-            9: 2    // +9 -> +10
+            0: 100,
+            1: 100,
+            2: 85,
+            3: 65,
+            4: 50,
+            5: 25,
+            6: 12,
+            7: 7,
+            8: 4,
+            9: 2
         };
 
-        function getEnhanceProbabilities(level) {
-            const baseRate = ENHANCE_RATES[level] ?? 2;
+        function getEnhanceProbabilities(level, matCount = 3) {
+            const fullBaseRate = ENHANCE_RATES[level] ?? 2;
+            const scale = Math.max(1, Math.min(3, matCount)) / 3;
+            const baseRate = +(fullBaseRate * scale).toFixed(2);
+
             if (level >= 5) {
-                return { baseRate, normal1Rate: baseRate, crit2Rate: 0, crit3Rate: 0, hasCrit: false };
+                return { baseRate, normal1Rate: baseRate, crit2Rate: 0, crit3Rate: 0, hasCrit: false, matCount };
             }
             const rawCrit2 = +(baseRate * 0.08).toFixed(2);
             const rawCrit3 = +(baseRate * 0.02).toFixed(2);
@@ -835,11 +866,11 @@
                 normal1Rate,
                 crit2Rate,
                 crit3Rate,
-                hasCrit: (crit2Rate + crit3Rate) > 0
+                hasCrit: (crit2Rate + crit3Rate) > 0,
+                matCount
             };
         }
 
-        // ==================== 6종 실전 포메이션 데이터베이스 ====================
         const FORMATIONS = {
             '4-3-3': {
                 name: '4-3-3',
@@ -914,10 +945,8 @@
             return getActiveFormation().rows.flat();
         }
 
-        // ==================== 라인업 제약 조건 검증 헬퍼 (GK 전용 + 중복 선수 금지) ====================
         function isPlayerEligibleForSlot(player, slotMeta) {
             if (!player || !slotMeta) return false;
-            // 1) GK 슬롯에는 오직 GK 포지션 선수만 배치 가능 (반대로 GK 선수는 필드 슬롯 불가)
             if (slotMeta.group === 'GK') return player.group === 'GK';
             if (player.group === 'GK') return false;
             return true;
@@ -940,97 +969,87 @@
             showToast(`📋 포메이션이 [${FORMATIONS[formKey].name}] 전술로 변경되었습니다!`, 'success');
         }
 
-        // ==================== 82명 슈퍼스타 데이터베이스 (ICON은 OVR 100 이상 고정) ====================
         const PLAYER_DB = [
-            // ---------- 은퇴 레전드 (ICON - 전원 OVR 100 이상 고정) ----------
-            { name: '펠레', wiki: 'Pelé', pos: 'CF', group: 'FW', baseOvr: 105, club: 'ICON 레전드', nation: '브라질', status: 'ICON' },
-            { name: '디에고 마라도나', wiki: 'Diego_Maradona', pos: 'CAM', group: 'MF', baseOvr: 105, club: 'ICON 레전드', nation: '아르헨티나', status: 'ICON' },
-            { name: '호나우두 (R9)', wiki: 'Ronaldo_(Brazilian_footballer)', pos: 'ST', group: 'FW', baseOvr: 104, club: '레알 마드리드', nation: '브라질', status: 'ICON' },
-            { name: '지네딘 지단', wiki: 'Zinedine_Zidane', pos: 'CAM', group: 'MF', baseOvr: 104, club: '레알 마드리드', nation: '프랑스', status: 'ICON' },
-            { name: '요한 크루이프', wiki: 'Johan_Cruyff', pos: 'CF', group: 'FW', baseOvr: 104, club: 'FC 바르셀로나', nation: '네덜란드', status: 'ICON' },
-            { name: '호나우지뉴', wiki: 'Ronaldinho', pos: 'LW', group: 'FW', baseOvr: 103, club: 'FC 바르셀로나', nation: '브라질', status: 'ICON' },
-            { name: '티에리 앙리', wiki: 'Thierry_Henry', pos: 'ST', group: 'FW', baseOvr: 103, club: '아스널', nation: '프랑스', status: 'ICON' },
-            { name: '파올로 말디니', wiki: 'Paolo_Maldini', pos: 'CB', group: 'DF', baseOvr: 103, club: 'AC 밀란', nation: '이탈리아', status: 'ICON' },
-            { name: '카카', wiki: 'Kaká', pos: 'CAM', group: 'MF', baseOvr: 102, club: 'AC 밀란', nation: '브라질', status: 'ICON' },
-            { name: '데이비드 베컴', wiki: 'David_Beckham', pos: 'RM', group: 'MF', baseOvr: 102, club: '맨체스터 유나이티드', nation: '잉글랜드', status: 'ICON' },
-            { name: '스티븐 제라드', wiki: 'Steven_Gerrard', pos: 'CM', group: 'MF', baseOvr: 102, club: '리버풀', nation: '잉글랜드', status: 'ICON' },
-            { name: '안드레아 피를로', wiki: 'Andrea_Pirlo', pos: 'CM', group: 'MF', baseOvr: 102, club: 'AC 밀란', nation: '이탈리아', status: 'ICON' },
-            { name: '로베르토 카를로스', wiki: 'Roberto_Carlos', pos: 'LB', group: 'DF', baseOvr: 101, club: '레알 마드리드', nation: '브라질', status: 'ICON' },
-            { name: '이케르 카시야스', wiki: 'Iker_Casillas', pos: 'GK', group: 'GK', baseOvr: 101, club: '레알 마드리드', nation: '스페인', status: 'ICON' },
-            { name: '잔루이지 부폰', wiki: 'Gianluigi_Buffon', pos: 'GK', group: 'GK', baseOvr: 101, club: 'ICON 레전드', nation: '이탈리아', status: 'ICON' },
-            { name: '프랭크 램파드', wiki: 'Frank_Lampard', pos: 'CM', group: 'MF', baseOvr: 100, club: 'ICON 레전드', nation: '잉글랜드', status: 'ICON' },
-            { name: '카를레스 푸욜', wiki: 'Carles_Puyol', pos: 'CB', group: 'DF', baseOvr: 100, club: 'FC 바르셀로나', nation: '스페인', status: 'ICON' },
-            { name: '디디에 드로그바', wiki: 'Didier_Drogba', pos: 'ST', group: 'FW', baseOvr: 100, club: 'ICON 레전드', nation: 'ICON 레전드', status: 'ICON' },
+            // 은퇴 레전드 4-3-3 베스트 11 (ICON · OVR 105~110)
+            { name: '호나우지뉴', wiki: 'Ronaldinho', pos: 'LW', group: 'FW', baseOvr: 107, club: 'FC 바르셀로나', nation: '브라질', status: 'ICON' },
+            { name: '호나우두 (R9)', wiki: 'Ronaldo_(Brazilian_footballer)', pos: 'ST', group: 'FW', baseOvr: 109, club: '레알 마드리드', nation: '브라질', status: 'ICON' },
+            { name: '요한 크루이프', wiki: 'Johan_Cruyff', pos: 'RW', group: 'FW', baseOvr: 108, club: 'FC 바르셀로나', nation: '네덜란드', status: 'ICON' },
+            { name: '지네딘 지단', wiki: 'Zinedine_Zidane', pos: 'CM', group: 'MF', baseOvr: 108, club: '레알 마드리드', nation: '프랑스', status: 'ICON' },
+            { name: '디에고 마라도나', wiki: 'Diego_Maradona', pos: 'CAM', group: 'MF', baseOvr: 110, club: 'SSC 나폴리', nation: '아르헨티나', status: 'ICON' },
+            { name: '프란츠 베켄바워', wiki: 'Franz_Beckenbauer', pos: 'CM', group: 'MF', baseOvr: 107, club: '바이에른 뮌헨', nation: '독일', status: 'ICON' },
+            { name: '파올로 말디니', wiki: 'Paolo_Maldini', pos: 'LB', group: 'DF', baseOvr: 108, club: 'AC 밀란', nation: '이탈리아', status: 'ICON' },
+            { name: '프랑코 바레시', wiki: 'Franco_Baresi', pos: 'CB', group: 'DF', baseOvr: 106, club: 'AC 밀란', nation: '이탈리아', status: 'ICON' },
+            { name: '파비오 칸나바로', wiki: 'Fabio_Cannavaro', pos: 'CB', group: 'DF', baseOvr: 105, club: '레알 마드리드', nation: '이탈리아', status: 'ICON' },
+            { name: '카푸', wiki: 'Cafu', pos: 'RB', group: 'DF', baseOvr: 106, club: 'AC 밀란', nation: '브라질', status: 'ICON' },
+            { name: '레프 야신', wiki: 'Lev_Yashin', pos: 'GK', group: 'GK', baseOvr: 107, club: 'ICON 레전드', nation: '러시아', status: 'ICON' },
 
-            // ---------- 현역 슈퍼스타 (LIVE) ----------
-            { name: '리오넬 메시', wiki: 'Lionel_Messi', pos: 'RW', group: 'FW', baseOvr: 99, club: '넥스트 유나이티드', nation: '아르헨티나', status: 'LIVE' },
-            { name: '크리스티아누 호날두', wiki: 'Cristiano_Ronaldo', pos: 'ST', group: 'FW', baseOvr: 98, club: '레알 마드리드', nation: '포르투갈', status: 'LIVE' },
-            { name: '킬리안 음바페', wiki: 'Kylian_Mbappé', pos: 'ST', group: 'FW', baseOvr: 98, club: '레알 마드리드', nation: '프랑스', status: 'LIVE' },
-            { name: '엘링 홀란', wiki: 'Erling_Haaland', pos: 'ST', group: 'FW', baseOvr: 97, club: '맨체스터 시티', nation: '노르웨이', status: 'LIVE' },
-            { name: '손흥민', wiki: 'Son_Heung-min', pos: 'LW', group: 'FW', baseOvr: 97, club: '토트넘 홋스퍼', nation: '대한민국', status: 'LIVE' },
-            { name: '케빈 더 브라위너', wiki: 'Kevin_De_Bruyne', pos: 'CM', group: 'MF', baseOvr: 97, club: '맨체스터 시티', nation: '벨기에', status: 'LIVE' },
-            { name: '주드 벨링엄', wiki: 'Jude_Bellingham', pos: 'CAM', group: 'MF', baseOvr: 97, club: '레알 마드리드', nation: '잉글랜드', status: 'LIVE' },
+            // LEGEND 등급 현역 슈퍼스타 (OVR 97~105)
+            { name: '리오넬 메시', wiki: 'Lionel_Messi', pos: 'RW', group: 'FW', baseOvr: 101, club: '인터 마이애미', nation: '아르헨티나', status: 'LIVE' },
+            { name: '크리스티아누 호날두', wiki: 'Cristiano_Ronaldo', pos: 'ST', group: 'FW', baseOvr: 100, club: '알 나스르', nation: '포르투갈', status: 'LIVE' },
+            { name: '킬리안 음바페', wiki: 'Kylian_Mbappé', pos: 'ST', group: 'FW', baseOvr: 99, club: '레알 마드리드', nation: '프랑스', status: 'LIVE' },
+            { name: '엘링 홀란', wiki: 'Erling_Haaland', pos: 'ST', group: 'FW', baseOvr: 98, club: '맨체스터 시티', nation: '노르웨이', status: 'LIVE' },
+            { name: '주드 벨링엄', wiki: 'Jude_Bellingham', pos: 'CAM', group: 'MF', baseOvr: 98, club: '레알 마드리드', nation: '잉글랜드', status: 'LIVE' },
+            { name: '비니시우스 주니오르', wiki: 'Vinícius_Júnior', pos: 'LW', group: 'FW', baseOvr: 98, club: '레알 마드리드', nation: '브라질', status: 'LIVE' },
+            { name: '라민 야말', wiki: 'Lamine_Yamal', pos: 'RW', group: 'FW', baseOvr: 97, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
+            { name: '로드리', wiki: 'Rodri_(footballer,_born_1996)', pos: 'CDM', group: 'MF', baseOvr: 97, club: '맨체스터 시티', nation: '스페인', status: 'LIVE' },
+            { name: '손흥민', wiki: 'Son_Heung-min', pos: 'LW', group: 'FW', baseOvr: 97, club: 'LAFC', nation: '대한민국', status: 'LIVE' },
 
-            { name: '비니시우스 주니오르', wiki: 'Vinícius_Júnior', pos: 'LW', group: 'FW', baseOvr: 96, club: '레알 마드리드', nation: '브라질', status: 'LIVE' },
+            // WORLD CLASS 등급 (OVR 94~96)
+            { name: '케빈 더 브라위너', wiki: 'Kevin_De_Bruyne', pos: 'CM', group: 'MF', baseOvr: 96, club: 'SSC 나폴리', nation: '벨기에', status: 'LIVE' },
             { name: '해리 케인', wiki: 'Harry_Kane', pos: 'ST', group: 'FW', baseOvr: 96, club: '바이에른 뮌헨', nation: '잉글랜드', status: 'LIVE' },
             { name: '모하메드 살라', wiki: 'Mohamed_Salah', pos: 'RW', group: 'FW', baseOvr: 96, club: '리버풀', nation: '이집트', status: 'LIVE' },
+            { name: '플로리안 비르츠', wiki: 'Florian_Wirtz', pos: 'CAM', group: 'MF', baseOvr: 95, club: '리버풀', nation: '독일', status: 'LIVE' },
             { name: '로베르트 레반도프스키', wiki: 'Robert_Lewandowski', pos: 'ST', group: 'FW', baseOvr: 95, club: 'FC 바르셀로나', nation: '폴란드', status: 'LIVE' },
-            { name: '라민 야말', wiki: 'Lamine_Yamal', pos: 'RW', group: 'FW', baseOvr: 95, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
-            { name: '콜 파머', wiki: 'Cole_Palmer', pos: 'CAM', group: 'MF', baseOvr: 94, club: '잉글랜드', nation: '잉글랜드', status: 'LIVE' },
-            { name: '로드리', wiki: 'Rodri_(footballer,_born_1996)', pos: 'CDM', group: 'MF', baseOvr: 96, club: '맨체스터 시티', nation: '스페인', status: 'LIVE' },
-            { name: '페데리코 발베르데', wiki: 'Federico_Valverde', pos: 'CM', group: 'MF', baseOvr: 94, club: '레알 마드리드', nation: '우루과이', status: 'LIVE' },
-            { name: '루카 모드리치', wiki: 'Luka_Modrić', pos: 'CM', group: 'MF', baseOvr: 94, club: '레알 마드리드', nation: '크로아티아', status: 'LIVE' },
-            { name: '플로리안 비르츠', wiki: 'Florian_Wirtz', pos: 'CAM', group: 'MF', baseOvr: 94, club: '바이에른 뮌헨', nation: '독일', status: 'LIVE' },
             { name: '버질 반 다이크', wiki: 'Virgil_van_Dijk', pos: 'CB', group: 'DF', baseOvr: 95, club: '리버풀', nation: '네덜란드', status: 'LIVE' },
-            { name: '김민재', wiki: 'Kim_Min-jae', pos: 'CB', group: 'DF', baseOvr: 94, club: '바이에른 뮌헨', nation: '대한민국', status: 'LIVE' },
             { name: '티보 쿠르투아', wiki: 'Thibaut_Courtois', pos: 'GK', group: 'GK', baseOvr: 95, club: '레알 마드리드', nation: '벨기에', status: 'LIVE' },
+            { name: '콜 파머', wiki: 'Cole_Palmer', pos: 'CAM', group: 'MF', baseOvr: 94, club: '첼시', nation: '잉글랜드', status: 'LIVE' },
+            { name: '페데리코 발베르데', wiki: 'Federico_Valverde', pos: 'CM', group: 'MF', baseOvr: 94, club: '레알 마드리드', nation: '우루과이', status: 'LIVE' },
+            { name: '김민재', wiki: 'Kim_Min-jae', pos: 'CB', group: 'DF', baseOvr: 94, club: '바이에른 뮌헨', nation: '대한민국', status: 'LIVE' },
             { name: '알리송 베커', wiki: 'Alisson_Becker', pos: 'GK', group: 'GK', baseOvr: 94, club: '리버풀', nation: '브라질', status: 'LIVE' },
+            { name: '알렉산데르 이사크', wiki: 'Alexander_Isak', pos: 'ST', group: 'FW', baseOvr: 94, club: '리버풀', nation: '스웨덴', status: 'LIVE' },
 
+            // TOP CLASS 등급 (OVR 90~93)
             { name: '부카요 사카', wiki: 'Bukayo_Saka', pos: 'RW', group: 'FW', baseOvr: 93, club: '아스널', nation: '잉글랜드', status: 'LIVE' },
             { name: '필 포든', wiki: 'Phil_Foden', pos: 'RW', group: 'FW', baseOvr: 93, club: '맨체스터 시티', nation: '잉글랜드', status: 'LIVE' },
             { name: '라우타로 마르티네스', wiki: 'Lautaro_Martínez', pos: 'ST', group: 'FW', baseOvr: 93, club: '인테르', nation: '아르헨티나', status: 'LIVE' },
-            { name: '알렉산데르 이사크', wiki: 'Alexander_Isak', pos: 'ST', group: 'FW', baseOvr: 92, club: '스웨덴', nation: '스웨덴', status: 'LIVE' },
-            { name: '빅토르 요케레스', wiki: 'Viktor_Gyökeres', pos: 'ST', group: 'FW', baseOvr: 92, club: '스웨덴', nation: '스웨덴', status: 'LIVE' },
-            { name: '니코 윌리엄스', wiki: 'Nico_Williams', pos: 'LW', group: 'FW', baseOvr: 92, club: '스페인', nation: '스페인', status: 'LIVE' },
-            { name: '흐비차 크바라츠헬리아', wiki: 'Khvicha_Kvaratskhelia', pos: 'LW', group: 'FW', baseOvr: 92, club: '파리 생제르맹', nation: '조지아', status: 'LIVE' },
-            { name: '앙투안 그리즈만', wiki: 'Antoine_Griezmann', pos: 'CF', group: 'FW', baseOvr: 92, club: '프랑스', nation: '프랑스', status: 'LIVE' },
-            { name: '하파엘 레앙', wiki: 'Rafael_Leão', pos: 'LW', group: 'FW', baseOvr: 91, club: 'AC 밀란', nation: '포르투갈', status: 'LIVE' },
-            { name: '훌리안 알바레스', wiki: 'Julián_Álvarez', pos: 'ST', group: 'FW', baseOvr: 91, club: '맨체스터 시티', nation: '아르헨티나', status: 'LIVE' },
+            { name: '자말 무시알라', wiki: 'Jamal_Musiala', pos: 'CAM', group: 'MF', baseOvr: 93, club: '바이에른 뮌헨', nation: '독일', status: 'LIVE' },
             { name: '마르틴 외데고르', wiki: 'Martin_Ødegaard', pos: 'CAM', group: 'MF', baseOvr: 93, club: '아스널', nation: '노르웨이', status: 'LIVE' },
+            { name: '윌리엄 살리바', wiki: 'William_Saliba', pos: 'CB', group: 'DF', baseOvr: 93, club: '아스널', nation: '프랑스', status: 'LIVE' },
+            { name: '후벵 디아스', wiki: 'Rúben_Dias', pos: 'CB', group: 'DF', baseOvr: 93, club: '맨체스터 시티', nation: '포르투갈', status: 'LIVE' },
+            { name: '빅토르 요케레스', wiki: 'Viktor_Gyökeres', pos: 'ST', group: 'FW', baseOvr: 92, club: '아스널', nation: '스웨덴', status: 'LIVE' },
+            { name: '니코 윌리엄스', wiki: 'Nico_Williams', pos: 'LW', group: 'FW', baseOvr: 92, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
+            { name: '흐비차 크바라츠헬리아', wiki: 'Khvicha_Kvaratskhelia', pos: 'LW', group: 'FW', baseOvr: 92, club: '파리 생제르맹', nation: '조지아', status: 'LIVE' },
             { name: '데클란 라이스', wiki: 'Declan_Rice', pos: 'CDM', group: 'MF', baseOvr: 92, club: '아스널', nation: '잉글랜드', status: 'LIVE' },
             { name: '브루노 페르난데스', wiki: 'Bruno_Fernandes', pos: 'CAM', group: 'MF', baseOvr: 92, club: '맨체스터 유나이티드', nation: '포르투갈', status: 'LIVE' },
             { name: '페드리', wiki: 'Pedri', pos: 'CM', group: 'MF', baseOvr: 92, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
-            { name: '자말 무시알라', wiki: 'Jamal_Musiala', pos: 'CAM', group: 'MF', baseOvr: 93, club: '바이에른 뮌헨', nation: '독일', status: 'LIVE' },
-            { name: '이강인', wiki: 'Lee_Kang-in', pos: 'CAM', group: 'MF', baseOvr: 91, club: '파리 생제르맹', nation: '대한민국', status: 'LIVE' },
-            { name: '에두아르도 카마빙가', wiki: 'Eduardo_Camavinga', pos: 'CM', group: 'MF', baseOvr: 91, club: '레알 마드리드', nation: '프랑스', status: 'LIVE' },
-            { name: '오렐리앵 추아메니', wiki: 'Aurélien_Tchouaméni', pos: 'CDM', group: 'MF', baseOvr: 91, club: '레알 마드리드', nation: '프랑스', status: 'LIVE' },
-            { name: '마르틴 수비멘디', wiki: 'Martín_Zubimendi', pos: 'CDM', group: 'MF', baseOvr: 90, club: '아스널', nation: '스페인', status: 'LIVE' },
-            { name: '윌리엄 살리바', wiki: 'William_Saliba', pos: 'CB', group: 'DF', baseOvr: 93, club: '아스널', nation: '프랑스', status: 'LIVE' },
-            { name: '후벵 디아스', wiki: 'Rúben_Dias', pos: 'CB', group: 'DF', baseOvr: 93, club: '맨체스터 시티', nation: '포르투갈', status: 'LIVE' },
+            { name: '트렌트 알렉산더-아놀드', wiki: 'Trent_Alexander-Arnold', pos: 'RB', group: 'DF', baseOvr: 92, club: '레알 마드리드', nation: '잉글랜드', status: 'LIVE' },
             { name: '안토니오 뤼디거', wiki: 'Antonio_Rüdiger', pos: 'CB', group: 'DF', baseOvr: 92, club: '레알 마드리드', nation: '독일', status: 'LIVE' },
-            { name: '트렌트 알렉산더-아놀드', wiki: 'Trent_Alexander-Arnold', pos: 'RB', group: 'DF', baseOvr: 92, club: '리버풀', nation: '잉글랜드', status: 'LIVE' },
+            { name: '잔루이지 돈나룸마', wiki: 'Gianluigi_Donnarumma', pos: 'GK', group: 'GK', baseOvr: 92, club: '맨체스터 시티', nation: '이탈리아', status: 'LIVE' },
+            { name: '에밀리아노 마르티네스', wiki: 'Emiliano_Martínez', pos: 'GK', group: 'GK', baseOvr: 92, club: '첼시', nation: '아르헨티나', status: 'LIVE' },
+            { name: '이강인', wiki: 'Lee_Kang-in', pos: 'CAM', group: 'MF', baseOvr: 91, club: '아틀레티코 마드리드', nation: '대한민국', status: 'LIVE' },
+            { name: '훌리안 알바레스', wiki: 'Julián_Álvarez', pos: 'ST', group: 'FW', baseOvr: 91, club: '아틀레티코 마드리드', nation: '아르헨티나', status: 'LIVE' },
+            { name: '루카 모드리치', wiki: 'Luka_Modrić', pos: 'CM', group: 'MF', baseOvr: 91, club: 'AC 밀란', nation: '크로아티아', status: 'LIVE' },
+            { name: '하파엘 레앙', wiki: 'Rafael_Leão', pos: 'LW', group: 'FW', baseOvr: 91, club: 'AC 밀란', nation: '포르투갈', status: 'LIVE' },
+            { name: '테오 에르난데스', wiki: 'Theo_Hernandez', pos: 'LB', group: 'DF', baseOvr: 91, club: '알 힐랄', nation: '프랑스', status: 'LIVE' },
+            { name: '아슈라프 하키미', wiki: 'Achraf_Hakimi', pos: 'RB', group: 'DF', baseOvr: 91, club: '파리 생제르맹', nation: '모로코', status: 'LIVE' },
             { name: '요슈코 그바르디올', wiki: 'Joško_Gvardiol', pos: 'LB', group: 'DF', baseOvr: 91, club: '맨체스터 시티', nation: '크로아티아', status: 'LIVE' },
             { name: '알폰소 데이비스', wiki: 'Alphonso_Davies', pos: 'LB', group: 'DF', baseOvr: 91, club: '바이에른 뮌헨', nation: '캐나다', status: 'LIVE' },
-            { name: '테오 에르난데스', wiki: 'Theo_Hernandez', pos: 'LB', group: 'DF', baseOvr: 91, club: 'AC 밀란', nation: '프랑스', status: 'LIVE' },
-            { name: '아슈라프 하키미', wiki: 'Achraf_Hakimi', pos: 'RB', group: 'DF', baseOvr: 91, club: '파리 생제르맹', nation: '프랑스', status: 'LIVE' },
-            { name: '잔루이지 돈나룸마', wiki: 'Gianluigi_Donnarumma', pos: 'GK', group: 'GK', baseOvr: 92, club: '파리 생제르맹', nation: '이탈리아', status: 'LIVE' },
-            { name: '에밀리아노 마르티네스', wiki: 'Emiliano_Martínez', pos: 'GK', group: 'GK', baseOvr: 92, club: '아르헨티나', nation: '아르헨티나', status: 'LIVE' },
+            { name: '마르틴 수비멘디', wiki: 'Martín_Zubimendi', pos: 'CDM', group: 'MF', baseOvr: 90, club: '아스널', nation: '스페인', status: 'LIVE' },
             { name: '마이크 메냥', wiki: 'Mike_Maignan', pos: 'GK', group: 'GK', baseOvr: 91, club: 'AC 밀란', nation: '프랑스', status: 'LIVE' },
-            { name: '얀 오블락', wiki: 'Jan_Oblak', pos: 'GK', group: 'GK', baseOvr: 91, club: '슬로베니아', nation: '슬로베니아', status: 'LIVE' },
 
+            // NAMED 등급 (OVR 85~89)
             { name: '황희찬', wiki: 'Hwang_Hee-chan', pos: 'LW', group: 'FW', baseOvr: 88, club: '넥스트 유나이티드', nation: '대한민국', status: 'LIVE' },
-            { name: '다르윈 누녜스', wiki: 'Darwin_Núñez', pos: 'ST', group: 'FW', baseOvr: 87, club: '리버풀', nation: '우루과이', status: 'LIVE' },
-            { name: '라스무스 호일룬', wiki: 'Rasmus_Højlund', pos: 'ST', group: 'FW', baseOvr: 86, club: '맨체스터 유나이티드', nation: '노르웨이', status: 'LIVE' },
-            { name: '브래들리 바르콜라', wiki: 'Bradley_Barcola', pos: 'LW', group: 'FW', baseOvr: 89, club: '파리 생제르맹', nation: '프랑스', status: 'LIVE' },
-            { name: '엔소 페르난데스', wiki: 'Enzo_Fernández', pos: 'CM', group: 'MF', baseOvr: 88, club: '아르헨티나', nation: '아르헨티나', status: 'LIVE' },
+            { name: '브래들리 바르콜라', wiki: 'Bradley_Barcola', pos: 'LW', group: 'FW', baseOvr: 89, club: '리버풀', nation: '프랑스', status: 'LIVE' },
+            { name: '엔소 페르난데스', wiki: 'Enzo_Fernández', pos: 'CM', group: 'MF', baseOvr: 89, club: '맨체스터 시티', nation: '아르헨티나', status: 'LIVE' },
             { name: '알렉시스 맥 알리스터', wiki: 'Alexis_Mac_Allister', pos: 'CM', group: 'MF', baseOvr: 89, club: '리버풀', nation: '아르헨티나', status: 'LIVE' },
-            { name: '파우 쿠바르시', wiki: 'Pau_Cubarsí', pos: 'CB', group: 'DF', baseOvr: 88, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
             { name: '미키 판 더 펜', wiki: 'Micky_van_de_Ven', pos: 'CB', group: 'DF', baseOvr: 89, club: '토트넘 홋스퍼', nation: '네덜란드', status: 'LIVE' },
             { name: '크리스티안 로메로', wiki: 'Cristian_Romero', pos: 'CB', group: 'DF', baseOvr: 89, club: '토트넘 홋스퍼', nation: '아르헨티나', status: 'LIVE' },
-            { name: '굴리엘모 비카리오', wiki: 'Guglielmo_Vicario', pos: 'GK', group: 'GK', baseOvr: 88, club: '토트넘 홋스퍼', nation: '이탈리아', status: 'LIVE' }
+            { name: '파우 쿠바르시', wiki: 'Pau_Cubarsí', pos: 'CB', group: 'DF', baseOvr: 88, club: 'FC 바르셀로나', nation: '스페인', status: 'LIVE' },
+            { name: '굴리엘모 비카리오', wiki: 'Guglielmo_Vicario', pos: 'GK', group: 'GK', baseOvr: 88, club: '토트넘 홋스퍼', nation: '이탈리아', status: 'LIVE' },
+            { name: '라스무스 호일룬', wiki: 'Rasmus_Højlund', pos: 'ST', group: 'FW', baseOvr: 87, club: 'SSC 나폴리', nation: '덴마크', status: 'LIVE' },
+            { name: '다르윈 누녜스', wiki: 'Darwin_Núñez', pos: 'ST', group: 'FW', baseOvr: 87, club: '알 힐랄', nation: '우루과이', status: 'LIVE' }
         ];
 
-        // ==================== 실제 선수 사진(미니페이스온) 실시간 캐시 & 로더 ====================
         const REAL_FACE_CACHE = {};
 
         async function fetchRealPlayerFace(wikiSlug) {
@@ -1057,7 +1076,6 @@
             PLAYER_DB.forEach(p => fetchRealPlayerFace(p.wiki));
         }
 
-        // ==================== COIN & NG토큰 밸런스 미션 DB ====================
         const MISSIONS_DB = [
             { id: 'd_pack3', type: 'daily', title: '[일일] 집중 스카우트 탐색', desc: '오늘 선수팩을 3회 개봉하세요', stat: 'packsOpened', target: 3, rewardCoin: 600, rewardNg: 2 },
             { id: 'd_pack8', type: 'daily', title: '[일일] 대형 스카우트 프로젝트', desc: '오늘 선수팩을 8회 개봉하세요', stat: 'packsOpened', target: 8, rewardCoin: 1400, rewardNg: 4 },
@@ -1072,7 +1090,7 @@
             { id: 'a_enh5', type: 'achieve', title: '은빛 에이스 (+5강)', desc: '+5 이상 선수를 보유하세요', stat: 'maxLevel', target: 5, rewardCoin: 2500, rewardNg: 6 },
             { id: 'a_enh7', type: 'achieve', title: '금빛 마스터 (+7강)', desc: '+7 이상 선수를 보유하세요', stat: 'maxLevel', target: 7, rewardCoin: 6000, rewardNg: 12 },
             { id: 'a_enh8', type: 'achieve', title: '전설의 신화 (+8강)', desc: '+8 이상 선수를 보유하세요', stat: 'maxLevel', target: 8, rewardCoin: 12000, rewardNg: 20 },
-            { id: 'a_icon2', type: 'achieve', title: '갈락티코 ICON 듀오', desc: 'OVR 100+ ICON 선수를 2명 이상 보유하세요', stat: 'iconCount', target: 2, rewardCoin: 3500, rewardNg: 7 },
+            { id: 'a_icon2', type: 'achieve', title: '갈락티코 ICON 듀오', desc: 'OVR 105+ ICON 선수를 2명 이상 보유하세요', stat: 'iconCount', target: 2, rewardCoin: 3500, rewardNg: 7 },
             { id: 'a_lineup11', type: 'achieve', title: '베스트 11 완전 편성', desc: '전술판 11자리를 모두 채우세요', stat: 'lineupCount', target: 11, rewardCoin: 1800, rewardNg: 4 },
             { id: 'a_win5', type: 'achieve', title: '명문 구단의 위엄 (5승)', desc: '구단 공식 경기 누적 5승을 달성하세요', stat: 'matchesWon', target: 5, rewardCoin: 2500, rewardNg: 5 },
             { id: 'a_val15k', type: 'achieve', title: '중견 명문 구단 (가치 15,000)', desc: '구단 총 가치 15,000 COIN을 달성하세요', stat: 'clubValue', target: 15000, rewardCoin: 2000, rewardNg: 4 },
@@ -1088,7 +1106,7 @@
             created: false,
             clubName: '넥스트 FC',
             clubEmblemId: 'NXU',
-            coins: 15000,
+            coins: 20000,
             ngTokens: 6,
             formation: '4-3-3',
             roster: [],
@@ -1097,9 +1115,11 @@
                 'NAMED': 0,
                 'TOP CLASS': 0,
                 'WORLD CLASS': 0,
-                'LEGEND': 0
+                'LEGEND': 0,
+                'ICON': 0
             },
             selectedEnhanceId: null,
+            selectedMatCount: 3,
             starterClaimed: false,
             stats: {
                 packsOpened: 0,
@@ -1118,7 +1138,6 @@
         let missionFilter = 'all';
         let tutorialStep = -1;
         let selectedPitchSlotIdx = null;
-        let draggedPitchSlotIdx = null;
 
         function initApp() {
             renderEmblemSelector();
@@ -1150,16 +1169,16 @@
 
             document.getElementById('club-creation-modal').classList.add('hidden');
             renderAll();
-            showToast(`🎉 [${gameState.clubName}] 구단 창단 완료! (15,000 COIN + 6 NG토큰)`, 'success');
+            showToast(`🎉 [${gameState.clubName}] 구단 창단 완료! (20,000 COIN + 6 NG토큰)`, 'success');
 
             setTimeout(() => startTutorial(), 450);
         }
 
         const TUTORIAL_STEPS = [
-            { navId: 'nav-packs', text: '1단계: 먼저 [선수팩] 탭에서 코인으로 현역(LIVE)과 OVR 100+ 전설(ICON) 선수를 영입해 보세요!' },
-            { navId: 'nav-enhance', text: '2단계: [선수 강화] 탭에서 NG토큰으로 재료를 1개씩 사서 +0~+10 강화를 진행해 보세요! (크리티컬 최대 +5 상한)' },
+            { navId: 'nav-packs', text: '1단계: 먼저 [선수팩] 탭에서 코인으로 2026-27 현역(LIVE)과 은퇴 레전드(ICON) 선수를 영입해 보세요!' },
+            { navId: 'nav-enhance', text: '2단계: [선수 강화] 탭에서 재료 1개(1/3)·2개(2/3)·3개(100%)를 선택해 +0~+10 강화를 진행해 보세요!' },
             { navId: 'nav-squad', text: '3단계: [구단 관리]에서 6가지 포메이션을 선택하고, GK 전용 슬롯 및 중복 선수 제외 규칙에 맞춰 라인업을 구성해 보세요!' },
-            { navId: 'nav-missions', text: '4단계: 강화 재료 전용 재화인 [NG토큰]과 코인은 [미션] 탭에서 획득할 수 있습니다!' }
+            { navId: 'nav-match', text: '4단계: [경기] 탭에서 결정적 순간 터치·스와이프로 직접 슈팅하고 GK 다이빙을 조종해 승리하세요!' }
         ];
 
         function startTutorial() {
@@ -1220,21 +1239,18 @@
         }
 
         function renderPlayerCardHTML(player, size = 'md') {
-            const tier = getPlayerTier(player.baseOvr);
+            const tier = getPlayerTier(player);
             const meta = TIER_META[tier];
             const ovr = player.baseOvr + player.level;
-            const isIcon = player.status === 'ICON';
+            const isIcon = tier === 'ICON';
+            const isLegend = tier === 'LEGEND';
             const isTripleDigit = ovr >= 100;
 
-            const outerGradient = isIcon
-                ? 'from-amber-100 via-yellow-300 to-amber-500'
-                : meta.outerBg;
-            const innerGradient = isIcon
-                ? 'from-[#2d210b] via-[#1c1509] to-[#0f0c07]'
-                : meta.innerBg;
             const statusBadgeHTML = isIcon
-                ? `<span class="mt-0.5 px-1.5 py-[1px] rounded bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 border border-amber-100 text-[6.5px] font-black text-slate-950 tracking-wider shadow-sm">ICON</span>`
-                : `<span class="mt-0.5 px-1.5 py-[1px] rounded bg-black/60 border border-emerald-400/40 text-[6.5px] font-extrabold text-emerald-300 tracking-wider">LIVE</span>`;
+                ? `<span class="mt-0.5 px-1.5 py-[1px] rounded bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 border border-amber-100 text-[6.5px] font-black text-slate-950 tracking-wider shadow-sm">ICON</span>`
+                : isLegend
+                    ? `<span class="mt-0.5 px-1.5 py-[1px] rounded bg-gradient-to-r from-rose-500 to-amber-500 border border-amber-200/70 text-[6.5px] font-black text-white tracking-wider shadow-sm">LEGEND</span>`
+                    : `<span class="mt-0.5 px-1.5 py-[1px] rounded bg-black/65 border border-white/25 text-[6px] font-extrabold text-slate-200 tracking-wider">${tier === 'WORLD CLASS' ? 'WC' : tier === 'TOP CLASS' ? 'TC' : 'LIVE'}</span>`;
 
             const dims = size === 'lg' ? 'w-44 h-60' : size === 'sm' ? 'w-20 h-28 sm:w-24 sm:h-32' : 'w-32 h-44';
             const ovrText = size === 'lg'
@@ -1250,15 +1266,19 @@
             const badgePos = size === 'lg' ? 'top-5 right-4' : size === 'sm' ? 'top-2 right-1.5' : 'top-3.5 right-3';
 
             const photoSrc = getPlayerPhotoSrc(player);
+            const shimmerLayer = meta.shimmer
+                ? `<div class="absolute inset-0 overflow-hidden pointer-events-none"><div class="w-1/2 h-full bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer"></div></div>`
+                : '';
 
             return `
                 <div class="relative ${dims} select-none group">
-                    <div class="w-full h-full fc-shield-outer bg-gradient-to-b ${outerGradient} p-[3px] shadow-xl">
-                        <div class="relative w-full h-full fc-shield-inner bg-gradient-to-b ${innerGradient} overflow-hidden flex flex-col justify-between">
+                    <div class="w-full h-full fc-shield-outer bg-gradient-to-b ${meta.outerBg} p-[3px] shadow-xl">
+                        <div class="relative w-full h-full fc-shield-inner bg-gradient-to-b ${meta.innerBg} overflow-hidden flex flex-col justify-between">
+                            ${shimmerLayer}
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
 
                             <div class="relative z-20 ${topPad} flex flex-col items-start leading-none">
-                                <span class="${ovrText} font-black ${isIcon ? 'text-amber-200' : 'text-white'} drop-shadow">${ovr}</span>
+                                <span class="${ovrText} font-black ${meta.ovrColor} drop-shadow">${ovr}</span>
                                 <span class="text-[8.5px] font-black text-amber-300 mt-0.5">${player.pos}</span>
                                 ${statusBadgeHTML}
                                 <div class="w-3 h-2 mt-0.5 rounded-[1px] overflow-hidden border border-white/25">${getNationFlagSVG(player.nation)}</div>
@@ -1276,9 +1296,9 @@
                                     class="w-[82%] h-[88%] object-cover object-top player-face-blend transition-opacity duration-300">
                             </div>
 
-                            <div class="relative z-20 mt-auto ${bottomPad} ${isIcon ? 'bg-[#1a1306]/95 border-amber-300/65' : 'bg-slate-950/90 border-amber-400/40'} border-y py-0.5 px-1.5 text-center">
-                                <div class="${nameText} font-black ${isIcon ? 'text-amber-100' : 'text-white'} truncate leading-tight">${player.name}</div>
-                                ${size !== 'sm' ? `<div class="${clubText} ${isIcon ? 'text-amber-300/90' : 'text-slate-300'} truncate leading-tight mt-0.5">${isIcon ? 'ICON · ' + player.club : player.club}</div>` : ''}
+                            <div class="relative z-20 mt-auto ${bottomPad} ${meta.namePlate} border-y py-0.5 px-1.5 text-center">
+                                <div class="${nameText} font-black truncate leading-tight">${player.name}</div>
+                                ${size !== 'sm' ? `<div class="${clubText} opacity-85 truncate leading-tight mt-0.5">${isIcon ? 'ICON · ' + player.club : player.club}</div>` : ''}
                             </div>
                         </div>
                     </div>
@@ -1287,7 +1307,7 @@
         }
 
         const POSITION_PACKS = [
-            { id: 'ALL', title: '올라운드 슈퍼스타 팩', desc: '전 포지션 현역(LIVE) & OVR 100+ ICON', price: 1200, icon: 'fa-star', color: 'from-amber-500/20 to-slate-900 border-amber-500/40' },
+            { id: 'ALL', title: '올라운드 슈퍼스타 팩', desc: '전 포지션 2026-27 LIVE & ICON', price: 1200, icon: 'fa-star', color: 'from-amber-500/20 to-slate-900 border-amber-500/40' },
             { id: 'FW', title: '공격수 (FW) 엘리트 팩', desc: 'ST · LW · RW · CF 집중 영입', price: 1300, icon: 'fa-fire', color: 'from-rose-500/20 to-slate-900 border-rose-500/40' },
             { id: 'MF', title: '미드필더 (MF) 마에스트로 팩', desc: 'CAM · CM · RM · CDM 집중 영입', price: 1200, icon: 'fa-compass', color: 'from-blue-500/20 to-slate-900 border-blue-500/40' },
             { id: 'DF_GK', title: '수비 · GK (DF/GK) 통곡 팩', desc: 'CB · LB · RB · GK 집중 영입', price: 1100, icon: 'fa-shield', color: 'from-emerald-500/20 to-slate-900 border-emerald-500/40' }
@@ -1306,15 +1326,17 @@
 
             const roll = Math.random() * 100;
             let targetTier = 'NAMED';
-            if (roll < 5) targetTier = 'LEGEND';
+            if (roll < 2) targetTier = 'ICON';
+            else if (roll < 5) targetTier = 'LEGEND';
             else if (roll < 18) targetTier = 'WORLD CLASS';
             else if (roll < 45) targetTier = 'TOP CLASS';
 
-            let pool = PLAYER_DB.filter(p => getPlayerTier(p.baseOvr) === targetTier);
+            let pool = PLAYER_DB.filter(p => getPlayerTier(p) === targetTier);
             if (packId === 'FW') pool = pool.filter(p => p.group === 'FW');
             else if (packId === 'MF') pool = pool.filter(p => p.group === 'MF');
             else if (packId === 'DF_GK') pool = pool.filter(p => p.group === 'DF' || p.group === 'GK');
 
+            if (pool.length === 0) pool = PLAYER_DB.filter(p => getPlayerTier(p) === targetTier);
             if (pool.length === 0) pool = PLAYER_DB;
             const picked = pool[Math.floor(Math.random() * pool.length)];
 
@@ -1402,12 +1424,16 @@
             document.getElementById('walkout-pos-text').textContent = player.pos;
             document.getElementById('walkout-club-emblem').innerHTML = clubSVG;
 
+            const tier = getPlayerTier(player);
             const topTag = document.getElementById('walkout-top-tag');
-            if (player.status === 'ICON') {
-                topTag.textContent = '★ ICON LEGEND WALKOUT (OVR 100+) ★';
+            if (tier === 'ICON') {
+                topTag.textContent = '★ ICON LEGEND WALKOUT (OVR 105+) ★';
                 topTag.className = 'px-4 py-1 rounded-full bg-amber-300/30 border border-amber-200 text-[11px] font-black tracking-[0.22em] text-amber-100 uppercase shadow-[0_0_20px_rgba(251,191,36,0.6)]';
+            } else if (tier === 'LEGEND') {
+                topTag.textContent = '★ LEGEND WALKOUT (OVR 97+) ★';
+                topTag.className = 'px-4 py-1 rounded-full bg-rose-500/30 border border-amber-300 text-[11px] font-black tracking-[0.22em] text-amber-100 uppercase';
             } else {
-                topTag.textContent = 'LIVE WALKOUT SIGNING';
+                topTag.textContent = `${tier} WALKOUT SIGNING`;
                 topTag.className = 'px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-[10px] font-black tracking-[0.22em] text-amber-200 uppercase';
             }
 
@@ -1419,11 +1445,1570 @@
             document.getElementById('walkout-banner-flag-l').innerHTML = flagSVG;
             document.getElementById('walkout-banner-flag-r').innerHTML = flagSVG;
             document.getElementById('walkout-card-mount').innerHTML = renderPlayerCardHTML(player, 'lg');
-            document.getElementById('walkout-player-summary').textContent = `[${player.status}] ${player.name} · ${player.club} · ${player.nation} (${sourceLabel})`;
+            document.getElementById('walkout-player-summary').textContent = `[${tier}] ${player.name} · ${player.club} · ${player.nation} (${sourceLabel})`;
 
             whiteFlash.style.opacity = '1';
             walkoutTimers.push(setTimeout(() => {
                 whiteFlash.style.opacity = '0';
             }, 140));
 
-   
+            sparkleCurtain.innerHTML = Array.from({ length: 24 }, (_, i) => {
+                const left = (i * 4.2 + Math.random() * 3) % 100;
+                const delay = (Math.random() * 1.4).toFixed(2);
+                const dur = (1.6 + Math.random() * 1.2).toFixed(2);
+                return `<span class="absolute top-0 w-1.5 h-1.5 rounded-full bg-amber-200 shadow-[0_0_8px_#fde047]" style="left:${left}%; animation: sparkleRain ${dur}s ${delay}s infinite linear;"></span>`;
+            }).join('');
+
+            walkoutTimers.push(setTimeout(() => {
+                hintNation.classList.remove('hidden');
+                hintNation.classList.add('animate-hint-pop');
+            }, 600));
+            walkoutTimers.push(setTimeout(() => {
+                hintNation.classList.add('hidden');
+                hintNation.classList.remove('animate-hint-pop');
+            }, 1850));
+
+            walkoutTimers.push(setTimeout(() => {
+                hintPos.classList.remove('hidden');
+                hintPos.classList.add('animate-hint-pop');
+            }, 2000));
+            walkoutTimers.push(setTimeout(() => {
+                hintPos.classList.add('hidden');
+                hintPos.classList.remove('animate-hint-pop');
+            }, 3250));
+
+            walkoutTimers.push(setTimeout(() => {
+                doorL.style.transform = 'translateX(-115px)';
+                doorR.style.transform = 'translateX(115px)';
+                hintClub.classList.remove('hidden');
+                hintClub.classList.add('animate-hint-pop');
+            }, 3400));
+
+            walkoutTimers.push(setTimeout(() => {
+                skipWalkout();
+            }, 4700));
+        }
+
+        function skipWalkout() {
+            clearWalkoutTimers();
+            walkoutStageCompleted = true;
+            const whiteFlash = document.getElementById('walkout-white-flash');
+            whiteFlash.style.opacity = '0.9';
+            setTimeout(() => { whiteFlash.style.opacity = '0'; }, 160);
+
+            document.getElementById('walkout-tunnel-scene').classList.add('hidden');
+            const finalStage = document.getElementById('walkout-final-stage');
+            finalStage.classList.remove('hidden');
+
+            const fwBg = document.getElementById('walkout-fireworks-bg');
+            fwBg.innerHTML = Array.from({ length: 14 }, () => {
+                const x = Math.floor(Math.random() * 88 + 6);
+                const y = Math.floor(Math.random() * 55 + 8);
+                const delay = (Math.random() * 0.9).toFixed(2);
+                return `<div class="absolute w-24 h-24 rounded-full border-2 border-amber-300/60" style="left:${x}%; top:${y}%; animation: fireworkBurst 1.4s ${delay}s ease-out infinite;"></div>`;
+            }).join('');
+        }
+
+        function closeWalkout() {
+            clearWalkoutTimers();
+            document.getElementById('walkout-overlay').classList.add('hidden');
+            renderAll();
+        }
+
+        function selectEnhancePlayer(uid) {
+            gameState.selectedEnhanceId = uid;
+            renderEnhanceTab();
+        }
+
+        function setEnhanceMatCount(count) {
+            gameState.selectedMatCount = Math.max(1, Math.min(3, count));
+            renderEnhanceTab();
+        }
+
+        let enhanceCinematicTimer = null;
+        let pendingEnhanceOutcome = null;
+
+        function attemptEnhance() {
+            const player = gameState.roster.find(p => p.uid === gameState.selectedEnhanceId);
+            if (!player) return;
+            if (player.level >= 10) {
+                showToast('이미 최고 강화 단계(+10)에 도달한 선수입니다!', 'info');
+                return;
+            }
+
+            const tier = getPlayerTier(player);
+            const matCount = Math.max(1, Math.min(3, gameState.selectedMatCount || 3));
+            const ownedMats = gameState.materials[tier] || 0;
+
+            if (ownedMats < matCount) {
+                showToast(`${tier} 강화 재료가 부족합니다! (선택: ${matCount}개 / 보유: ${ownedMats}개)`, 'error');
+                return;
+            }
+
+            gameState.materials[tier] = ownedMats - matCount;
+            gameState.stats.enhanceTries += 1;
+
+            const oldLevel = player.level;
+            const oldOvr = player.baseOvr + oldLevel;
+            const oldVal = getPlayerReleaseValue(player);
+
+            const probs = getEnhanceProbabilities(oldLevel, matCount);
+            const roll = Math.random() * 100;
+
+            let isSuccess = false;
+            let jumpSteps = 0;
+
+            if (roll < probs.baseRate) {
+                isSuccess = true;
+                gameState.stats.enhanceSuccess += 1;
+                if (probs.hasCrit) {
+                    if (roll < probs.crit3Rate) jumpSteps = 3;
+                    else if (roll < probs.crit3Rate + probs.crit2Rate) jumpSteps = 2;
+                    else jumpSteps = 1;
+                } else {
+                    jumpSteps = 1;
+                }
+                const maxAllowed = oldLevel < 5 ? 5 : 10;
+                player.level = Math.min(maxAllowed, oldLevel + jumpSteps);
+            } else {
+                isSuccess = false;
+                if (oldLevel >= 2) {
+                    player.level = Math.max(0, oldLevel - 1);
+                }
+            }
+
+            const newLevel = player.level;
+            const newOvr = player.baseOvr + newLevel;
+            const newVal = getPlayerReleaseValue(player);
+
+            pendingEnhanceOutcome = {
+                player,
+                isSuccess,
+                jumpSteps: newLevel - oldLevel,
+                oldLevel,
+                newLevel,
+                oldOvr,
+                newOvr,
+                oldVal,
+                newVal,
+                matCount
+            };
+
+            openEnhanceCinematic(pendingEnhanceOutcome);
+            renderAll();
+        }
+
+        function openEnhanceCinematic(outcome) {
+            if (enhanceCinematicTimer) clearTimeout(enhanceCinematicTimer);
+            const overlay = document.getElementById('enhance-cinematic-overlay');
+            const stageSil = document.getElementById('enhance-stage-silhouette');
+            const stageRes = document.getElementById('enhance-stage-result');
+            const beamCone = document.getElementById('enhance-beam-cone');
+
+            overlay.classList.remove('hidden');
+            stageSil.classList.remove('hidden');
+            stageRes.classList.add('hidden');
+            document.getElementById('enhance-skip-btn').classList.remove('hidden');
+
+            beamCone.className = 'w-[78%] max-w-md h-full bg-gradient-to-b from-emerald-400/50 via-emerald-500/20 to-transparent';
+
+            enhanceCinematicTimer = setTimeout(() => {
+                showEnhanceResultStage(outcome);
+            }, 1350);
+        }
+
+        function skipEnhanceCinematic() {
+            if (enhanceCinematicTimer) clearTimeout(enhanceCinematicTimer);
+            if (pendingEnhanceOutcome) showEnhanceResultStage(pendingEnhanceOutcome);
+        }
+
+        function showEnhanceResultStage(outcome) {
+            const stageSil = document.getElementById('enhance-stage-silhouette');
+            const stageRes = document.getElementById('enhance-stage-result');
+            const beamCone = document.getElementById('enhance-beam-cone');
+            const titleEl = document.getElementById('enhance-result-title');
+            const arrowEl = document.getElementById('enhance-arrow-icon');
+            const confettiLayer = document.getElementById('enhance-confetti-layer');
+
+            stageSil.classList.add('hidden');
+            stageRes.classList.remove('hidden');
+            document.getElementById('enhance-skip-btn').classList.add('hidden');
+
+            if (outcome.isSuccess) {
+                const isCrit = outcome.jumpSteps >= 2;
+                beamCone.className = isCrit
+                    ? 'w-[85%] max-w-md h-full bg-gradient-to-b from-amber-300/60 via-amber-500/25 to-transparent'
+                    : 'w-[78%] max-w-md h-full bg-gradient-to-b from-emerald-400/55 via-emerald-500/20 to-transparent';
+                titleEl.textContent = isCrit ? `★ 대성공 (+${outcome.jumpSteps}단계 점프!) ★` : '강화 성공';
+                titleEl.className = isCrit
+                    ? 'text-2xl sm:text-3xl font-black tracking-tight text-amber-300 drop-shadow-[0_2px_14px_rgba(251,191,36,0.9)]'
+                    : 'text-3xl font-black tracking-tight text-emerald-300 drop-shadow-[0_2px_12px_rgba(16,185,129,0.85)]';
+                arrowEl.className = 'text-xl font-black text-emerald-400';
+                confettiLayer.innerHTML = Array.from({ length: 22 }, (_, i) => {
+                    const left = (i * 4.5 + Math.random() * 3) % 100;
+                    const color = i % 2 === 0 ? 'bg-amber-300' : 'bg-emerald-300';
+                    const dur = (1.3 + Math.random()).toFixed(2);
+                    return `<span class="absolute top-0 w-2 h-2 rounded-sm ${color}" style="left:${left}%; animation: sparkleRain ${dur}s linear infinite;"></span>`;
+                }).join('');
+            } else {
+                beamCone.className = 'w-[78%] max-w-md h-full bg-gradient-to-b from-rose-500/50 via-rose-600/20 to-transparent';
+                titleEl.textContent = outcome.newLevel < outcome.oldLevel ? '강화 실패 (1단계 하락)' : '강화 실패 (등급 유지)';
+                titleEl.className = 'text-2xl sm:text-3xl font-black tracking-tight text-rose-400 drop-shadow-[0_2px_12px_rgba(244,63,94,0.85)]';
+                arrowEl.className = 'text-xl font-black text-rose-400';
+                confettiLayer.innerHTML = '';
+            }
+
+            document.getElementById('enhance-result-card-mount').innerHTML = renderPlayerCardHTML(outcome.player, 'md');
+            document.getElementById('enhance-shield-before').textContent = `+${outcome.oldLevel}`;
+            document.getElementById('enhance-shield-after').textContent = `+${outcome.newLevel}`;
+
+            const diffLevel = outcome.newLevel - outcome.oldLevel;
+            const diffOvr = outcome.newOvr - outcome.oldOvr;
+            const diffVal = outcome.newVal - outcome.oldVal;
+
+            document.getElementById('enhance-res-level').textContent = `+${outcome.oldLevel} → +${outcome.newLevel}`;
+            document.getElementById('enhance-res-level').className = diffLevel > 0 ? 'text-xs font-black text-emerald-400' : diffLevel < 0 ? 'text-xs font-black text-rose-400' : 'text-xs font-black text-slate-300';
+
+            document.getElementById('enhance-res-ovr').innerHTML = `${outcome.newOvr} <span class="${diffOvr >= 0 ? 'text-emerald-400' : 'text-rose-400'} text-xs">(${diffOvr >= 0 ? '+' : ''}${diffOvr})</span>`;
+            document.getElementById('enhance-res-value').textContent = `${outcome.newVal.toLocaleString()} COIN (${diffVal >= 0 ? '+' : ''}${diffVal.toLocaleString()})`;
+        }
+
+        function closeEnhanceCinematic() {
+            if (enhanceCinematicTimer) clearTimeout(enhanceCinematicTimer);
+            document.getElementById('enhance-cinematic-overlay').classList.add('hidden');
+            renderAll();
+        }
+
+        function getPlayerReleaseValue(player) {
+            const tier = getPlayerTier(player);
+            const meta = TIER_META[tier];
+            const tierMinOvr = tier === 'ICON' ? 105 : tier === 'LEGEND' ? 97 : tier === 'WORLD CLASS' ? 94 : tier === 'TOP CLASS' ? 90 : 85;
+            const ovrSteps = Math.max(0, player.baseOvr - tierMinOvr);
+            const baseVal = meta.baseRelease + ovrSteps * meta.stepBonus;
+            const enhBonus = Math.round(Math.pow(player.level, 1.55) * meta.enhanceMult);
+            return baseVal + enhBonus;
+        }
+
+        function releasePlayer(uid) {
+            const idx = gameState.roster.findIndex(p => p.uid === uid);
+            if (idx === -1) return;
+            const player = gameState.roster[idx];
+            const gainCoins = getPlayerReleaseValue(player);
+
+            gameState.lineup = gameState.lineup.map(id => id === uid ? null : id);
+            gameState.roster.splice(idx, 1);
+            gameState.coins += gainCoins;
+            gameState.stats.releasedCount += 1;
+
+            if (gameState.selectedEnhanceId === uid) {
+                gameState.selectedEnhanceId = gameState.roster[0]?.uid || null;
+            }
+            renderAll();
+            showToast(`💰 [${player.name} +${player.level}] 방출 완료! (+${gainCoins.toLocaleString()} COIN)`, 'success');
+        }
+
+        function dismantlePlayerForMaterial(uid) {
+            const idx = gameState.roster.findIndex(p => p.uid === uid);
+            if (idx === -1) return;
+            const player = gameState.roster[idx];
+            const tier = getPlayerTier(player);
+            const gainMats = 1 + Math.floor(player.level / 2);
+
+            gameState.lineup = gameState.lineup.map(id => id === uid ? null : id);
+            gameState.roster.splice(idx, 1);
+            gameState.materials[tier] = (gameState.materials[tier] || 0) + gainMats;
+            gameState.stats.releasedCount += 1;
+
+            if (gameState.selectedEnhanceId === uid) {
+                gameState.selectedEnhanceId = gameState.roster[0]?.uid || null;
+            }
+            renderAll();
+            showToast(`🔧 [${player.name}] 분해 완료! ${tier} 강화 재료 +${gainMats}개 획득`, 'success');
+        }
+
+        function autoBestEleven() {
+            const slots = getActiveSlots();
+            const newLineup = Array(11).fill(null);
+            const usedNames = new Set();
+            const sorted = [...gameState.roster].sort((a, b) => (b.baseOvr + b.level) - (a.baseOvr + a.level));
+
+            slots.forEach((slot, sIdx) => {
+                const candidate = sorted.find(p =>
+                    !usedNames.has(p.name) &&
+                    isPlayerEligibleForSlot(p, slot) &&
+                    p.group === slot.group
+                );
+                if (candidate) {
+                    newLineup[sIdx] = candidate.uid;
+                    usedNames.add(candidate.name);
+                }
+            });
+
+            slots.forEach((slot, sIdx) => {
+                if (newLineup[sIdx]) return;
+                const candidate = sorted.find(p =>
+                    !usedNames.has(p.name) &&
+                    isPlayerEligibleForSlot(p, slot)
+                );
+                if (candidate) {
+                    newLineup[sIdx] = candidate.uid;
+                    usedNames.add(candidate.name);
+                }
+            });
+
+            gameState.lineup = newLineup;
+            selectedPitchSlotIdx = null;
+            renderAll();
+            showToast(`⚡ [${getActiveFormation().name}] 포메이션 최적 베스트 11 자동 배치 완료!`, 'success');
+        }
+
+        function handlePitchSlotClick(slotIdx) {
+            const slots = getActiveSlots();
+            const targetSlot = slots[slotIdx];
+            if (!targetSlot) return;
+
+            if (selectedPitchSlotIdx === null) {
+                if (gameState.lineup[slotIdx]) {
+                    selectedPitchSlotIdx = slotIdx;
+                    renderSquadTab();
+                } else {
+                    showToast(`아래 보유 선수단에서 [${targetSlot.label}] 자리에 넣을 선수를 선택해 주세요!`, 'info');
+                }
+                return;
+            }
+
+            if (selectedPitchSlotIdx === slotIdx) {
+                selectedPitchSlotIdx = null;
+                renderSquadTab();
+                return;
+            }
+
+            const fromSlot = slots[selectedPitchSlotIdx];
+            const fromUid = gameState.lineup[selectedPitchSlotIdx];
+            const toUid = gameState.lineup[slotIdx];
+            const fromPlayer = gameState.roster.find(p => p.uid === fromUid);
+            const toPlayer = toUid ? gameState.roster.find(p => p.uid === toUid) : null;
+
+            if (!isPlayerEligibleForSlot(fromPlayer, targetSlot) || (toPlayer && !isPlayerEligibleForSlot(toPlayer, fromSlot))) {
+                showToast('⚠️ GK 자리는 오직 골키퍼(GK) 선수만 배치할 수 있습니다!', 'error');
+                return;
+            }
+
+            gameState.lineup[slotIdx] = fromUid;
+            gameState.lineup[selectedPitchSlotIdx] = toUid;
+            selectedPitchSlotIdx = null;
+            renderAll();
+            showToast(`🔄 [${fromPlayer.name}] 선수를 [${targetSlot.label}] 포지션으로 이동했습니다!`, 'success');
+        }
+
+        function cancelPitchSelection() {
+            selectedPitchSlotIdx = null;
+            renderSquadTab();
+        }
+
+        function assignPlayerToBestSlot(uid) {
+            const player = gameState.roster.find(p => p.uid === uid);
+            if (!player) return;
+
+            const existingIdx = gameState.lineup.indexOf(uid);
+            if (existingIdx !== -1) {
+                gameState.lineup[existingIdx] = null;
+                selectedPitchSlotIdx = null;
+                renderAll();
+                showToast(`[${player.name}] 선발 명단에서 제외되었습니다.`, 'info');
+                return;
+            }
+
+            if (hasDuplicatePlayerInLineup(player)) {
+                showToast(`⚠️ 이미 선발 명단에 [${player.name}] 선수가 출전 중입니다! (동일 선수 중복 불가)`, 'error');
+                return;
+            }
+
+            const slots = getActiveSlots();
+            if (selectedPitchSlotIdx !== null) {
+                const chosenSlot = slots[selectedPitchSlotIdx];
+                if (!isPlayerEligibleForSlot(player, chosenSlot)) {
+                    showToast(`⚠️ [${chosenSlot.label}] 자리에는 ${chosenSlot.group === 'GK' ? 'GK' : '필드'} 선수만 배치할 수 있습니다!`, 'error');
+                    return;
+                }
+                gameState.lineup[selectedPitchSlotIdx] = uid;
+                selectedPitchSlotIdx = null;
+                renderAll();
+                showToast(`✅ [${player.name}] → [${chosenSlot.label}] 배치 완료!`, 'success');
+                return;
+            }
+
+            let targetIdx = slots.findIndex((s, i) => !gameState.lineup[i] && isPlayerEligibleForSlot(player, s) && s.group === player.group);
+            if (targetIdx === -1) {
+                targetIdx = slots.findIndex((s, i) => !gameState.lineup[i] && isPlayerEligibleForSlot(player, s));
+            }
+
+            if (targetIdx === -1) {
+                showToast(player.group === 'GK' ? '골키퍼(GK) 자리가 이미 차 있습니다!' : '필드 10자리가 모두 가득 찼습니다! 기존 선수를 먼저 해제하세요.', 'error');
+                return;
+            }
+
+            gameState.lineup[targetIdx] = uid;
+            renderAll();
+            showToast(`✅ [${player.name}] → [${slots[targetIdx].label}] 선발 배치 완료!`, 'success');
+        }
+
+        function calculateTeamChemistry() {
+            const starters = gameState.lineup.map(uid => gameState.roster.find(p => p.uid === uid)).filter(Boolean);
+            const clubCounts = {};
+            const nationCounts = {};
+            let iconCount = 0;
+
+            starters.forEach(p => {
+                clubCounts[p.club] = (clubCounts[p.club] || 0) + 1;
+                nationCounts[p.nation] = (nationCounts[p.nation] || 0) + 1;
+                if (getPlayerTier(p) === 'ICON') iconCount++;
+            });
+
+            let bonusOvr = 0;
+            const activeColors = [];
+
+            Object.entries(clubCounts).forEach(([club, cnt]) => {
+                if (cnt >= 3 && club !== 'ICON 레전드') {
+                    const add = cnt >= 6 ? 3 : 2;
+                    bonusOvr += add;
+                    activeColors.push(`${club} (${cnt}명) +${add} OVR`);
+                }
+            });
+
+            Object.entries(nationCounts).forEach(([nation, cnt]) => {
+                if (cnt >= 3) {
+                    const add = cnt >= 5 ? 2 : 1;
+                    bonusOvr += add;
+                    activeColors.push(`${nation} 국가대표 (${cnt}명) +${add} OVR`);
+                }
+            });
+
+            if (iconCount >= 3) {
+                bonusOvr += 2;
+                activeColors.push(`ICON 갈락티코 (${iconCount}명) +2 OVR`);
+            }
+
+            return { bonusOvr, activeColors, starters };
+        }
+
+        function getTeamAverageOvr() {
+            const { bonusOvr, starters } = calculateTeamChemistry();
+            if (starters.length === 0) return 0;
+            const sum = starters.reduce((acc, p) => acc + p.baseOvr + p.level, 0);
+            return Math.round(sum / starters.length) + bonusOvr;
+        }
+
+        function getClubTotalValue() {
+            return gameState.roster.reduce((sum, p) => sum + getPlayerReleaseValue(p), 0);
+        }
+
+        // ==================== 컵 매치 & 하이라이트 직접 조종 엔진 ====================
+        const CUP_TIERS = [
+            { id: 'amateur', title: '아마추어 챌린지 컵', oppName: '유스 아카데미 FC', oppClub: '토트넘 홋스퍼', oppOvr: 88, rewardCoin: 900, rewardNg: 2, badge: '입문', color: 'border-slate-700 from-slate-900 to-slate-950' },
+            { id: 'pro', title: '프로페셔널 슈퍼 컵', oppName: '런던 유나이티드', oppClub: '아스널', oppOvr: 93, rewardCoin: 1700, rewardNg: 4, badge: '중급', color: 'border-blue-500/40 from-blue-950/50 to-slate-950' },
+            { id: 'wc', title: '월드클래스 챔피언스 컵', oppName: '마드리드 갈락티코', oppClub: '레알 마드리드', oppOvr: 98, rewardCoin: 2800, rewardNg: 6, badge: '상급', color: 'border-purple-500/45 from-purple-950/50 to-slate-950' },
+            { id: 'icon', title: 'ICON 레전드 올스타 결승', oppName: '월드 ICON XI', oppClub: 'ICON 레전드', oppOvr: 105, rewardCoin: 4500, rewardNg: 10, badge: '최상급', color: 'border-amber-400/50 from-amber-950/50 to-slate-950' }
+        ];
+
+        let matchSession = null;
+        let matchLoopTimer = null;
+        let highlightAnimFrame = null;
+        let canvasInputBound = false;
+
+        function bindMatchCanvasEvents() {
+            if (canvasInputBound) return;
+            const canvas = document.getElementById('match-pitch-canvas');
+            if (!canvas) return;
+            canvasInputBound = true;
+
+            const getNormPos = (clientX, clientY) => {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)),
+                    y: Math.max(0, Math.min(1, (clientY - rect.top) / rect.height))
+                };
+            };
+
+            const onStart = (clientX, clientY) => {
+                if (!matchSession || !matchSession.highlight || matchSession.highlight.phase !== 'aiming') return;
+                const pos = getNormPos(clientX, clientY);
+                const hl = matchSession.highlight;
+                hl.isDragging = true;
+                hl.dragStart = pos;
+                hl.dragCurrent = pos;
+                if (hl.mode === 'defense') {
+                    hl.userGkY = Math.max(0.24, Math.min(0.76, pos.y));
+                }
+            };
+
+            const onMove = (clientX, clientY) => {
+                if (!matchSession || !matchSession.highlight || matchSession.highlight.phase !== 'aiming') return;
+                const hl = matchSession.highlight;
+                if (!hl.isDragging) return;
+                const pos = getNormPos(clientX, clientY);
+                hl.dragCurrent = pos;
+                if (hl.mode === 'defense') {
+                    hl.userGkY = Math.max(0.24, Math.min(0.76, pos.y));
+                }
+            };
+
+            const onEnd = () => {
+                if (!matchSession || !matchSession.highlight || matchSession.highlight.phase !== 'aiming') return;
+                const hl = matchSession.highlight;
+                if (!hl.isDragging) return;
+                hl.isDragging = false;
+                if (hl.mode === 'attack') {
+                    launchUserHighlightShot();
+                }
+            };
+
+            canvas.addEventListener('mousedown', e => onStart(e.clientX, e.clientY));
+            window.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+            window.addEventListener('mouseup', () => onEnd());
+
+            canvas.addEventListener('touchstart', e => {
+                if (e.touches.length > 0) {
+                    e.preventDefault();
+                    onStart(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: false });
+            canvas.addEventListener('touchmove', e => {
+                if (e.touches.length > 0) {
+                    e.preventDefault();
+                    onMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: false });
+            canvas.addEventListener('touchend', () => onEnd());
+        }
+
+        function renderMatchLobby() {
+            const starters = gameState.lineup.map(uid => gameState.roster.find(p => p.uid === uid)).filter(Boolean);
+            const teamOvr = getTeamAverageOvr();
+            document.getElementById('match-my-power').textContent = `${starters.length}/11명 · OVR ${teamOvr}`;
+
+            document.getElementById('match-cups-grid').innerHTML = CUP_TIERS.map(cup => `
+                <div class="p-4 rounded-2xl bg-gradient-to-br ${cup.color} border flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] font-black text-amber-300">${cup.badge}</span>
+                            <span class="text-[11px] font-black text-rose-400">상대 OVR ${cup.oppOvr}</span>
+                        </div>
+                        <h3 class="text-sm font-black text-white">${cup.title}</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">상대팀: ${cup.oppName}</p>
+                        <div class="mt-2.5 flex items-center gap-2 text-[11px] font-bold">
+                            <span class="text-amber-300"><i class="fa-solid fa-coins mr-1"></i>+${cup.rewardCoin.toLocaleString()}</span>
+                            <span class="text-cyan-300"><i class="fa-solid fa-gem mr-1"></i>+${cup.rewardNg} NG</span>
+                        </div>
+                    </div>
+                    <button onclick="startCupMatch('${cup.id}')" class="mt-3 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow transition">
+                        킥오프 (하이라이트 직접 조종)
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function startCupMatch(cupId) {
+            const starters = gameState.lineup.map(uid => gameState.roster.find(p => p.uid === uid)).filter(Boolean);
+            if (starters.length < 11) {
+                showToast(`선발 11명을 모두 채워야 경기 출전이 가능합니다! (현재 ${starters.length}/11명)`, 'error');
+                switchTab('squad');
+                return;
+            }
+
+            const cup = CUP_TIERS.find(c => c.id === cupId);
+            if (!cup) return;
+
+            bindMatchCanvasEvents();
+            const myOvr = getTeamAverageOvr();
+            const homeClubObj = CLUB_PRESETS.find(c => c.id === gameState.clubEmblemId) || CLUB_PRESETS[0];
+
+            matchSession = {
+                cup,
+                starters,
+                minute: 0,
+                homeScore: 0,
+                awayScore: 0,
+                myOvr,
+                oppOvr: cup.oppOvr,
+                ballX: 0.5,
+                ballY: 0.5,
+                paused: false,
+                finished: false,
+                highlight: null,
+                chanceMinutes: [18, 39, 63, 82],
+                triggeredChances: new Set()
+            };
+
+            document.getElementById('match-lobby-view').classList.add('hidden');
+            document.getElementById('match-arena-view').classList.remove('hidden');
+            document.getElementById('match-highlight-hud').classList.add('hidden');
+            document.getElementById('match-highlight-footer').classList.add('hidden');
+            document.getElementById('match-result-overlay').classList.add('hidden');
+
+            document.getElementById('match-home-badge').innerHTML = getClubBadgeSVG(homeClubObj.name);
+            document.getElementById('match-home-name').textContent = gameState.clubName;
+            document.getElementById('match-home-ovr').textContent = `OVR ${myOvr}`;
+            document.getElementById('match-away-badge').innerHTML = getClubBadgeSVG(cup.oppClub);
+            document.getElementById('match-away-name').textContent = cup.oppName;
+            document.getElementById('match-away-ovr').textContent = `OVR ${cup.oppOvr}`;
+            document.getElementById('match-score-home').textContent = '0';
+            document.getElementById('match-score-away').textContent = '0';
+            document.getElementById('match-commentary-log').innerHTML = '';
+
+            addMatchLog(`0' 킥오프! [${gameState.clubName}] vs [${cup.oppName}] 하이라이트 매치 시작!`);
+            drawMatchPitch();
+
+            if (matchLoopTimer) clearInterval(matchLoopTimer);
+            matchLoopTimer = setInterval(tickMatchSimulation, 240);
+        }
+
+        function tickMatchSimulation() {
+            if (!matchSession || matchSession.paused || matchSession.finished) return;
+
+            matchSession.minute += 1;
+            const m = matchSession.minute;
+            document.getElementById('match-clock-label').textContent = m <= 45 ? `전반 ${m}'` : `후반 ${m}'`;
+
+            const ovrAdvantage = (matchSession.myOvr - matchSession.oppOvr) * 0.012;
+            matchSession.ballX = Math.max(0.12, Math.min(0.88, matchSession.ballX + (Math.random() - 0.47 + ovrAdvantage) * 0.16));
+            matchSession.ballY = Math.max(0.15, Math.min(0.85, matchSession.ballY + (Math.random() - 0.5) * 0.22));
+            drawMatchPitch();
+
+            if (matchSession.chanceMinutes.includes(m) && !matchSession.triggeredChances.has(m)) {
+                matchSession.triggeredChances.add(m);
+                const isAttackChance = Math.random() < Math.max(0.32, Math.min(0.75, 0.54 + (matchSession.myOvr - matchSession.oppOvr) * 0.02));
+                startInteractiveHighlight(isAttackChance ? 'attack' : 'defense');
+                return;
+            }
+
+            if (m >= 90) {
+                finishCupMatch();
+            }
+        }
+
+        function startInteractiveHighlight(mode) {
+            matchSession.paused = true;
+            const hud = document.getElementById('match-highlight-hud');
+            const footer = document.getElementById('match-highlight-footer');
+            const modePill = document.getElementById('highlight-mode-pill');
+            const modeText = document.getElementById('highlight-mode-text');
+            const playerLabel = document.getElementById('highlight-player-label');
+            const guideSub = document.getElementById('highlight-guide-sub');
+
+            hud.classList.remove('hidden');
+            footer.classList.remove('hidden');
+
+            const attackers = matchSession.starters.filter(p => p.group === 'FW' || p.group === 'MF');
+            const striker = attackers[Math.floor(Math.random() * attackers.length)] || matchSession.starters[0];
+            const gkPlayer = matchSession.starters.find(p => p.group === 'GK') || matchSession.starters[10];
+
+            if (mode === 'attack') {
+                const startY = 0.28 + Math.random() * 0.44;
+                matchSession.highlight = {
+                    mode: 'attack',
+                    phase: 'aiming',
+                    actor: striker,
+                    timeLeft: 4.5,
+                    ballX: 0.64,
+                    ballY: startY,
+                    vx: 0,
+                    vy: 0,
+                    curve: 0,
+                    gkX: 0.945,
+                    gkY: 0.5,
+                    gkDir: Math.random() < 0.5 ? 1 : -1,
+                    defX: 0.78,
+                    defY: startY + (Math.random() < 0.5 ? 0.09 : -0.09),
+                    isDragging: false,
+                    dragStart: null,
+                    dragCurrent: null,
+                    resultText: ''
+                };
+                modePill.className = 'px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] shadow-lg flex items-center gap-1.5';
+                modeText.textContent = `⚡ ${matchSession.minute}' 공격 찬스! 골대를 향해 스와이프 슛!`;
+                playerLabel.textContent = `슈터: ${striker.name} (OVR ${striker.baseOvr + striker.level})`;
+                guideSub.textContent = '공 주변을 터치해 골문 빈 곳으로 드래그하세요!';
+            } else {
+                const oppY = 0.28 + Math.random() * 0.44;
+                const targetGoalY = 0.30 + Math.random() * 0.40;
+                matchSession.highlight = {
+                    mode: 'defense',
+                    phase: 'aiming',
+                    actor: gkPlayer,
+                    timeLeft: 3.2,
+                    ballX: 0.34,
+                    ballY: oppY,
+                    targetY: targetGoalY,
+                    vx: 0,
+                    vy: 0,
+                    userGkX: 0.055,
+                    userGkY: 0.5,
+                    isDragging: false,
+                    dragStart: null,
+                    dragCurrent: null,
+                    resultText: ''
+                };
+                modePill.className = 'px-3 py-1 rounded-full bg-cyan-400 text-slate-950 font-black text-[11px] shadow-lg flex items-center gap-1.5';
+                modeText.textContent = `🧤 ${matchSession.minute}' 상대 슈팅 임박! 골키퍼를 상하로 이동!`;
+                playerLabel.textContent = `수문장: ${gkPlayer.name} (OVR ${gkPlayer.baseOvr + gkPlayer.level})`;
+                guideSub.textContent = '화면을 터치·드래그해 예상 슈팅 길목을 막으세요!';
+            }
+
+            let lastTime = performance.now();
+            const loopHighlight = (now) => {
+                if (!matchSession || !matchSession.highlight) return;
+                const dt = Math.min(0.05, (now - lastTime) / 1000);
+                lastTime = now;
+                updateInteractiveHighlight(dt);
+                drawMatchPitch();
+                if (matchSession && matchSession.highlight) {
+                    highlightAnimFrame = requestAnimationFrame(loopHighlight);
+                }
+            };
+            if (highlightAnimFrame) cancelAnimationFrame(highlightAnimFrame);
+            highlightAnimFrame = requestAnimationFrame(loopHighlight);
+        }
+
+        function launchUserHighlightShot() {
+            const hl = matchSession?.highlight;
+            if (!hl || hl.mode !== 'attack' || hl.phase !== 'aiming') return;
+
+            const s = hl.dragStart || { x: hl.ballX, y: hl.ballY };
+            const e = hl.dragCurrent || { x: 0.96, y: 0.5 };
+            let dx = e.x - s.x;
+            let dy = e.y - s.y;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist < 0.03) {
+                dx = 0.35;
+                dy = (Math.random() - 0.5) * 0.25;
+            } else if (dx < 0.04) {
+                dx = Math.abs(dx) + 0.25;
+            }
+
+            const norm = Math.hypot(dx, dy);
+            const actorOvr = hl.actor.baseOvr + hl.actor.level;
+            const speed = 0.85 + Math.min(0.45, Math.max(0, (actorOvr - 85) * 0.018));
+
+            hl.vx = (dx / norm) * speed;
+            hl.vy = (dy / norm) * speed;
+            hl.curve = ((e.y - hl.ballY) - dy) * 0.45;
+            hl.phase = 'flying';
+        }
+
+        function updateInteractiveHighlight(dt) {
+            const hl = matchSession.highlight;
+            if (!hl) return;
+
+            if (hl.mode === 'attack') {
+                const oppSpeed = 0.34 + Math.max(0, (matchSession.oppOvr - 88) * 0.015);
+                hl.gkY += hl.gkDir * oppSpeed * dt;
+                if (hl.gkY > 0.67) { hl.gkY = 0.67; hl.gkDir = -1; }
+                if (hl.gkY < 0.33) { hl.gkY = 0.33; hl.gkDir = 1; }
+
+                hl.defY += Math.sin(performance.now() / 260) * 0.25 * dt;
+
+                if (hl.phase === 'aiming') {
+                    hl.timeLeft -= dt;
+                    document.getElementById('highlight-timer-text').textContent = `${Math.max(0, hl.timeLeft).toFixed(1)}s`;
+                    if (hl.timeLeft <= 0) {
+                        hl.dragStart = { x: hl.ballX, y: hl.ballY };
+                        hl.dragCurrent = { x: 0.96, y: 0.5 };
+                        launchUserHighlightShot();
+                    }
+                } else if (hl.phase === 'flying') {
+                    hl.ballX += hl.vx * dt;
+                    hl.ballY += hl.vy * dt;
+                    hl.vy += hl.curve * dt;
+
+                    if (Math.hypot(hl.ballX - hl.defX, hl.ballY - hl.defY) < 0.036) {
+                        finishSingleHighlight(false, '🛡️ 수비수 육탄 방어에 막혔습니다!');
+                        return;
+                    }
+
+                    if (hl.ballX >= 0.96) {
+                        const inGoalMouth = hl.ballY >= 0.27 && hl.ballY <= 0.73;
+                        const gkReach = 0.068 + Math.max(0, (matchSession.oppOvr - 90) * 0.002);
+                        const savedByGk = Math.abs(hl.ballY - hl.gkY) < gkReach;
+
+                        if (!inGoalMouth) {
+                            finishSingleHighlight(false, '💨 아깝게 골대를 벗어났습니다!');
+                        } else if (savedByGk) {
+                            finishSingleHighlight(false, '🧤 상대 골키퍼의 슈퍼 세이브에 막혔습니다!');
+                        } else {
+                            finishSingleHighlight(true, `⚽ GOAL!! ${hl.actor.name}의 환상적인 직접 슈팅 득점!`);
+                        }
+                    }
+                }
+            } else {
+                if (hl.phase === 'aiming') {
+                    hl.timeLeft -= dt;
+                    document.getElementById('highlight-timer-text').textContent = `${Math.max(0, hl.timeLeft).toFixed(1)}s`;
+                    if (hl.timeLeft <= 0) {
+                        const dx = 0.04 - hl.ballX;
+                        const dy = hl.targetY - hl.ballY;
+                        const norm = Math.hypot(dx, dy);
+                        const shotSpeed = 0.88 + Math.max(0, (matchSession.oppOvr - 88) * 0.015);
+                        hl.vx = (dx / norm) * shotSpeed;
+                        hl.vy = (dy / norm) * shotSpeed;
+                        hl.phase = 'flying';
+                    }
+                } else if (hl.phase === 'flying') {
+                    hl.ballX += hl.vx * dt;
+                    hl.ballY += hl.vy * dt;
+
+                    if (hl.ballX <= 0.065) {
+                        const gkOvr = hl.actor.baseOvr + hl.actor.level;
+                        const saveRadius = 0.085 + Math.max(0, (gkOvr - 85) * 0.0025);
+                        const blocked = Math.abs(hl.ballY - hl.userGkY) <= saveRadius;
+
+                        if (blocked) {
+                            finishSingleHighlight(true, `🛡️ 슈퍼 세이브!! ${hl.actor.name} 골키퍼가 직접 몸을 날려 막아냈습니다!`);
+                        } else {
+                            finishSingleHighlight(false, `💥 실점... 반대편 구석으로 상대 슈팅이 꽂혔습니다.`);
+                        }
+                    }
+                }
+            }
+        }
+
+        function finishSingleHighlight(isSuccess, logMsg) {
+            const hl = matchSession.highlight;
+            if (!hl || hl.phase === 'resolved') return;
+            hl.phase = 'resolved';
+            hl.resultText = isSuccess ? (hl.mode === 'attack' ? 'GOAL!!' : 'SUPER SAVE!!') : (hl.mode === 'attack' ? 'NO GOAL' : 'CONCEDED');
+
+            if (hl.mode === 'attack' && isSuccess) {
+                matchSession.homeScore += 1;
+                document.getElementById('match-score-home').textContent = matchSession.homeScore;
+            } else if (hl.mode === 'defense' && !isSuccess) {
+                matchSession.awayScore += 1;
+                document.getElementById('match-score-away').textContent = matchSession.awayScore;
+            }
+
+            addMatchLog(`${matchSession.minute}' ${logMsg} (${matchSession.homeScore}:${matchSession.awayScore})`);
+            drawMatchPitch();
+
+            setTimeout(() => {
+                if (!matchSession) return;
+                matchSession.highlight = null;
+                matchSession.paused = false;
+                document.getElementById('match-highlight-hud').classList.add('hidden');
+                document.getElementById('match-highlight-footer').classList.add('hidden');
+            }, 1150);
+        }
+
+        function finishCupMatch() {
+            if (matchLoopTimer) clearInterval(matchLoopTimer);
+            if (highlightAnimFrame) cancelAnimationFrame(highlightAnimFrame);
+            matchSession.finished = true;
+            gameState.stats.matchesPlayed += 1;
+
+            const isWin = matchSession.homeScore > matchSession.awayScore;
+            const isDraw = matchSession.homeScore === matchSession.awayScore;
+
+            let coinGain = Math.round(matchSession.cup.rewardCoin * 0.25);
+            let ngGain = 0;
+
+            const badge = document.getElementById('match-result-badge');
+            const title = document.getElementById('match-result-title');
+            const sub = document.getElementById('match-result-sub');
+
+            if (isWin) {
+                gameState.stats.matchesWon += 1;
+                coinGain = matchSession.cup.rewardCoin;
+                ngGain = matchSession.cup.rewardNg;
+                badge.textContent = 'CHAMPION VICTORY';
+                badge.className = 'px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-black mb-1';
+                title.textContent = `컵 매치 승리! (${matchSession.homeScore} : ${matchSession.awayScore})`;
+                sub.textContent = `[${matchSession.cup.title}] 우승 상금과 NG토큰을 획득했습니다!`;
+            } else if (isDraw) {
+                coinGain = Math.round(matchSession.cup.rewardCoin * 0.5);
+                ngGain = 1;
+                badge.textContent = 'DRAW MATCH';
+                badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-black mb-1';
+                title.textContent = `무승부 (${matchSession.homeScore} : ${matchSession.awayScore})`;
+                sub.textContent = '아쉽게 승부를 가리지 못해 참가 보상을 수령합니다.';
+            } else {
+                badge.textContent = 'DEFEAT';
+                badge.className = 'px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px] font-black mb-1';
+                title.textContent = `패배 (${matchSession.homeScore} : ${matchSession.awayScore})`;
+                sub.textContent = '선수 강화와 팀컬러 시너지를 높여 다시 도전해 보세요!';
+            }
+
+            gameState.coins += coinGain;
+            gameState.ngTokens += ngGain;
+            document.getElementById('match-result-rewards').textContent = `획득 보상: +${coinGain.toLocaleString()} COIN ${ngGain > 0 ? `· +${ngGain} NG토큰` : ''}`;
+            document.getElementById('match-result-overlay').classList.remove('hidden');
+            renderAll();
+        }
+
+        function forfeitMatch() {
+            if (matchLoopTimer) clearInterval(matchLoopTimer);
+            if (highlightAnimFrame) cancelAnimationFrame(highlightAnimFrame);
+            exitMatchArena();
+            showToast('경기를 중단하고 로비로 복귀했습니다.', 'info');
+        }
+
+        function exitMatchArena() {
+            if (matchLoopTimer) clearInterval(matchLoopTimer);
+            if (highlightAnimFrame) cancelAnimationFrame(highlightAnimFrame);
+            matchSession = null;
+            document.getElementById('match-arena-view').classList.add('hidden');
+            document.getElementById('match-lobby-view').classList.remove('hidden');
+            renderAll();
+        }
+
+        function addMatchLog(text) {
+            const logBox = document.getElementById('match-commentary-log');
+            const p = document.createElement('div');
+            p.className = 'py-1 border-b border-slate-800/70 last:border-none';
+            p.textContent = text;
+            logBox.prepend(p);
+        }
+
+        function drawMatchPitch() {
+            const canvas = document.getElementById('match-pitch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth || 640;
+            const h = canvas.height = canvas.offsetHeight || 400;
+
+            ctx.clearRect(0, 0, w, h);
+
+            for (let i = 0; i < 8; i++) {
+                ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.06)';
+                ctx.fillRect((w / 8) * i, 0, w / 8, h);
+            }
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(20, 18, w - 40, h - 36);
+            ctx.beginPath();
+            ctx.moveTo(w / 2, 18);
+            ctx.lineTo(w / 2, h - 18);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(w / 2, h / 2, 42, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.strokeRect(20, h * 0.22, 76, h * 0.56);
+            ctx.strokeRect(w - 96, h * 0.22, 76, h * 0.56);
+
+            ctx.fillStyle = 'rgba(255,255,255,0.22)';
+            ctx.fillRect(10, h * 0.27, 10, h * 0.46);
+            ctx.fillRect(w - 20, h * 0.27, 10, h * 0.46);
+
+            if (!matchSession) return;
+
+            const hl = matchSession.highlight;
+            if (hl) {
+                const bx = hl.ballX * w;
+                const by = hl.ballY * h;
+
+                if (hl.mode === 'attack') {
+                    const gx = hl.gkX * w;
+                    const gy = hl.gkY * h;
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.beginPath();
+                    ctx.arc(gx, gy, 13, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    const dx = hl.defX * w;
+                    const dy = hl.defY * h;
+                    ctx.fillStyle = '#fb7185';
+                    ctx.beginPath();
+                    ctx.arc(dx, dy, 11, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.beginPath();
+                    ctx.arc(bx - 16, by, 12, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (hl.phase === 'aiming' && hl.isDragging && hl.dragStart && hl.dragCurrent) {
+                        const tx = bx + (hl.dragCurrent.x - hl.dragStart.x) * w * 1.4;
+                        const ty = by + (hl.dragCurrent.y - hl.dragStart.y) * h * 1.4;
+                        ctx.save();
+                        ctx.setLineDash([7, 5]);
+                        ctx.strokeStyle = '#fde047';
+                        ctx.lineWidth = 3.5;
+                        ctx.beginPath();
+                        ctx.moveTo(bx, by);
+                        ctx.lineTo(tx, ty);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                } else {
+                    const ugx = hl.userGkX * w;
+                    const ugy = hl.userGkY * h;
+                    ctx.fillStyle = 'rgba(34,211,238,0.22)';
+                    ctx.beginPath();
+                    ctx.arc(ugx, ugy, 26, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#22d3ee';
+                    ctx.beginPath();
+                    ctx.arc(ugx, ugy, 13, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.beginPath();
+                    ctx.arc(bx + 16, by, 12, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (hl.phase === 'aiming') {
+                        ctx.save();
+                        ctx.setLineDash([5, 5]);
+                        ctx.strokeStyle = 'rgba(244,63,94,0.65)';
+                        ctx.lineWidth = 2.5;
+                        ctx.beginPath();
+                        ctx.moveTo(bx, by);
+                        ctx.lineTo(20, hl.targetY * h);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                ctx.fillStyle = 'rgba(250,204,21,0.35)';
+                ctx.beginPath();
+                ctx.arc(bx, by, 15, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(bx, by, 7.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#0f172a';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                if (hl.phase === 'resolved' && hl.resultText) {
+                    ctx.fillStyle = 'rgba(2,6,23,0.72)';
+                    ctx.fillRect(0, h * 0.36, w, h * 0.28);
+                    ctx.font = '900 28px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = hl.resultText.includes('GOAL') || hl.resultText.includes('SAVE') ? '#fde047' : '#fb7185';
+                    ctx.fillText(hl.resultText, w / 2, h * 0.53);
+                }
+                return;
+            }
+
+            const bx = 20 + matchSession.ballX * (w - 40);
+            const by = 18 + matchSession.ballY * (h - 36);
+
+            ctx.fillStyle = 'rgba(251,191,36,0.32)';
+            ctx.beginPath();
+            ctx.arc(bx, by, 16, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(bx, by, 7, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // ==================== 미션 시스템 ====================
+        function getMissionProgress(m) {
+            const maxLevel = gameState.roster.reduce((max, p) => Math.max(max, p.level), 0);
+            const iconCount = gameState.roster.filter(p => getPlayerTier(p) === 'ICON').length;
+            const lineupCount = gameState.lineup.filter(Boolean).length;
+            const clubValue = getClubTotalValue();
+
+            switch (m.stat) {
+                case 'rosterCount': return gameState.roster.length;
+                case 'maxLevel': return maxLevel;
+                case 'iconCount': return iconCount;
+                case 'lineupCount': return lineupCount;
+                case 'clubValue': return clubValue;
+                default: return gameState.stats[m.stat] || 0;
+            }
+        }
+
+        function setMissionFilter(filter) {
+            missionFilter = filter;
+            ['all', 'daily', 'repeat'].forEach(f => {
+                const btn = document.getElementById(`mfilter-${f}`);
+                btn.className = f === filter
+                    ? 'px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-black'
+                    : 'px-2.5 py-1 rounded-lg text-slate-400';
+            });
+            renderMissionsTab();
+        }
+
+        function claimMission(missionId) {
+            const m = MISSIONS_DB.find(item => item.id === missionId);
+            if (!m) return;
+            const prog = getMissionProgress(m);
+
+            if (m.type === 'repeat') {
+                const claimedTimes = gameState.repeatClaimedCounts[m.id] || 0;
+                const availableTimes = Math.floor(prog / m.step) - claimedTimes;
+                if (availableTimes <= 0) return;
+                gameState.repeatClaimedCounts[m.id] = claimedTimes + 1;
+            } else {
+                if (gameState.claimedMissions[m.id] || prog < m.target) return;
+                gameState.claimedMissions[m.id] = true;
+            }
+
+            gameState.coins += m.rewardCoin;
+            gameState.ngTokens += m.rewardNg;
+            renderAll();
+            showToast(`🎁 미션 보상 수령! +${m.rewardCoin.toLocaleString()} COIN · +${m.rewardNg} NG토큰`, 'success');
+        }
+
+        function claimStarterReward() {
+            if (gameState.starterClaimed) return;
+            const c1 = gameState.stats.packsOpened >= 1;
+            const c2 = gameState.stats.enhanceTries >= 1;
+            const c3 = gameState.lineup.filter(Boolean).length >= 3;
+            if (!c1 || !c2 || !c3) return;
+
+            gameState.starterClaimed = true;
+            gameState.coins += 1500;
+            gameState.ngTokens += 5;
+
+            const captainPool = PLAYER_DB.filter(p => getPlayerTier(p) === 'WORLD CLASS');
+            const captain = captainPool[Math.floor(Math.random() * captainPool.length)];
+            const newCaptain = {
+                uid: 'p_' + Date.now() + '_cap',
+                ...captain,
+                level: 1
+            };
+            gameState.roster.push(newCaptain);
+            renderAll();
+            triggerWalkout(newCaptain, '스타터 완주 주장 영입팩');
+        }
+
+        // ==================== 도움말 & 토스트 ====================
+        const HELP_CONTENTS = {
+            overview: {
+                title: 'Next Football Club 운영 가이드',
+                html: `<p>• <b>COIN</b>: 포지션 선수팩 구매 및 선수 방출 정산에 사용됩니다.</p>
+                       <p>• <b>NG토큰</b>: 등급별 전용 강화 재료(1개 단위) 구매 전용 재화이며, 미션과 컵 매치 우승으로 획득합니다.</p>
+                       <p>• <b>5단계 등급</b>: NAMED(85~89) 55% · TOP CLASS(90~93) 27% · WORLD CLASS(94~96) 13% · LEGEND(97~105) 3% · ICON(105~110) 2%.</p>`
+            },
+            packs: {
+                title: '스카우트 확률 & 강화 재료 안내',
+                html: `<p>• <b>등급별 출현 확률</b>: NAMED 55%, TOP CLASS 27%, WORLD CLASS 13%, LEGEND 3%, ICON 2%.</p>
+                       <p>• <b>ICON 4-3-3 베스트 11</b>: 호나우지뉴·호나우두·크루이프 / 지단·마라도나·베켄바워 / 말디니·바레시·칸나바로·카푸 / 야신으로 구성됩니다.</p>`
+            },
+            enhance: {
+                title: '재료 1~3개 선택 투입 & 강화 규칙',
+                html: `<p>• <b>투입 개수 선택</b>: 재료 <b>1개(1/3 확률)</b>, <b>2개(2/3 확률)</b>, <b>3개(3/3 기본 확률)</b> 중 원하는 만큼 넣어 강화할 수 있습니다.</p>
+                       <p>• <b>기본 성공률 (3개 기준)</b>: +0→+1(100%), +1→+2(100%), +2→+3(85%), +3→+4(65%), +4→+5(50%), +5→+6(25%), +6→+7(12%), +7→+8(7%), +8→+9(4%), +9→+10(2%).</p>
+                       <p>• <b>크리티컬 상한</b>: +4 이하 구간에서만 +2/+3 크리티컬이 발동하며, 최대 <b>+5강</b>까지만 점프합니다.</p>`
+            },
+            teamcolor: {
+                title: '팀컬러 & 라인업 편성 규칙',
+                html: `<p>• <b>GK 전용 규칙</b>: 골키퍼(GK) 슬롯에는 오직 GK 선수만 배치 가능하며, 동일 이름 선수는 중복 출전할 수 없습니다.</p>
+                       <p>• <b>팀컬러 보너스</b>: 같은 클럽 3명(+2 OVR)·6명(+3 OVR), 같은 국적 3명(+1 OVR)·5명(+2 OVR), ICON 3명(+2 OVR) 시너지가 자동 합산됩니다.</p>`
+            },
+            release: {
+                title: '방출 및 강화 재료 분해 안내',
+                html: `<p>• <b>방출하기</b>: 선수의 등급과 강화 단계(+강)에 따라 막대한 COIN을 정산받습니다.</p>
+                       <p>• <b>재료 분해</b>: 해당 선수의 등급에 맞는 전용 강화 재료로 변환합니다.</p>`
+            }
+        };
+
+        function openHelpModal(key) {
+            const info = HELP_CONTENTS[key] || HELP_CONTENTS.overview;
+            document.getElementById('help-modal-title').querySelector('span').textContent = info.title;
+            document.getElementById('help-modal-body').innerHTML = info.html;
+            document.getElementById('help-modal').classList.remove('hidden');
+        }
+
+        function closeHelpModal() {
+            document.getElementById('help-modal').classList.add('hidden');
+        }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const el = document.createElement('div');
+            const color = type === 'success'
+                ? 'bg-emerald-950/95 border-emerald-400/60 text-emerald-200'
+                : type === 'error'
+                    ? 'bg-rose-950/95 border-rose-400/60 text-rose-200'
+                    : 'bg-slate-900/95 border-amber-400/50 text-amber-100';
+            el.className = `px-3.5 py-2.5 rounded-xl border ${color} text-xs font-bold shadow-xl backdrop-blur-md transition-all duration-300 text-center`;
+            el.textContent = msg;
+            container.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                setTimeout(() => el.remove(), 300);
+            }, 2600);
+        }
+
+        function renderAll() {
+            renderHeader();
+            renderHomeTab();
+            renderPacksTab();
+            renderEnhanceTab();
+            renderSquadTab();
+            renderMatchLobby();
+            renderMissionsTab();
+        }
+
+        function renderHeader() {
+            const clubObj = CLUB_PRESETS.find(c => c.id === gameState.clubEmblemId) || CLUB_PRESETS[0];
+            document.getElementById('header-club-emblem').innerHTML = getClubBadgeSVG(clubObj.name);
+            document.getElementById('header-club-name').textContent = gameState.clubName;
+            document.getElementById('header-team-ovr').textContent = `OVR ${getTeamAverageOvr()}`;
+            document.getElementById('header-club-value').textContent = `구단 가치 ${getClubTotalValue().toLocaleString()} COIN`;
+            document.getElementById('header-coins').textContent = gameState.coins.toLocaleString();
+            document.getElementById('header-ng-tokens').textContent = `${gameState.ngTokens} NG`;
+        }
+
+        function renderHomeTab() {
+            const totalMats = Object.values(gameState.materials).reduce((a, b) => a + b, 0);
+            const { bonusOvr } = calculateTeamChemistry();
+            document.getElementById('home-stat-players').textContent = `${gameState.roster.length}명`;
+            document.getElementById('home-stat-materials').textContent = `${gameState.ngTokens} NG · ${totalMats}개`;
+            document.getElementById('home-stat-chem').textContent = `+${bonusOvr} OVR`;
+
+            const c1 = gameState.stats.packsOpened >= 1;
+            const c2 = gameState.stats.enhanceTries >= 1;
+            const c3 = gameState.lineup.filter(Boolean).length >= 3;
+
+            document.getElementById('starter-checklist-items').innerHTML = [
+                { done: c1, label: '1. [선수팩] 탭에서 첫 선수 영입하기' },
+                { done: c2, label: '2. [선수 강화] 탭에서 선수 강화 1회 시도하기' },
+                { done: c3, label: '3. [구단 관리] 탭에서 선발 선수 3명 이상 배치하기' }
+            ].map(item => `
+                <div class="flex items-center gap-2 ${item.done ? 'text-emerald-300 font-bold' : 'text-slate-400'}">
+                    <i class="fa-solid ${item.done ? 'fa-circle-check text-emerald-400' : 'fa-circle text-slate-600'}"></i>
+                    <span>${item.label}</span>
+                </div>
+            `).join('');
+
+            const claimBtn = document.getElementById('btn-claim-starter');
+            if (gameState.starterClaimed) {
+                claimBtn.disabled = true;
+                claimBtn.className = 'mt-3 w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-black text-xs';
+                claimBtn.textContent = '✅ 스타터 완주 보상 수령 완료!';
+            } else if (c1 && c2 && c3) {
+                claimBtn.disabled = false;
+                claimBtn.className = 'mt-3 w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs shadow-lg animate-pulse';
+                claimBtn.textContent = '🎁 스타터 완주 보상 수령하기 (주장팩 + 1,500 COIN + 5 NG)';
+            }
+
+            const aceContainer = document.getElementById('home-ace-showcase');
+            if (gameState.roster.length === 0) {
+                aceContainer.innerHTML = `
+                    <p class="text-xs text-slate-400 mb-3">아직 영입된 선수가 없습니다. 보유한 <b>20,000 COIN</b>으로 첫 슈퍼스타를 영입하세요!</p>
+                    <button onclick="switchTab('packs')" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow">
+                        첫 선수팩 개봉하러 가기
+                    </button>
+                `;
+            } else {
+                const ace = [...gameState.roster].sort((a, b) => (b.baseOvr + b.level) - (a.baseOvr + a.level))[0];
+                aceContainer.innerHTML = `
+                    <div class="flex flex-col items-center">
+                        ${renderPlayerCardHTML(ace, 'md')}
+                        <div class="mt-2 text-xs font-black text-white">${ace.name} <span class="text-amber-400">(+${ace.level})</span></div>
+                        <div class="text-[11px] text-slate-400">${ace.club} · ${ace.nation} · 방출가 ${getPlayerReleaseValue(ace).toLocaleString()} COIN</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPacksTab() {
+            document.getElementById('position-packs-grid').innerHTML = POSITION_PACKS.map(p => `
+                <div class="p-3.5 rounded-2xl bg-gradient-to-br ${p.color} border flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-amber-300 mb-2">
+                            <i class="fa-solid ${p.icon}"></i>
+                        </div>
+                        <h3 class="text-xs sm:text-sm font-black text-white">${p.title}</h3>
+                        <p class="text-[10.5px] text-slate-300 mt-0.5">${p.desc}</p>
+                    </div>
+                    <button onclick="openPositionPack('${p.id}')" class="mt-3 w-full py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow transition">
+                        <i class="fa-solid fa-coins"></i>
+                        <span>${p.price.toLocaleString()} COIN</span>
+                    </button>
+                </div>
+            `).join('');
+
+            document.getElementById('material-packs-grid').innerHTML = Object.entries(TIER_META).map(([tier, meta]) => `
+                <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-3">
+                    <div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-black ${meta.badgeBg}">${meta.label}</span>
+                        <div class="text-xs font-black text-white mt-1">${meta.ko} 전용 재료</div>
+                        <div class="text-[11px] text-cyan-300 font-bold mt-0.5">보유 중: ${gameState.materials[tier] || 0}개</div>
+                    </div>
+                    <button onclick="buySingleMaterial('${tier}')" class="px-3.5 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-200 font-black text-xs shrink-0 transition">
+                        1개 구매 (${meta.ngPrice} NG)
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderEnhanceTab() {
+            const bench = document.getElementById('enhance-workbench');
+            const list = document.getElementById('enhance-player-list');
+
+            if (gameState.roster.length === 0) {
+                bench.innerHTML = `<div class="text-center py-6 text-xs text-slate-400">보유한 선수가 없습니다. 먼저 [선수팩]에서 선수를 영입해 주세요!</div>`;
+                list.innerHTML = '';
+                return;
+            }
+
+            let target = gameState.roster.find(p => p.uid === gameState.selectedEnhanceId) || gameState.roster[0];
+            gameState.selectedEnhanceId = target.uid;
+
+            const tier = getPlayerTier(target);
+            const ownedMats = gameState.materials[tier] || 0;
+            const matCount = Math.max(1, Math.min(3, gameState.selectedMatCount || 3));
+            const probs = getEnhanceProbabilities(target.level, matCount);
+            const fullProbs = getEnhanceProbabilities(target.level, 3);
+
+            bench.innerHTML = `
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <div class="shrink-0">${renderPlayerCardHTML(target, 'md')}</div>
+                    <div class="flex-1 w-full space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-black ${TIER_META[tier].badgeBg}">${tier}</span>
+                                <h3 class="text-base font-black text-white mt-1">${target.name} <span class="text-amber-400">+${target.level} → +${Math.min(10, target.level + 1)}</span></h3>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] text-slate-400">보유 ${tier} 재료</div>
+                                <div class="text-sm font-black ${ownedMats >= matCount ? 'text-emerald-400' : 'text-rose-400'}">${ownedMats}개 보유</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-[10.5px] font-bold text-slate-400 mb-1">투입할 강화 재료 수량 선택 (갯수에 비례해 확률 적용)</div>
+                            <div class="grid grid-cols-3 gap-1.5">
+                                ${[1, 2, 3].map(cnt => {
+                                    const ratioText = cnt === 1 ? '1/3 확률' : cnt === 2 ? '2/3 확률' : '3/3 (100%)';
+                                    const previewRate = +(fullProbs.baseRate * (cnt / 3)).toFixed(1);
+                                    const isSel = matCount === cnt;
+                                    return `
+                                        <button type="button" onclick="setEnhanceMatCount(${cnt})"
+                                            class="py-2 px-2 rounded-xl border text-center transition ${isSel ? 'bg-amber-400/20 border-amber-400 text-amber-200' : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-600'}">
+                                            <div class="text-xs font-black">재료 ${cnt}개</div>
+                                            <div class="text-[10px] font-bold ${isSel ? 'text-emerald-300' : 'text-slate-500'}">${ratioText} (${previewRate}%)</div>
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1 text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">현재 적용 성공 확률 (${matCount}/3 투입)</span>
+                                <span class="font-black text-emerald-400">${probs.baseRate}%</span>
+                            </div>
+                            ${probs.hasCrit ? `
+                                <div class="flex justify-between text-[11px]">
+                                    <span class="text-amber-300">크리티컬 (+2/+3 점프, 최대 +5 상한)</span>
+                                    <span class="font-bold text-amber-300">+2강 ${probs.crit2Rate}% · +3강 ${probs.crit3Rate}%</span>
+                                </div>
+                            ` : `<div class="text-[11px] text-slate-500">+5 이상 구간은 크리티컬 없이 +1단계씩 상승합니다.</div>`}
+                            <div class="flex justify-between text-[11px]">
+                                <span class="text-slate-400">실패 시 패널티</span>
+                                <span class="font-bold ${target.level >= 2 ? 'text-rose-400' : 'text-slate-400'}">${target.level >= 2 ? '강화 1단계 하락' : '등급 유지 (하락 없음)'}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button onclick="attemptEnhance()" ${target.level >= 10 ? 'disabled' : ''}
+                                class="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:brightness-110 disabled:opacity-40 text-slate-950 font-black text-xs shadow-lg transition">
+                                ${target.level >= 10 ? '최고 등급 (+10) 달성' : `강화 실행 (재료 ${matCount}개 소모)`}
+                            </button>
+                            <button onclick="switchTab('packs')" class="px-3.5 py-3 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-black text-xs shrink-0">
+                                재료 구매
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            list.innerHTML = gameState.roster.map(p => {
+                const isSel = p.uid === target.uid;
+                return `
+                    <button onclick="selectEnhancePlayer('${p.uid}')"
+                        class="p-1.5 rounded-xl border ${isSel ? 'border-amber-400 bg-amber-400/15' : 'border-slate-800 bg-slate-900/70'} flex flex-col items-center transition">
+                        ${renderPlayerCardHTML(p, 'sm')}
+                        <span class="text-[10px] font-black text-white mt-1 truncate w-full text-center">${p.name} +${p.level}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderSquadTab() {
+            const activeForm = getActiveFormation();
+            document.getElementById('current-formation-desc').textContent = activeForm.desc;
+
+            document.getElementById('formation-selector-bar').innerHTML = Object.keys(FORMATIONS).map(key => {
+                const isSelected = gameState.formation === key;
+                return `
+                    <button onclick="changeFormation('${key}')"
+                        class="py-1.5 px-2 rounded-lg text-[11px] font-black border transition ${isSelected ? 'bg-amber-400 text-slate-950 border-amber-300 shadow' : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:border-slate-500'}">
+                        ${key}
+                    </button>
+                `;
+            }).join('');
+
+            const { activeColors } = calculateTeamChemistry();
+            const badgeBox = document.getElementById('teamcolor-badges');
+            badgeBox.innerHTML = activeColors.length > 0
+                ? activeColors.map(c => `<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-[10.5px]">✨ ${c}</span>`).join('')
+                : `<span class="text-slate-400 text-[11px]">같은 클럽 · 같은 국적 · ICON 3명 이상 선발 시 팀컬러 보너스 발동!</span>`;
+
+            const guideText = document.getElementById('pitch-move-guide-text');
+            const cancelBtn = document.getElementById('pitch-cancel-move-btn');
+            if (selectedPitchSlotIdx !== null) {
+                const selPlayer = gameState.roster.find(p => p.uid === gameState.lineup[selectedPitchSlotIdx]);
+                guideText.innerHTML = `<i class="fa-solid fa-hand-pointer mr-1.5 text-amber-300 animate-bounce"></i><b>[${selPlayer?.name || ''}]</b> 선택됨 → 이동할 빈 자리 또는 교체할 선수를 탭하세요!`;
+                cancelBtn.classList.remove('hidden');
+            } else {
+                guideText.innerHTML = `<i class="fa-solid fa-arrows-up-down-left-right mr-1.5 text-amber-300"></i>선수를 탭해 선택 후 이동할 자리나 바꿀 선수를 탭하세요 (GK 전용 · 중복 불가)`;
+                cancelBtn.classList.add('hidden');
+            }
+
+            const pitchContainer = document.getElementById('pitch-slots-container');
+            pitchContainer.innerHTML = activeForm.rows.map(row => `
+                <div class="flex justify-center gap-1.5 sm:gap-3">
+                    ${row.map(slot => {
+                        const uid = gameState.lineup[slot.idx];
+                        const player = uid ? gameState.roster.find(p => p.uid === uid) : null;
+                        const isSelected = selectedPitchSlotIdx === slot.idx;
+                        const ringClass = isSelected ? 'ring-2 ring-amber-400 scale-105 bg-amber-400/20 rounded-xl' : '';
+
+                        if (player) {
+                            return `
+                                <div onclick="handlePitchSlotClick(${slot.idx})" class="flex flex-col items-center cursor-pointer p-1 transition ${ringClass}">
+                                    ${renderPlayerCardHTML(player, 'sm')}
+                                    <span class="mt-1 px-1.5 py-0.5 rounded bg-black/70 text-[9px] font-black text-amber-300">${slot.label}</span>
+                                </div>
+                            `;
+                        }
+                        return `
+                            <div onclick="handlePitchSlotClick(${slot.idx})"
+                                class="w-20 h-28 sm:w-24 sm:h-32 rounded-xl border-2 border-dashed ${isSelected ? 'border-amber-400 bg-amber-400/15' : 'border-white/25 bg-black/30 hover:border-amber-300/60'} flex flex-col items-center justify-center cursor-pointer transition">
+                                <span class="text-xs font-black text-emerald-200">${slot.label}</span>
+                                <span class="text-[9px] text-slate-400 mt-0.5">${slot.group === 'GK' ? 'GK 전용' : '빈 슬롯'}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `).join('');
+
+            document.getElementById('squad-count-label').textContent = `${gameState.roster.length}명 보유`;
+            const rosterList = document.getElementById('squad-roster-list');
+            if (gameState.roster.length === 0) {
+                rosterList.innerHTML = `<div class="text-center py-6 text-xs text-slate-400">보유 중인 선수가 없습니다.</div>`;
+                return;
+            }
+
+            const sortedRoster = [...gameState.roster].sort((a, b) => (b.baseOvr + b.level) - (a.baseOvr + a.level));
+            rosterList.innerHTML = sortedRoster.map(p => {
+                const isStarter = gameState.lineup.includes(p.uid);
+                const tier = getPlayerTier(p);
+                const relVal = getPlayerReleaseValue(p);
+                return `
+                    <div class="p-2.5 rounded-xl bg-slate-950/90 border ${isStarter ? 'border-emerald-500/45' : 'border-slate-800'} flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-10 h-10 rounded-lg overflow-hidden bg-slate-800 shrink-0 border border-white/10">
+                                <img src="${getPlayerPhotoSrc(p)}" data-wiki="${p.wiki || ''}" class="w-full h-full object-cover object-top">
+                            </div>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-black ${TIER_META[tier].badgeBg}">${p.baseOvr + p.level} ${p.pos}</span>
+                                    <span class="text-xs font-black text-white truncate">${p.name}</span>
+                                    <span class="text-[11px] font-black text-amber-400">+${p.level}</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 truncate">${p.club} · ${p.nation} · ${tier}</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="assignPlayerToBestSlot('${p.uid}')"
+                                class="px-2.5 py-1.5 rounded-lg text-[10.5px] font-black ${isStarter ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/40' : 'bg-amber-400 text-slate-950'}">
+                                ${isStarter ? '출전중' : '배치'}
+                            </button>
+                            <button onclick="dismantlePlayerForMaterial('${p.uid}')" title="강화 재료로 분해"
+                                class="px-2 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/35 text-cyan-200 text-[10px] font-bold">
+                                분해
+                            </button>
+                            <button onclick="releasePlayer('${p.uid}')" title="방출하여 코인 획득"
+                                class="px-2 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/35 text-rose-200 text-[10px] font-bold">
+                                +${relVal.toLocaleString()}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderMissionsTab() {
+            const filtered = MISSIONS_DB.filter(m => missionFilter === 'all' || m.type === missionFilter);
+
+            document.getElementById('missions-list-container').innerHTML = filtered.map(m => {
+                const prog = getMissionProgress(m);
+                let canClaim = false;
+                let isDone = false;
+                let progText = '';
+
+                if (m.type === 'repeat') {
+                    const claimedTimes = gameState.repeatClaimedCounts[m.id] || 0;
+                    const avail = Math.floor(prog / m.step) - claimedTimes;
+                    canClaim = avail > 0;
+                    const curStep = prog % m.step;
+                    progText = `누적 ${prog}회 (수령 가능 ${avail}회 · 다음까지 ${curStep}/${m.step})`;
+                } else {
+                    isDone = !!gameState.claimedMissions[m.id];
+                    canClaim = !isDone && prog >= m.target;
+                    progText = `${Math.min(prog, m.target).toLocaleString()} / ${m.target.toLocaleString()}`;
+                }
+
+                return `
+                    <div class="p-3.5 rounded-2xl bg-slate-900/90 border ${canClaim ? 'border-amber-400/60' : 'border-slate-800'} flex items-center justify-between gap-3">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-1.5 py-0.5 rounded text-[9px] font-black ${m.type === 'daily' ? 'bg-blue-500/20 text-blue-300' : m.type === 'repeat' ? 'bg-purple-500/20 text-purple-300' : 'bg-amber-500/20 text-amber-300'}">
+                                    ${m.type === 'daily' ? '일일' : m.type === 'repeat' ? '반복' : '업적'}
+                                </span>
+                                <h3 class="text-xs font-black text-white truncate">${m.title}</h3>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-0.5">${m.desc}</p>
+                            <div class="flex items-center gap-2.5 mt-1.5 text-[10.5px] font-bold">
+                                <span class="text-slate-300">${progText}</span>
+                                <span class="text-amber-300">+${m.rewardCoin.toLocaleString()} COIN</span>
+                                <span class="text-cyan-300">+${m.rewardNg} NG</span>
+                            </div>
+                        </div>
+
+                        <button onclick="claimMission('${m.id}')" ${!canClaim ? 'disabled' : ''}
+                            class="px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition ${isDone ? 'bg-slate-800 text-slate-500' : canClaim ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow' : 'bg-slate-800/70 text-slate-500'}">
+                            ${isDone ? '완료' : canClaim ? '보상 받기' : '진행중'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            const anyClaimable = MISSIONS_DB.some(m => {
+                const prog = getMissionProgress(m);
+                if (m.type === 'repeat') return (Math.floor(prog / m.step) - (gameState.repeatClaimedCounts[m.id] || 0)) > 0;
+                return !gameState.claimedMissions[m.id] && prog >= m.target;
+            });
+            document.getElementById('mission-nav-dot').classList.toggle('hidden', !anyClaimable);
+        }
+
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
