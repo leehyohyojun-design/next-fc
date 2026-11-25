@@ -399,7 +399,7 @@
         </div>
     </header>
 
-    <!-- ==================== 6. 메인 콘텐츠 영역 (5개 탭) ==================== -->
+    <!-- ==================== 6. 메인 콘텐츠 영역 (6개 탭) ==================== -->
     <main class="flex-1 max-w-3xl w-full mx-auto px-4 pt-4 pb-24">
 
         <!-- [TAB 1: 홈] -->
@@ -466,7 +466,7 @@
                     <div>
                         <span class="text-[10px] font-black uppercase tracking-wider text-cyan-400">NG TOKEN EXCHANGE · 1개 단위 구매</span>
                         <h2 class="text-base font-black text-white">등급별 전용 강화 재료 상점 (NG토큰 전용)</h2>
-                        <p class="text-[11px] text-slate-400">미션으로 얻은 NG토큰으로 필요한 만큼 <b>1개씩</b> 구매할 수 있습니다. (강화 1회당 3개 소모)</p>
+                        <p class="text-[11px] text-slate-400">미션으로 얻은 NG토큰으로 필요한 만큼 <b>1개씩</b> 구매할 수 있습니다. (1개=1/3확률 · 2개=2/3확률 · 3개=100%)</p>
                     </div>
                 </div>
                 <div id="material-packs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
@@ -481,7 +481,7 @@
                         <span>선수 강화 (+0 ~ +10)</span>
                         <button onclick="openHelpModal('enhance')" class="w-5 h-5 rounded-full bg-slate-800 text-[10px] text-slate-300 font-black">?</button>
                     </h2>
-                    <p class="text-[11px] text-slate-400">동일 등급 재료 3개 소모 · 크리티컬 최대 +5 도달 상한 (+5 이상 크리티컬 없음)</p>
+                    <p class="text-[11px] text-slate-400">재료 1개(1/3확률) · 2개(2/3확률) · 3개(기본확률) 선택 투입 가능 · 크리티컬 최대 +5 상한</p>
                 </div>
             </div>
 
@@ -542,7 +542,6 @@
 
         <!-- [TAB 5: 경기 (실시간 2D 전술 경기 & 결정적 찬스 조작)] -->
         <section id="tab-match" class="hidden space-y-4">
-            <!-- 컵 대회 선택 화면 -->
             <div id="match-lobby-view" class="space-y-4">
                 <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-4">
                     <div class="flex items-center justify-between mb-2">
@@ -563,9 +562,7 @@
                 <div id="match-cups-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
 
-            <!-- 실시간 경기장 화면 -->
             <div id="match-arena-view" class="hidden space-y-3">
-                <!-- 스코어보드 -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2 min-w-0 flex-1">
@@ -593,11 +590,9 @@
                     </div>
                 </div>
 
-                <!-- 2D 미니 축구 경기장 & 결정적 찬스 오버레이 -->
                 <div class="relative rounded-2xl overflow-hidden border-2 border-emerald-600/60 bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 aspect-[16/10] shadow-2xl">
                     <canvas id="match-pitch-canvas" class="w-full h-full block"></canvas>
 
-                    <!-- 결정적 찬스 인터랙티브 조작 패널 -->
                     <div id="match-chance-overlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center z-20">
                         <span id="chance-badge" class="px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/50 text-[10px] font-black text-amber-300 uppercase tracking-widest mb-1.5">DECISIVE MOMENT</span>
                         <h3 id="chance-title" class="text-base sm:text-lg font-black text-white">⚡ 결정적 득점 찬스!</h3>
@@ -616,7 +611,6 @@
                         <div id="chance-buttons-grid" class="grid grid-cols-3 gap-2 w-full max-w-sm"></div>
                     </div>
 
-                    <!-- 경기 종료 결과 모달 오버레이 -->
                     <div id="match-result-overlay" class="hidden absolute inset-0 bg-slate-950/92 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center z-30">
                         <div id="match-result-badge" class="px-3 py-1 rounded-full text-[11px] font-black mb-1">FULL TIME</div>
                         <h3 id="match-result-title" class="text-2xl font-black text-white">경기 승리!</h3>
@@ -628,7 +622,6 @@
                     </div>
                 </div>
 
-                <!-- 실시간 중계 문자 로그 -->
                 <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
                     <div class="flex items-center justify-between mb-1.5">
                         <span class="text-[11px] font-black text-slate-300"><i class="fa-solid fa-broadcast-tower text-emerald-400 mr-1.5"></i>실시간 중계 로그</span>
@@ -806,7 +799,7 @@
             }
         };
 
-        // +0 ~ +10 기본 강화 성공 확률표
+        // +0 ~ +10 기본 강화 성공 확률표 (재료 3개 기준)
         const ENHANCE_RATES = {
             0: 100, // +0 -> +1
             1: 100, // +1 -> +2
@@ -820,10 +813,14 @@
             9: 2    // +9 -> +10
         };
 
-        function getEnhanceProbabilities(level) {
-            const baseRate = ENHANCE_RATES[level] ?? 2;
+        // 투입 재료 개수(1개=1/3, 2개=2/3, 3개=3/3)에 비례한 성공 확률 및 크리티컬 계산
+        function getEnhanceProbabilities(level, matCount = 3) {
+            const fullRate = ENHANCE_RATES[level] ?? 2;
+            const ratio = Math.min(3, Math.max(1, matCount)) / 3;
+            const baseRate = +(fullRate * ratio).toFixed(2);
+
             if (level >= 5) {
-                return { baseRate, normal1Rate: baseRate, crit2Rate: 0, crit3Rate: 0, hasCrit: false };
+                return { fullRate, baseRate, normal1Rate: baseRate, crit2Rate: 0, crit3Rate: 0, hasCrit: false };
             }
             const rawCrit2 = +(baseRate * 0.08).toFixed(2);
             const rawCrit3 = +(baseRate * 0.02).toFixed(2);
@@ -831,6 +828,7 @@
             const crit2Rate = level <= 3 ? (level === 3 ? +(rawCrit2 + rawCrit3).toFixed(2) : rawCrit2) : 0;
             const normal1Rate = +(baseRate - crit2Rate - crit3Rate).toFixed(2);
             return {
+                fullRate,
                 baseRate,
                 normal1Rate,
                 crit2Rate,
@@ -914,10 +912,8 @@
             return getActiveFormation().rows.flat();
         }
 
-        // ==================== 라인업 제약 조건 검증 헬퍼 (GK 전용 + 중복 선수 금지) ====================
         function isPlayerEligibleForSlot(player, slotMeta) {
             if (!player || !slotMeta) return false;
-            // 1) GK 슬롯에는 오직 GK 포지션 선수만 배치 가능 (반대로 GK 선수는 필드 슬롯 불가)
             if (slotMeta.group === 'GK') return player.group === 'GK';
             if (player.group === 'GK') return false;
             return true;
@@ -1100,6 +1096,7 @@
                 'LEGEND': 0
             },
             selectedEnhanceId: null,
+            selectedEnhanceMatCount: 3,
             starterClaimed: false,
             stats: {
                 packsOpened: 0,
@@ -1157,9 +1154,9 @@
 
         const TUTORIAL_STEPS = [
             { navId: 'nav-packs', text: '1단계: 먼저 [선수팩] 탭에서 코인으로 현역(LIVE)과 OVR 100+ 전설(ICON) 선수를 영입해 보세요!' },
-            { navId: 'nav-enhance', text: '2단계: [선수 강화] 탭에서 NG토큰으로 재료를 1개씩 사서 +0~+10 강화를 진행해 보세요! (크리티컬 최대 +5 상한)' },
+            { navId: 'nav-enhance', text: '2단계: [선수 강화] 탭에서 재료를 1개(1/3확률), 2개(2/3확률), 3개(기본확률) 중 원하는 만큼 넣어 강화할 수 있습니다!' },
             { navId: 'nav-squad', text: '3단계: [구단 관리]에서 6가지 포메이션을 선택하고, GK 전용 슬롯 및 중복 선수 제외 규칙에 맞춰 라인업을 구성해 보세요!' },
-            { navId: 'nav-missions', text: '4단계: 강화 재료 전용 재화인 [NG토큰]과 코인은 [미션] 탭에서 획득할 수 있습니다!' }
+            { navId: 'nav-missions', text: '4단계: 강화 재료 전용 재화인 [NG토큰]과 코인은 [미션] 탭이나 [경기] 승리로 획득할 수 있습니다!' }
         ];
 
         function startTutorial() {
@@ -1446,7 +1443,7 @@
 
             walkoutTimers.push(setTimeout(() => {
                 hintNation.classList.remove('hidden');
-                hintNation.classList.remove('animate-hint-pop');
+                hintNation.class.remove('animate-hint-pop');
                 void hintNation.offsetWidth;
                 hintNation.classList.add('animate-hint-pop');
             }, 1350));
@@ -1459,7 +1456,7 @@
 
             walkoutTimers.push(setTimeout(() => {
                 hintPos.classList.remove('hidden');
-                hintPos.classList.remove('animate-hint-pop');
+                hintPos.class.remove('animate-hint-pop');
                 void hintPos.offsetWidth;
                 hintPos.classList.add('animate-hint-pop');
             }, 3050));
@@ -1469,7 +1466,7 @@
                 doorL.style.transform = 'translateX(-124px)';
                 doorR.style.transform = 'translateX(124px)';
                 hintClub.classList.remove('hidden');
-                hintClub.classList.remove('animate-hint-pop');
+                hintClub.class.remove('animate-hint-pop');
                 void hintClub.offsetWidth;
                 hintClub.classList.add('animate-hint-pop');
             }, 4350));
@@ -1547,6 +1544,11 @@
             return Math.round((baseVal + enhanceBonus) * iconMult);
         }
 
+        function selectEnhanceMatCount(count) {
+            gameState.selectedEnhanceMatCount = Math.min(3, Math.max(1, count));
+            renderEnhance();
+        }
+
         function attemptEnhance() {
             const player = gameState.roster.find(p => p.uid === gameState.selectedEnhanceId);
             if (!player) return;
@@ -1557,19 +1559,21 @@
 
             const tier = getPlayerTier(player.baseOvr);
             const haveMat = gameState.materials[tier] || 0;
-            if (haveMat < 3) {
-                showToast(`${tier} 전용 강화 재료 3개가 필요합니다! (현재 ${haveMat}개 보유)`, 'error');
+            const useMat = Math.min(3, Math.max(1, gameState.selectedEnhanceMatCount || 3));
+
+            if (haveMat < useMat) {
+                showToast(`${tier} 전용 강화 재료 ${useMat}개가 필요합니다! (현재 ${haveMat}개 보유)`, 'error');
                 return;
             }
 
-            gameState.materials[tier] -= 3;
+            gameState.materials[tier] -= useMat;
             gameState.stats.enhanceTries += 1;
 
             const oldLevel = player.level;
             const oldOvr = player.baseOvr + oldLevel;
             const oldValue = getPlayerValue(player);
 
-            const { baseRate, crit2Rate, crit3Rate, hasCrit } = getEnhanceProbabilities(oldLevel);
+            const { baseRate, crit2Rate, crit3Rate, hasCrit } = getEnhanceProbabilities(oldLevel, useMat);
             const roll = Math.random() * 100;
             const isSuccess = roll < baseRate;
             let isCritical = false;
@@ -1762,7 +1766,6 @@
             const newLineup = Array(11).fill(null);
             const activeSlots = getActiveSlots();
 
-            // 1차: 포지션 그룹 일치 + 동일 이름 중복 제외
             activeSlots.forEach(slot => {
                 const match = sorted.find(p =>
                     !usedUids.has(p.uid) &&
@@ -1777,7 +1780,6 @@
                 }
             });
 
-            // 2차: 빈 슬롯 채우기 (단, GK 슬롯은 절대 필드 플레이어 불가 + GK는 필드 불가 + 중복 이름 불가)
             activeSlots.forEach(slot => {
                 if (!newLineup[slot.idx]) {
                     const any = sorted.find(p =>
@@ -1810,7 +1812,6 @@
             const player = gameState.roster.find(p => p.uid === uid);
             if (!player) return;
 
-            // 중복 선수(동일 이름) 출전 차단
             if (hasDuplicatePlayerInLineup(player)) {
                 showToast(`⚠️ [${player.name}] 선수는 이미 선발 라인업에 출전 중입니다! (중복 선수 배치 불가)`, 'error');
                 return;
@@ -1818,7 +1819,6 @@
 
             const activeSlots = getActiveSlots();
 
-            // GK 선수인 경우 반드시 GK 슬롯에만 배치
             if (player.group === 'GK') {
                 const gkSlot = activeSlots.find(s => s.group === 'GK' && !gameState.lineup[s.idx]);
                 if (!gkSlot) {
@@ -1830,7 +1830,6 @@
                 return;
             }
 
-            // 필드 플레이어인 경우: 같은 포지션 그룹 우선 -> 그 외 필드 슬롯(GK 제외)
             let targetIdx = activeSlots.find(s => !gameState.lineup[s.idx] && s.group === player.group && isPlayerEligibleForSlot(player, s))?.idx;
             if (targetIdx === undefined) {
                 targetIdx = activeSlots.find(s => !gameState.lineup[s.idx] && isPlayerEligibleForSlot(player, s))?.idx;
@@ -1858,7 +1857,6 @@
                     selectedPitchSlotIdx = slotIdx;
                     renderSquad();
                 } else {
-                    // 빈 슬롯 탭 시 배치 가능한 후보군 필터링 (GK 제약 + 중복 선수 제외)
                     const eligibleBench = gameState.roster.filter(p =>
                         !gameState.lineup.includes(p.uid) &&
                         !hasDuplicatePlayerInLineup(p) &&
@@ -1910,7 +1908,6 @@
             const fromPlayer = gameState.roster.find(p => p.uid === fromUid);
             const toPlayer = toUid ? gameState.roster.find(p => p.uid === toUid) : null;
 
-            // GK 슬롯 ↔ 필드 슬롯 간 이동/교체 엄격 차단
             if (!isPlayerEligibleForSlot(fromPlayer, toSlotMeta) || (toPlayer && !isPlayerEligibleForSlot(toPlayer, fromSlotMeta))) {
                 selectedPitchSlotIdx = null;
                 renderSquad();
@@ -2080,19 +2077,24 @@
                 `
             },
             enhance: {
-                title: '선수 강화(+0 ~ +10) & 크리티컬 핵심 규칙',
+                title: '강화 재료 투입 비례 확률 & 크리티컬 규칙',
                 body: `
+                    <div class="p-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-[11px] text-cyan-200 mb-2 space-y-0.5">
+                        <div><b>• 재료 1개 투입:</b> 기본 성공 확률의 <b>1/3</b> 적용</div>
+                        <div><b>• 재료 2개 투입:</b> 기본 성공 확률의 <b>2/3</b> 적용</div>
+                        <div><b>• 재료 3개 투입:</b> 기본 성공 확률 <b>100%(3/3)</b> 적용</div>
+                    </div>
                     <div class="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-[11px] text-amber-200 mb-2 space-y-0.5">
-                        <div><b>• 크리티컬 확률:</b> +2(기본확률×8%) / +3(기본확률×2%)</div>
+                        <div><b>• 크리티컬 확률:</b> +2(적용확률×8%) / +3(적용확률×2%)</div>
                         <div><b>• 도달 상한:</b> 크리티컬 발동 시에도 <b>최대 +5까지만</b> 한 번에 상승</div>
                         <div><b>• +5 이상 규칙:</b> <b>+5 이상부터는 크리티컬 미적용</b></div>
                     </div>
                     <div class="space-y-1 text-[11px]">
-                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+0 → +1</b> (+2: 8% / +3: 2%)</span><span class="text-emerald-400 font-black">100%</span></div>
-                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+1 → +2</b> (+2: 8% / +3: 2%)</span><span class="text-emerald-400 font-black">100%</span></div>
-                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+2 → +3</b> (실패 시 1단계 하락)</span><span class="text-emerald-400 font-black">85%</span></div>
-                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+3 → +4</b> (크리티컬 최대 +5 도달)</span><span class="text-amber-300 font-black">65%</span></div>
-                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+4 → +5</b> (크리티컬 상한 +5 도달)</span><span class="text-amber-300 font-black">50%</span></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+0 → +1</b> (3개 100% · 2개 66.7% · 1개 33.3%)</span><span class="text-emerald-400 font-black">100%</span></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+1 → +2</b> (3개 100% · 2개 66.7% · 1개 33.3%)</span><span class="text-emerald-400 font-black">100%</span></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+2 → +3</b> (3개 85% · 2개 56.7% · 1개 28.3%)</span><span class="text-emerald-400 font-black">85%</span></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+3 → +4</b> (3개 65% · 2개 43.3% · 1개 21.7%)</span><span class="text-amber-300 font-black">65%</span></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+4 → +5</b> (3개 50% · 2개 33.3% · 1개 16.7%)</span><span class="text-amber-300 font-black">50%</span></div>
                         <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+5 → +6</b> (크리티컬 없음)</span><span class="text-amber-400 font-black">25%</span></div>
                         <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+6 → +7</b> (크리티컬 없음)</span><span class="text-orange-400 font-black">12%</span></div>
                         <div class="flex justify-between py-0.5 border-b border-slate-800"><span><b>+7 → +8</b> (크리티컬 없음)</span><span class="text-rose-400 font-black">7%</span></div>
@@ -2296,11 +2298,13 @@
             const tier = getPlayerTier(target.baseOvr);
             const meta = TIER_META[tier];
             const haveMat = gameState.materials[tier] || 0;
+            const useMat = Math.min(3, Math.max(1, gameState.selectedEnhanceMatCount || 3));
+
             const probs = target.level >= 10
-                ? { baseRate: 0, crit2Rate: 0, crit3Rate: 0, hasCrit: false }
-                : getEnhanceProbabilities(target.level);
+                ? { fullRate: 0, baseRate: 0, crit2Rate: 0, crit3Rate: 0, hasCrit: false }
+                : getEnhanceProbabilities(target.level, useMat);
             const rate = probs.baseRate;
-            const canEnhance = target.level < 10 && haveMat >= 3;
+            const canEnhance = target.level < 10 && haveMat >= useMat;
             const isIcon = target.status === 'ICON';
 
             let critNoticeHTML = '';
@@ -2317,6 +2321,8 @@
                 }
             }
 
+            const ratioBadge = useMat === 3 ? '기본 확률 100%' : useMat === 2 ? '2/3 확률 적용' : '1/3 확률 적용';
+
             bench.innerHTML = `
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                     <div class="shrink-0">${renderPlayerCardHTML(target, 'md')}</div>
@@ -2331,24 +2337,56 @@
                                 ${critNoticeHTML}
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-400 font-bold">성공 확률</div>
-                                <div class="text-lg font-black text-emerald-400">${rate}%</div>
+                                <div class="text-[10px] text-slate-400 font-bold">${ratioBadge}</div>
+                                <div class="text-lg font-black ${useMat === 3 ? 'text-emerald-400' : useMat === 2 ? 'text-amber-300' : 'text-sky-300'}">${rate}%</div>
                             </div>
                         </div>
 
-                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-2.5">
-                            <div class="flex items-center justify-between text-[11px] mb-1.5">
-                                <span class="font-bold text-slate-300">전용 강화 재료 (${tier})</span>
-                                <span class="font-black ${haveMat >= 3 ? 'text-emerald-400' : 'text-rose-400'}">${haveMat} / 3개</span>
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-2.5 space-y-2">
+                            <div class="flex items-center justify-between text-[11px]">
+                                <span class="font-bold text-slate-300">투입 재료 개수 선택 (${tier})</span>
+                                <span class="font-black ${haveMat >= useMat ? 'text-emerald-400' : 'text-rose-400'}">보유 ${haveMat}개 / 선택 ${useMat}개</span>
                             </div>
+
+                            <!-- 1개(1/3) · 2개(2/3) · 3개(3/3) 선택 버튼 -->
                             <div class="grid grid-cols-3 gap-1.5">
-                                ${[0, 1, 2].map(i => `
-                                    <div class="py-1.5 rounded-lg border text-center text-[10px] font-black ${haveMat > i ? 'bg-emerald-500/20 border-emerald-400/50 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-600'}">
-                                        ${haveMat > i ? '재료 준비됨' : '빈 슬롯'}
-                                    </div>
-                                `).join('')}
+                                ${[
+                                    { cnt: 1, sub: '1/3 확률' },
+                                    { cnt: 2, sub: '2/3 확률' },
+                                    { cnt: 3, sub: '기본 확률' }
+                                ].map(opt => {
+                                    const isSel = useMat === opt.cnt;
+                                    const optRate = target.level >= 10 ? 0 : getEnhanceProbabilities(target.level, opt.cnt).baseRate;
+                                    return `
+                                        <button type="button" onclick="selectEnhanceMatCount(${opt.cnt})"
+                                            class="py-1.5 px-2 rounded-lg border text-center transition ${isSel ? 'bg-amber-400/20 border-amber-400 text-white shadow' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600'}">
+                                            <div class="text-[11px] font-black ${isSel ? 'text-amber-300' : 'text-slate-200'}">재료 ${opt.cnt}개</div>
+                                            <div class="text-[9.5px] font-bold ${isSel ? 'text-emerald-300' : 'text-slate-400'}">${opt.sub} (${optRate}%)</div>
+                                        </button>
+                                    `;
+                                }).join('')}
                             </div>
-                            <button onclick="buySingleMaterial('${tier}')" class="mt-2 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-cyan-400/35 text-[11px] font-black text-cyan-300 flex items-center justify-center gap-1.5">
+
+                            <!-- 선택된 투입 슬롯 시각화 -->
+                            <div class="grid grid-cols-3 gap-1.5 pt-0.5">
+                                ${[0, 1, 2].map(i => {
+                                    if (i >= useMat) {
+                                        return `
+                                            <div class="py-1 rounded-lg border border-dashed border-slate-800/80 bg-slate-950/50 text-center text-[9.5px] font-bold text-slate-600">
+                                                미사용 슬롯
+                                            </div>
+                                        `;
+                                    }
+                                    const filled = haveMat > i;
+                                    return `
+                                        <div class="py-1 rounded-lg border text-center text-[9.5px] font-black ${filled ? 'bg-emerald-500/20 border-emerald-400/50 text-emerald-300' : 'bg-rose-950/30 border-rose-500/40 text-rose-300'}">
+                                            ${filled ? `투입 #${i + 1} 준비됨` : `투입 #${i + 1} 부족`}
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+
+                            <button onclick="buySingleMaterial('${tier}')" class="w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-cyan-400/35 text-[11px] font-black text-cyan-300 flex items-center justify-center gap-1.5">
                                 <i class="fa-solid fa-gem text-[10px]"></i>
                                 <span>+ ${tier} 재료 1개 구매 (${meta.ngPrice} NG · 보유 ${gameState.ngTokens} NG)</span>
                             </button>
@@ -2356,7 +2394,7 @@
 
                         <button onclick="attemptEnhance()" ${!canEnhance ? 'disabled' : ''}
                             class="w-full py-3 rounded-xl font-black text-xs transition ${canEnhance ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/20 active:scale-98' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">
-                            ${target.level >= 10 ? '최고 강화 등급 (+10) 달성' : `전용 재료 3개 소모하여 강화 시작 (${rate}%)`}
+                            ${target.level >= 10 ? '최고 강화 등급 (+10) 달성' : `재료 ${useMat}개 소모하여 강화 시작 (${rate}%)`}
                         </button>
                     </div>
                 </div>
@@ -2401,7 +2439,6 @@
             }
 
             const rows = activeForm.rows;
-            const activeSlots = getActiveSlots();
 
             const guideText = document.getElementById('pitch-move-guide-text');
             const cancelBtn = document.getElementById('pitch-cancel-move-btn');
@@ -2701,7 +2738,6 @@
             document.getElementById('match-result-overlay').classList.add('hidden');
             document.getElementById('match-commentary-log').innerHTML = '';
 
-            // 결정적 찬스 발생 시각(분) 4~5회 스케줄링
             const chanceMinutes = [16, 36, 55, 74, 86];
             activeMatch = {
                 cup,
@@ -2732,7 +2768,6 @@
                 const halfText = activeMatch.minute <= 45 ? `전반 ${activeMatch.minute}'` : `후반 ${activeMatch.minute}'`;
                 document.getElementById('match-clock-label').textContent = halfText;
 
-                // 공 위치 전술 이동 시뮬레이션
                 activeMatch.targetBallX = 0.25 + Math.random() * 0.5;
                 activeMatch.targetBallY = 0.2 + Math.random() * 0.6;
 
@@ -2740,7 +2775,6 @@
                     addMatchLog(`⏱️ 후반전이 시작되었습니다! 양 팀 치열한 중원 싸움이 이어집니다.`, 'text-amber-300');
                 }
 
-                // 결정적 찬스 발동 체크
                 if (activeMatch.chanceMinutes.includes(activeMatch.minute)) {
                     triggerMatchChance();
                     return;
@@ -2767,7 +2801,6 @@
 
             const { stats, cup } = activeMatch;
             const ovrAdvantage = stats.teamOvr - cup.ovr;
-            // 내 팀 OVR이 높을수록 공격 찬스 비중이 증가
             const attackRatio = Math.min(0.75, Math.max(0.35, 0.55 + ovrAdvantage * 0.025));
             const isAttack = Math.random() < attackRatio;
 
@@ -2961,14 +2994,12 @@
                 const w = canvas.width || 600;
                 const h = canvas.height || 375;
 
-                // 잔디 스트라이프 배경
                 const stripes = 8;
                 for (let i = 0; i < stripes; i++) {
                     ctx.fillStyle = i % 2 === 0 ? '#064e3b' : '#065f46';
                     ctx.fillRect((w / stripes) * i, 0, w / stripes + 1, h);
                 }
 
-                // 경기장 라인
                 ctx.strokeStyle = 'rgba(255,255,255,0.28)';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(14, 14, w - 28, h - 28);
@@ -2981,20 +3012,17 @@
                 ctx.arc(w / 2, h / 2, Math.min(w, h) * 0.14, 0, Math.PI * 2);
                 ctx.stroke();
 
-                // 좌우 페널티 박스
                 const boxW = w * 0.14;
                 const boxH = h * 0.48;
                 ctx.strokeRect(14, (h - boxH) / 2, boxW, boxH);
                 ctx.strokeRect(w - 14 - boxW, (h - boxH) / 2, boxW, boxH);
 
-                // 공 좌표 부드러운 이동
                 activeMatch.ballX += (activeMatch.targetBallX - activeMatch.ballX) * 0.08;
                 activeMatch.ballY += (activeMatch.targetBallY - activeMatch.ballY) * 0.08;
 
                 const bx = activeMatch.ballX * w;
                 const by = activeMatch.ballY * h;
 
-                // 내 팀 선수 마커 (골드/에메랄드) & 상대 팀 마커 (로즈)
                 const t = Date.now() * 0.0025;
                 for (let i = 0; i < 11; i++) {
                     const homeBaseX = i === 0 ? 0.06 : 0.18 + ((i % 3) * 0.18);
@@ -3023,7 +3051,6 @@
                     ctx.stroke();
                 }
 
-                // 축구공 렌더링
                 ctx.beginPath();
                 ctx.arc(bx, by, 5.5, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
